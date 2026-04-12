@@ -1,4 +1,4 @@
-# Adaptive Asymmetry-Scanner – Konfiguration
+# Adaptive Asymmetry-Scanner – Konfiguration v4.0
 # Alle Parameter hier zentral ändern, nie im Code.
 
 pipeline:
@@ -38,3 +38,41 @@ eps_drift:
   noise_threshold:    0.02
   relevant_threshold: 0.05
   massive_threshold:  0.10
+
+# NEU v4.0: RL-Agent Konfiguration
+rl:
+  enabled: true                  # false → QuasiML-Fallback
+  model_path: "outputs/models/ppo_options_agent.zip"
+  min_trades_for_training: 5     # Mindest closed_trades vor erstem Training
+  timesteps_per_update: 2000     # PPO-Steps pro feedback.py-Lauf
+  # Observation-Gewichte (müssen mit rl_agent.py übereinstimmen)
+  obs_weights:
+    impact:         0.15
+    surprise:       0.10
+    mismatch:       0.20
+    z_score:        0.05
+    eps_drift:      0.10
+    hit_rate:       0.15
+    iv_rank:        0.05
+    sentiment:      0.10
+    bear_severity:  0.10
+
+# NEU v4.0: FinBERT Konfiguration
+finbert:
+  enabled: true
+  model_name: "ProsusAI/finbert"
+  cache_dir: "outputs/models/finbert"
+  max_headlines: 8               # Max Headlines pro Batch-Inference
+  max_tokens: 128                # Max Tokens pro Headline (CPU-Performance)
+
+# NEU v4.0: Reddit-Konfiguration
+reddit:
+  enabled: true
+  subreddits:
+    - "wallstreetbets"
+    - "stocks"
+    - "investing"
+    - "options"
+  max_posts_per_ticker: 50
+  time_filter: "day"             # "day" | "week"
+  request_delay: 0.5             # Sekunden zwischen Requests (Rate-Limit)
