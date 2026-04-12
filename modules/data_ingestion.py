@@ -2,13 +2,12 @@
 Stufe 1: Daten-Ingestion & Hard-Filter
 
 Fixes:
-  C-04: SP500_SAMPLE ignorierte universe aus config → jetzt universe.py
-  H-01: RSS-Matching mit Kurztickern (A, V, MA) produzierte False-Positives.
-        Fix: Word-Boundary-Matching mit Regex statt simplem substring-Check.
-  H-02: Guard `< 2` in _get_48h_move() war falsch → IndexError bei len==2.
-        Fix: Guard auf `< 3` korrigiert.
-  M-01: relevant_threshold aus config.yaml war nicht genutzt → jetzt korrekt.
-  cfg:  Hard-Filter-Werte und EPS-Drift-Thresholds aus config.yaml.
+  #1: Ticker ≤ 2 Zeichen (ON, V, A, C, F...) werden im RSS-Feed NICHT mehr
+      per Regex gematcht – zu viele False-Positives ("ON sale", "depends ON").
+      Für Kurzticker gilt: nur NewsAPI mit exaktem Quoted-Query.
+  #4: EPS-Drift-Berechnung fällt auf yfinance trailingEps zurück wenn
+      kein stored_eps in history.json vorhanden (neue Ticker).
+  #5: Min-Impact-Schwelle aus config.yaml (min_impact_threshold).
 """
 
 import os
@@ -29,21 +28,39 @@ RSS_FEEDS = [
     "https://www.cnbc.com/id/100003114/device/rss/rss.html",
 ]
 
-# FIX H-01: Vorcompilierte Regex-Patterns pro Ticker (Word-Boundary-Matching).
+# FIX #1: Kurzticker (≤ 2 Zeichen) NICHT per RSS matchen
+# Begründung: "ON", "V", "A", "C", "F" sind zu häufige englische Wörter/
+# Buchstaben und produzieren massenhaft False-Positives im RSS-Matching.
+# Für diese Ticker gilt: ausschließlich NewsAPI (exakter Quoted-Query).
+SHORT_TICKER_MIN_LEN = 3   # Ticker kürzer als 3 Zeichen → kein RSS-Matching
+
 _TICKER_PATTERNS: dict[str, re.Pattern] = {}
 
 
 def _get_ticker_pattern(ticker: str) -> re.Pattern:
-    """
-    FIX H-01: Word-Boundary-Regex verhindert False-Positive-Matches.
-    Beispiel: "MA" matcht nicht auf "market", "demand", "smart".
-    """
+    """Word-Boundary-Regex für Ticker-Matching im RSS-Feed."""
     if ticker not in _TICKER_PATTERNS:
         escaped = re.escape(ticker)
         _TICKER_PATTERNS[ticker] = re.compile(
             rf"\b{escaped}\b", re.IGNORECASE
         )
     return _TICKER_PATTERNS[ticker]
+
+
+def _is_rss_safe(ticker: str) -> bool:
+    """
+    FIX #1: Prüft ob ein Ticker sicher per RSS gematcht werden kann.
+    Kurzticker (≤ 2 Zeichen) sind NICHT RSS-sicher.
+    Zusätzlich: bekannte problematische Ticker explizit ausschließen.
+    """
+    if len(ticker) < SHORT_TICKER_MIN_LEN:
+        return False
+    # Explizite Ausschlussliste für häufige englische Wörter
+    UNSAFE = {"ON", "IT", "OR", "ARE", "BE", "TO", "DO", "GO", "SO", "RE",
+               "AI", "GE", "AM", "PM", "IS", "AS", "AT", "BY", "IN", "OF"}
+    if ticker.upper() in UNSAFE:
+        return False
+    return True
 
 
 class DataIngestion:
@@ -88,10 +105,10 @@ class DataIngestion:
     def _fetch_news(self, universe: list[str]) -> dict[str, list[str]]:
         result: dict[str, list[str]] = {t: [] for t in universe}
 
+        # NewsAPI: funktioniert für ALLE Ticker (exakter Quoted-Query)
         if self.news_api_key:
             for ticker in universe:
                 try:
-                    # Quoted query für exakten Ticker-Match
                     url = (
                         "https://newsapi.org/v2/everything"
                         f"?q=%22{ticker}%22"
@@ -106,13 +123,20 @@ class DataIngestion:
                 except Exception as e:
                     log.debug(f"NewsAPI Fehler für {ticker}: {e}")
 
+        # RSS: NUR für RSS-sichere Ticker (FIX #1)
+        rss_universe = [t for t in universe if _is_rss_safe(t)]
+        log.debug(
+            f"RSS-Matching: {len(rss_universe)}/{len(universe)} Ticker "
+            f"(Kurzticker ausgeschlossen: "
+            f"{len(universe)-len(rss_universe)})"
+        )
+
         for feed_url in RSS_FEEDS:
             try:
                 feed = feedparser.parse(feed_url)
                 for entry in feed.entries:
                     title = entry.get("title", "")
-                    for ticker in universe:
-                        # FIX H-01: Word-Boundary-Regex
+                    for ticker in rss_universe:
                         if _get_ticker_pattern(ticker).search(title):
                             result[ticker].append(title)
             except Exception as e:
@@ -144,19 +168,31 @@ class DataIngestion:
             return False
         return True
 
-    # ── EPS-Drift ─────────────────────────────────────────────────────────────
+    # ── EPS-Drift (FIX #4: trailingEps-Fallback) ─────────────────────────────
 
     def _compute_eps_drift(self, ticker: str, info: dict) -> dict[str, Any]:
         current_eps = info.get("forwardEps") or 0.0
         rec_mean    = info.get("recommendationMean") or 0.0
 
         stored = self._get_stored_eps(ticker)
-        if stored and stored != 0:
+
+        # FIX #4: Wenn kein stored_eps vorhanden (neuer Ticker) →
+        # trailingEps als Baseline nutzen statt 0.0-Drift auszugeben.
+        # Das macht den EPS-Drift für neue Ticker sofort bedeutsam.
+        if stored is None or stored == 0:
+            trailing_eps = info.get("trailingEps") or 0.0
+            if trailing_eps != 0 and current_eps != 0:
+                stored = trailing_eps
+                log.debug(
+                    f"  [{ticker}] EPS-Drift: kein stored_eps → "
+                    f"nutze trailingEps={trailing_eps:.2f} als Baseline"
+                )
+
+        if stored and stored != 0 and current_eps != 0:
             drift = (current_eps - stored) / abs(stored)
         else:
             drift = 0.0
 
-        # FIX M-01: relevant_threshold (0.05) jetzt korrekt genutzt
         abs_drift = abs(drift)
         if abs_drift > cfg.eps_drift.massive_threshold:
             weight = "massive"
@@ -179,17 +215,11 @@ class DataIngestion:
                 return trade.get("features", {}).get("eps", None)
         return None
 
-    # FIX H-02: Guard war `< 2` → IndexError bei exakt 2 Datenpunkten
-    # Methode wird von deep_analysis.py genutzt, hier als statische Hilfe
     @staticmethod
     def compute_48h_move(ticker: str) -> float:
-        """
-        Berechnet die 2-Tages-Rendite.
-        FIX H-02: Guard `< 3` statt `< 2` verhindert IndexError bei len==2.
-        """
         try:
             hist = yf.Ticker(ticker).history(period="5d")
-            if len(hist) < 3:   # FIX: war < 2
+            if len(hist) < 3:
                 return 0.0
             close = hist["Close"]
             return float((close.iloc[-1] - close.iloc[-3]) / close.iloc[-3])
