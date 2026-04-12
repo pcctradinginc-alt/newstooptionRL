@@ -1,24 +1,27 @@
 """
 Stufe 3: Deep Analysis – "Asymmetry Reasoning"
-- Claude 3.5 Sonnet für Second-Order-Thinking
-- Warum ist der Markt hier ineffizient?
-- JSON-Output: impact, surprise, mispricing_logic, catalyst, time_to_materialization
+
+Fixes:
+  H-02: _get_48h_move() hatte Guard `< 2` → IndexError bei len==2.
+        Fix: Guard auf `< 3`.
+  cfg:  Modell-Name aus config.yaml statt hartcodiert.
 """
 
 import json
 import logging
 import os
 import anthropic
+import yfinance as yf
+
+from modules.config import cfg
 
 log = logging.getLogger(__name__)
-
-SONNET_MODEL = "claude-sonnet-4-6"
 
 SYSTEM_PROMPT = """Du bist ein quantitativer Hedge-Fund-Analyst mit Spezialisierung auf Markt-Ineffizienzen.
 Du suchst nach Informations-Asymmetrien: Situationen, in denen der Markt eine fundamentale
 Änderung noch nicht vollständig eingepreist hat (Underreaction innerhalb 48 Stunden).
 
-Dein Ziel: Second-Order-Thinking. Nicht "was ist passiert", sondern "warum hat der Markt 
+Dein Ziel: Second-Order-Thinking. Nicht "was ist passiert", sondern "warum hat der Markt
 falsch reagiert" und "welcher Katalysator erzwingt die Einpreisung".
 
 Sei präzise, skeptisch und datengetrieben. Ignoriere Hype. Fokussiere auf Fundamentals.
@@ -55,6 +58,7 @@ Antworte mit diesem exakten JSON:
 
 
 class DeepAnalysis:
+
     def __init__(self):
         self.client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
@@ -67,12 +71,10 @@ class DeepAnalysis:
         return analyses
 
     def _analyze(self, candidate: dict) -> dict | None:
-        ticker  = candidate["ticker"]
-        info    = candidate["info"]
-        drift   = candidate["eps_drift"]
-        news    = candidate["news"]
+        ticker = candidate["ticker"]
+        drift  = candidate["eps_drift"]
+        news   = candidate["news"]
 
-        # 48h-Preisbewegung berechnen
         price_move = self._get_48h_move(ticker)
 
         prompt = ANALYSIS_TEMPLATE.format(
@@ -86,14 +88,14 @@ class DeepAnalysis:
         )
 
         try:
+            # cfg: Modell-Name aus config.yaml
             response = self.client.messages.create(
-                model=SONNET_MODEL,
+                model=cfg.models.deep_analysis,
                 max_tokens=1024,
                 system=SYSTEM_PROMPT,
                 messages=[{"role": "user", "content": prompt}],
             )
             raw = response.content[0].text.strip()
-            # JSON aus möglichem Markdown-Block extrahieren
             if "```" in raw:
                 raw = raw.split("```")[1]
                 if raw.startswith("json"):
@@ -110,11 +112,14 @@ class DeepAnalysis:
             return None
 
     def _get_48h_move(self, ticker: str) -> float:
-        """Berechnet die 2-Tages-Rendite."""
+        """
+        FIX H-02: Guard war `< 2` → bei genau 2 Datenpunkten wurde
+        iloc[-3] aufgerufen → IndexError → stille 0.0 durch äußeren except.
+        Korrekte Bedingung: mindestens 3 Datenpunkte nötig für iloc[-3].
+        """
         try:
-            import yfinance as yf
             hist = yf.Ticker(ticker).history(period="5d")
-            if len(hist) < 2:
+            if len(hist) < 3:   # FIX: war < 2
                 return 0.0
             close = hist["Close"]
             return float((close.iloc[-1] - close.iloc[-3]) / close.iloc[-3])
