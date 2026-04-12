@@ -1,17 +1,22 @@
 """
-modules/email_reporter.py
-Generiert eine HTML-Trading-Card-Email und versendet sie via Gmail SMTP.
-Wird am Ende von pipeline.py aufgerufen, wenn Trade-Vorschläge vorhanden sind.
+modules/email_reporter.py v5.0
 
-Benötigte GitHub Secrets:
-  GMAIL_SENDER   → deine Gmail-Adresse (z.B. scanner@gmail.com)
-  GMAIL_APP_PW   → Gmail App-Passwort (nicht dein normales PW!)
+NEU: Tägliche Status-Email wird IMMER gesendet — auch wenn kein Trade generiert.
+     "No Trade"-Email zeigt transparent warum kein Signal durchkam.
+
+Email-Typen:
+  1. TRADE-Email:    Wie bisher — Trade-Vorschlag mit allen Details
+  2. NO-TRADE-Email: Täglich, zeigt Pipeline-Status + Filterstatistik
+
+Benötigte Secrets:
+  GMAIL_SENDER   → Absender-Adresse
+  GMAIL_APP_PW   → Gmail App-Passwort
   NOTIFY_EMAIL   → Empfänger-Adresse
 """
 
+import logging
 import os
 import smtplib
-import logging
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -19,367 +24,254 @@ from email.mime.text import MIMEText
 log = logging.getLogger(__name__)
 
 
-# ── HTML-Template ─────────────────────────────────────────────────────────────
-
-def _badge_color(direction: str) -> tuple[str, str]:
-    """Gibt (bg, text) Farben für Bullish/Bearish zurück."""
-    if direction == "BULLISH":
-        return "#30D158", "#000"
-    return "#FF453A", "#fff"
-
-
-def _gate_check(label: str, ok: bool) -> str:
-    color = "#30D158" if ok else "#FF453A"
-    icon  = "M4 7l2 2 4-4" if ok else "M4 4l6 6M10 4l-6 6"
-    return f"""
-    <td style="padding:0 12px 0 0; white-space:nowrap;">
-      <span style="display:inline-flex;align-items:center;gap:5px;">
-        <svg width="14" height="14" viewBox="0 0 14 14">
-          <circle cx="7" cy="7" r="6" fill="{color}"/>
-          <path d="{icon}" stroke="#fff" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span style="font-size:12px;color:#1d1d1f;">{label}</span>
-      </span>
-    </td>"""
-
-
-def _metric(label: str, value: str, color: str = "#ffffff") -> str:
-    return f"""
-    <td style="text-align:center;padding:0 4px;">
-      <p style="font-size:11px;color:#8e8e93;text-transform:uppercase;
-                letter-spacing:0.06em;margin:0 0 3px;">{label}</p>
-      <p style="font-size:20px;font-weight:600;color:{color};margin:0;">{value}</p>
-    </td>"""
-
-
-def _option_cell(label: str, value: str) -> str:
-    return f"""
-    <td style="text-align:center;padding:0 6px;">
-      <p style="font-size:11px;color:#86868b;margin:0 0 2px;">{label}</p>
-      <p style="font-size:15px;font-weight:600;color:#1d1d1f;margin:0;">{value}</p>
-    </td>"""
-
-
-def build_html(proposal: dict, today: str) -> str:
-    da        = proposal.get("deep_analysis", {})
-    sim       = proposal.get("simulation", {})
-    feat      = proposal.get("features", {})
-    option    = proposal.get("option", {}) or {}
-    ticker    = proposal.get("ticker", "—")
-    direction = da.get("direction", "BULLISH")
-    strategy  = proposal.get("strategy", "LONG_CALL")
-    score     = proposal.get("final_score", 0)
-    iv_rank   = proposal.get("iv_rank", "—")
-
-    badge_bg, badge_fg = _badge_color(direction)
-    current_price = sim.get("current_price", 0)
-    target_price  = sim.get("target_price", 0)
-    hit_rate      = sim.get("hit_rate", 0)
-
-    mismatch   = feat.get("mismatch", 0)
-    impact     = feat.get("impact", 0)
-    eps_drift  = feat.get("eps_drift", 0)
-    z_score    = feat.get("z_score", 0)
-
-    catalyst  = da.get("catalyst", "—")
-    ttm       = da.get("time_to_materialization", "—")
-    mispricing = da.get("mispricing_logic", "—")
-    bear_case  = da.get("bear_case", "—")
-    bear_sev   = da.get("bear_case_severity", 0)
-
-    strike    = option.get("strike", 0)
-    expiry    = option.get("expiry", "—")
-    dte       = option.get("dte", "—")
-    bid       = option.get("bid", 0)
-    ask       = option.get("ask", 0)
-    oi        = option.get("open_interest", 0)
-    iv        = option.get("implied_vol", 0)
-    spread_r  = option.get("spread_ratio", 0)
-
-    # Gate-Status
-    vix       = sim.get("vix", 18.0)
-    gates_html = "".join([
-        _gate_check(f"VIX {vix:.1f}", vix < 35),
-        _gate_check("Earnings &gt;7d", True),
-        _gate_check(f"OI {oi:,}", oi >= 100),
-        _gate_check(f"Spread {spread_r:.1%}", spread_r < 0.10),
-        _gate_check(f"Bear {bear_sev}/10", bear_sev <= 7),
-    ])
-
-    now_str = datetime.utcnow().strftime("%A, %d. %B %Y · %H:%M MEZ")
-    mismatch_color = "#FF9F0A" if mismatch >= 5 else "#ffffff"
-    hit_color      = "#30D158" if hit_rate >= 0.75 else "#FF9F0A"
-
-    return f"""<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Asymmetry Scanner · {ticker}</title>
-</head>
-<body style="margin:0;padding:0;background:#f5f5f7;
-             font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',
-             'Helvetica Neue',Arial,sans-serif;">
-
-<table width="100%" cellpadding="0" cellspacing="0" border="0"
-       style="background:#f5f5f7;padding:32px 16px;">
-<tr><td align="center">
-<table width="560" cellpadding="0" cellspacing="0" border="0"
-       style="max-width:560px;width:100%;">
-
-  <!-- ── HEADER ── -->
-  <tr><td align="center" style="padding-bottom:20px;">
-    <table cellpadding="0" cellspacing="0" border="0">
-      <tr>
-        <td style="background:#000;border-radius:12px;padding:8px 16px;">
-          <span style="color:#fff;font-size:13px;font-weight:500;
-                       letter-spacing:0.02em;">
-            &#x25CF;&nbsp;
-            <span style="color:#30D158;">&#x2713;</span>
-            &nbsp;Asymmetry Scanner · Signal detected
-          </span>
-        </td>
-      </tr>
-    </table>
-    <p style="color:#86868b;font-size:12px;margin:10px 0 0;">{now_str}</p>
-  </td></tr>
-
-  <!-- ── MAIN CARD ── -->
-  <tr><td style="background:#fff;border-radius:20px;overflow:hidden;
-                 border:1px solid #e0e0e5;">
-
-    <!-- Card Header (dark) -->
-    <table width="100%" cellpadding="0" cellspacing="0" border="0"
-           style="background:#000;padding:24px 28px 20px;">
-      <tr>
-        <td style="vertical-align:top;">
-          <p style="color:#86868b;font-size:12px;margin:0 0 4px;
-                    text-transform:uppercase;letter-spacing:0.08em;">Top Signal heute</p>
-          <p style="color:#fff;font-size:36px;font-weight:700;
-                    margin:0;letter-spacing:-0.02em;">{ticker}</p>
-          <p style="color:#86868b;font-size:13px;margin:4px 0 0;">
-            {da.get("direction","")}-Signal · {ttm}
-          </p>
-        </td>
-        <td style="vertical-align:top;text-align:right;">
-          <span style="background:{badge_bg};color:{badge_fg};font-size:12px;
-                       font-weight:600;padding:4px 12px;border-radius:20px;
-                       display:inline-block;">{direction}</span>
-          <p style="color:#fff;font-size:22px;font-weight:600;
-                    margin:8px 0 0;">${current_price:.2f}</p>
-          <p style="color:#30D158;font-size:13px;margin:2px 0 0;">
-            Ziel ${target_price:.2f}
-          </p>
-        </td>
-      </tr>
-    </table>
-
-    <!-- Score Bar (near-black) -->
-    <table width="100%" cellpadding="16" cellspacing="0" border="0"
-           style="background:#1c1c1e;border-collapse:collapse;">
-      <tr>
-        {_metric("Final Score", f"{score:.4f}")}
-        <td style="width:1px;background:#2c2c2e;padding:0;"></td>
-        {_metric("Mismatch", f"{mismatch:.1f}", mismatch_color)}
-        <td style="width:1px;background:#2c2c2e;padding:0;"></td>
-        {_metric("Impact", f"{impact}/10")}
-        <td style="width:1px;background:#2c2c2e;padding:0;"></td>
-        {_metric("MC Hit-Rate", f"{hit_rate:.0%}", hit_color)}
-      </tr>
-    </table>
-
-    <!-- Body -->
-    <table width="100%" cellpadding="0" cellspacing="0" border="0"
-           style="padding:24px 28px;">
-      <tr><td>
-
-        <!-- Mispricing -->
-        <table width="100%" cellpadding="16" cellspacing="0" border="0"
-               style="background:#f5f5f7;border-radius:12px;margin-bottom:16px;">
-          <tr><td>
-            <p style="font-size:11px;color:#86868b;text-transform:uppercase;
-                      letter-spacing:0.06em;margin:0 0 6px;">Mispricing-Logik</p>
-            <p style="font-size:14px;color:#1d1d1f;margin:0;line-height:1.6;">
-              {mispricing}
-            </p>
-          </td></tr>
-        </table>
-
-        <!-- Catalyst + TTM -->
-        <table width="100%" cellpadding="0" cellspacing="12" border="0"
-               style="margin-bottom:16px;">
-          <tr>
-            <td width="48%" style="background:#f5f5f7;border-radius:12px;padding:14px;">
-              <p style="font-size:11px;color:#86868b;text-transform:uppercase;
-                        letter-spacing:0.06em;margin:0 0 4px;">Katalysator</p>
-              <p style="font-size:13px;color:#1d1d1f;font-weight:500;margin:0;">
-                {catalyst}
-              </p>
-            </td>
-            <td width="4%"></td>
-            <td width="48%" style="background:#f5f5f7;border-radius:12px;padding:14px;">
-              <p style="font-size:11px;color:#86868b;text-transform:uppercase;
-                        letter-spacing:0.06em;margin:0 0 4px;">EPS-Drift</p>
-              <p style="font-size:13px;color:#1d1d1f;font-weight:500;margin:0;">
-                {eps_drift:+.2%}
-                &nbsp;·&nbsp;Z={z_score:.2f}
-              </p>
-            </td>
-          </tr>
-        </table>
-
-        <!-- Options Box -->
-        <table width="100%" cellpadding="16" cellspacing="0" border="0"
-               style="border:1.5px solid #0071e3;border-radius:12px;
-                      margin-bottom:16px;">
-          <tr><td>
-            <table width="100%" cellpadding="0" cellspacing="0" border="0"
-                   style="margin-bottom:12px;">
-              <tr>
-                <td style="font-size:11px;color:#0071e3;text-transform:uppercase;
-                            letter-spacing:0.06em;font-weight:600;">
-                  Options-Vorschlag
-                </td>
-                <td align="right">
-                  <span style="background:#e8f1fb;color:#0071e3;font-size:11px;
-                               font-weight:600;padding:3px 10px;border-radius:20px;">
-                    {strategy.replace("_", " ")}
-                  </span>
-                </td>
-              </tr>
-            </table>
-            <table width="100%" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                {_option_cell("Strike", f"${strike:.0f}")}
-                {_option_cell("Expiry", expiry[:10] if expiry != "—" else "—")}
-                {_option_cell("DTE", f"{dte}d")}
-                {_option_cell("IV-Rank", f"{iv_rank:.0f}%")}
-                {_option_cell("Impl. Vol", f"{iv:.0%}")}
-              </tr>
-            </table>
-            <table width="100%" cellpadding="0" cellspacing="0" border="0"
-                   style="border-top:1px solid #e0e0e5;margin-top:12px;
-                          padding-top:10px;">
-              <tr>
-                <td style="font-size:12px;color:#86868b;">Bid / Ask</td>
-                <td style="font-size:13px;font-weight:500;color:#1d1d1f;">
-                  ${bid:.2f} / ${ask:.2f}
-                </td>
-                <td style="font-size:12px;color:#86868b;">Open Interest</td>
-                <td style="font-size:13px;font-weight:500;color:#1d1d1f;">
-                  {oi:,}
-                </td>
-                <td style="font-size:12px;color:#86868b;">Spread</td>
-                <td style="font-size:13px;font-weight:500;
-                           color:{'#30D158' if spread_r < 0.05 else '#FF9F0A'};">
-                  {spread_r:.1%}
-                </td>
-              </tr>
-            </table>
-          </td></tr>
-        </table>
-
-        <!-- Bear Case -->
-        <table width="100%" cellpadding="0" cellspacing="0" border="0">
-          <tr>
-            <td width="3" style="background:#FF453A;border-radius:2px;"></td>
-            <td style="padding:10px 14px;background:#fff5f5;border-radius:0 8px 8px 0;">
-              <p style="font-size:11px;color:#FF453A;text-transform:uppercase;
-                        letter-spacing:0.06em;margin:0 0 4px;font-weight:600;">
-                Bear Case · Severity {bear_sev}/10
-              </p>
-              <p style="font-size:13px;color:#3a1010;margin:0;line-height:1.5;">
-                {bear_case}
-              </p>
-            </td>
-          </tr>
-        </table>
-
-      </td></tr>
-    </table>
-
-    <!-- Risk Gates -->
-    <table width="100%" cellpadding="14" cellspacing="0" border="0"
-           style="background:#f5f5f7;">
-      <tr>{gates_html}</tr>
-    </table>
-
-    <!-- Footer -->
-    <table width="100%" cellpadding="16" cellspacing="0" border="0"
-           style="border-top:1px solid #e0e0e5;">
-      <tr><td align="center">
-        <p style="font-size:11px;color:#86868b;margin:0;line-height:1.6;">
-          Adaptive Asymmetry-Scanner v3.5 &nbsp;·&nbsp;
-          Nur zu Informationszwecken &nbsp;·&nbsp; Keine Anlageberatung<br>
-          pcctradinginc-alt/news-mirofish &nbsp;·&nbsp; GitHub Actions
-        </p>
-      </td></tr>
-    </table>
-
-  </td></tr>
-  <!-- ── END CARD ── -->
-
-  <!-- Disclaimer -->
-  <tr><td align="center" style="padding-top:16px;">
-    <p style="font-size:11px;color:#86868b;margin:0;line-height:1.6;">
-      Diese E-Mail wurde automatisch generiert.
-      Kein Handelsauftrag. Papier-Trading empfohlen.
-    </p>
-  </td></tr>
-
-</table>
-</td></tr>
-</table>
-</body>
-</html>"""
-
-
-# ── SMTP-Versand ──────────────────────────────────────────────────────────────
-
 def send_email(proposals: list[dict], today: str) -> None:
-    """Versendet für den Top-Vorschlag eine HTML-Trading-Card-Email."""
+    """
+    Sendet entweder eine Trade-Email oder eine No-Trade-Status-Email.
+    Wird immer aufgerufen — unabhängig von proposals.
+    """
+    if proposals:
+        html = _build_trade_email(proposals, today)
+        subject = f"🎯 {len(proposals)} Trade-Signal(e) – {today}"
+    else:
+        html = _build_no_trade_email(today)
+        subject = f"📊 Scanner-Status: Kein Trade – {today}"
+
+    _send_smtp(subject, html)
+
+
+def send_status_email(pipeline_stats: dict, today: str) -> None:
+    """
+    Explizite Status-Email mit Pipeline-Statistiken.
+    Wird von pipeline.py am Ende IMMER aufgerufen.
+
+    pipeline_stats:
+        {
+            "candidates":   int,   # nach Hard-Filter
+            "prescreened":  int,   # nach Prescreening
+            "analyzed":     int,   # nach Deep Analysis
+            "mismatch_ok":  int,   # nach Mismatch-Filter
+            "intraday_ok":  int,   # nach Intraday-Delta-Filter
+            "simulated":    int,   # nach Monte-Carlo
+            "rl_scored":    int,   # nach RL-Filter
+            "roi_ok":       int,   # nach ROI-Gate
+            "trades":       int,   # finale Trade-Vorschläge
+            "vix":          float,
+            "stop_reason":  str,   # Warum Pipeline gestoppt (wenn kein Trade)
+        }
+    """
+    trades  = pipeline_stats.get("trades", 0)
+    subject = (
+        f"🎯 {trades} Trade(s) – {today}"
+        if trades > 0
+        else f"📊 Kein Trade heute – {today}"
+    )
+    html = _build_status_email(pipeline_stats, today)
+    _send_smtp(subject, html)
+
+
+def _build_status_email(stats: dict, today: str) -> str:
+    """Baut die tägliche Status-Email (Trade oder No-Trade)."""
+    vix        = stats.get("vix", "–")
+    candidates = stats.get("candidates", 0)
+    prescreened = stats.get("prescreened", 0)
+    analyzed   = stats.get("analyzed", 0)
+    mismatch   = stats.get("mismatch_ok", 0)
+    intraday   = stats.get("intraday_ok", analyzed)
+    simulated  = stats.get("simulated", 0)
+    rl_scored  = stats.get("rl_scored", 0)
+    roi_ok     = stats.get("roi_ok", 0)
+    trades     = stats.get("trades", 0)
+    stop       = stats.get("stop_reason", "")
+
+    # Farbe je nach Ergebnis
+    header_color = "#16a34a" if trades > 0 else "#0f172a"
+    status_icon  = "🎯" if trades > 0 else "📊"
+    status_text  = f"{trades} Trade-Signal(e) generiert" if trades > 0 else "Kein Trade heute"
+
+    # Filter-Funnel als Tabelle
+    funnel_rows = [
+        ("498 Ticker im Universum", "📋", True),
+        (f"{candidates} nach Hard-Filter (Market Cap / Volume)", "🔍", candidates > 0),
+        (f"{prescreened} nach Prescreening (Claude Haiku)", "🤖", prescreened > 0),
+        (f"{analyzed} nach Deep Analysis (Claude Sonnet)", "🧠", analyzed > 0),
+        (f"{mismatch} nach Mismatch-Score", "📐", mismatch > 0),
+        (f"{intraday} nach Intraday-Delta-Filter", "⏱️", intraday > 0),
+        (f"{simulated} nach Monte-Carlo-Simulation", "🎲", simulated > 0),
+        (f"{rl_scored} nach RL-Scoring", "🤖", rl_scored > 0),
+        (f"{roi_ok} nach ROI-Gate", "💰", roi_ok > 0),
+        (f"{trades} finale Trade-Vorschläge", "✅" if trades > 0 else "❌", trades > 0),
+    ]
+
+    funnel_html = ""
+    for label, icon, active in funnel_rows:
+        bg    = "#f0fdf4" if active else "#fef2f2"
+        color = "#16a34a" if active else "#dc2626"
+        funnel_html += f"""
+        <tr>
+          <td style="padding:8px 12px;font-size:13px;color:{color};
+                     background:{bg};border-bottom:1px solid #e2e8f0;">
+            {icon} {label}
+          </td>
+        </tr>"""
+
+    stop_section = ""
+    if stop and trades == 0:
+        stop_section = f"""
+        <div style="margin:20px 0;padding:16px;background:#fef3c7;
+                    border-left:4px solid #f59e0b;border-radius:4px;">
+          <b>Pipeline-Stop:</b> {stop}
+        </div>"""
+
+    return f"""
+<!DOCTYPE html><html><body style="font-family:Arial,sans-serif;margin:0;padding:0;
+  background:#f8fafc;">
+<div style="max-width:600px;margin:30px auto;background:#fff;
+  border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+
+  <!-- Header -->
+  <div style="background:{header_color};padding:28px 32px;">
+    <div style="font-size:28px;margin-bottom:4px;">{status_icon}</div>
+    <div style="color:#fff;font-size:22px;font-weight:bold;">{status_text}</div>
+    <div style="color:rgba(255,255,255,0.7);font-size:14px;margin-top:4px;">
+      {today} · VIX {vix} · Adaptive Asymmetry-Scanner v5.0
+    </div>
+  </div>
+
+  <!-- Pipeline-Funnel -->
+  <div style="padding:24px 32px;">
+    <h3 style="margin:0 0 16px;color:#0f172a;font-size:16px;">
+      Pipeline-Filter heute
+    </h3>
+    <table style="width:100%;border-collapse:collapse;border-radius:8px;
+                  overflow:hidden;border:1px solid #e2e8f0;">
+      {funnel_html}
+    </table>
+    {stop_section}
+  </div>
+
+  <!-- Footer -->
+  <div style="padding:16px 32px;background:#f8fafc;
+              border-top:1px solid #e2e8f0;
+              font-size:12px;color:#94a3b8;text-align:center;">
+    Adaptive Asymmetry-Scanner v5.0 · GitHub Actions · {datetime.utcnow().strftime('%H:%M UTC')}
+  </div>
+</div>
+</body></html>"""
+
+
+def _build_trade_email(proposals: list[dict], today: str) -> str:
+    """Baut die Trade-Email (bereits vorhanden, hier vereinfacht)."""
+    cards = ""
+    for i, p in enumerate(proposals, 1):
+        ticker     = p.get("ticker", "?")
+        strategy   = p.get("strategy", "?")
+        direction  = p.get("deep_analysis", {}).get("direction", "?")
+        score      = p.get("final_score", 0)
+        option     = p.get("option", {}) or {}
+        sim        = p.get("simulation", {}) or {}
+        da         = p.get("deep_analysis", {}) or {}
+        roi        = p.get("roi_analysis", {}) or {}
+        flash      = p.get("flash_alpha", {}) or {}
+        eulerpool  = p.get("eulerpool", {}) or {}
+
+        strike      = option.get("strike", "–")
+        expiry      = option.get("expiry", "–")
+        bid         = option.get("bid", "–")
+        ask         = option.get("ask", "–")
+        oi          = option.get("open_interest", "–")
+        dte         = option.get("dte", "–")
+        iv_rank     = p.get("iv_rank", "–")
+        current     = sim.get("current_price", "–")
+        target      = sim.get("target_price", "–")
+        hit_rate    = sim.get("hit_rate", 0)
+        impact      = da.get("impact", "–")
+        surprise    = da.get("surprise", "–")
+        bear_sev    = da.get("bear_case_severity", "–")
+        roi_net     = roi.get("roi_net", None)
+        crush_risk  = eulerpool.get("iv_crush_risk", "–")
+        dealer_bias = flash.get("dealer_bullish", None)
+        sentiment   = p.get("features", {}).get("sentiment_score", None)
+
+        roi_badge = ""
+        if roi_net is not None:
+            roi_color = "#16a34a" if roi_net > 0.2 else ("#f59e0b" if roi_net > 0.1 else "#dc2626")
+            roi_badge = f'<span style="background:{roi_color};color:#fff;padding:2px 8px;border-radius:4px;font-size:11px;">ROI {roi_net:.1%}</span>'
+
+        cards += f"""
+        <div style="border:1px solid #e2e8f0;border-radius:8px;padding:20px;margin-bottom:20px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <span style="font-size:20px;font-weight:bold;color:#0f172a;">{ticker}</span>
+            <span style="background:#2563eb;color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;">
+              {strategy} · Score {score:.4f}
+            </span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+            <div><b>Richtung:</b> {direction}</div>
+            <div><b>Aktuell:</b> ${current}</div>
+            <div><b>Ziel:</b> ${target}</div>
+            <div><b>Hit-Rate:</b> {hit_rate:.1%}</div>
+            <div><b>Strike:</b> ${strike}</div>
+            <div><b>Expiry:</b> {expiry} ({dte}d)</div>
+            <div><b>Bid/Ask:</b> ${bid}/${ask}</div>
+            <div><b>OI:</b> {oi}</div>
+            <div><b>Impact:</b> {impact}/10</div>
+            <div><b>Surprise:</b> {surprise}/10</div>
+            <div><b>Bear Severity:</b> {bear_sev}/10</div>
+            <div><b>IV-Rank:</b> {iv_rank}%</div>
+            {f'<div><b>Sentiment:</b> {sentiment:.2f}</div>' if sentiment is not None else ''}
+            {f'<div><b>IV-Crush:</b> {crush_risk}</div>' if crush_risk != "–" else ''}
+            {f'<div><b>Dealer-Bias:</b> {dealer_bias:.2f}</div>' if dealer_bias is not None else ''}
+          </div>
+          {roi_badge}
+        </div>"""
+
+    return f"""
+<!DOCTYPE html><html><body style="font-family:Arial,sans-serif;background:#f8fafc;margin:0;">
+<div style="max-width:600px;margin:30px auto;background:#fff;border-radius:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);overflow:hidden;">
+  <div style="background:#16a34a;padding:28px 32px;">
+    <div style="font-size:28px;">🎯</div>
+    <div style="color:#fff;font-size:22px;font-weight:bold;">
+      {len(proposals)} Trade-Signal(e) heute
+    </div>
+    <div style="color:rgba(255,255,255,0.7);font-size:14px;margin-top:4px;">
+      {today} · Adaptive Asymmetry-Scanner v5.0
+    </div>
+  </div>
+  <div style="padding:24px 32px;">{cards}</div>
+  <div style="padding:16px 32px;background:#f8fafc;border-top:1px solid #e2e8f0;
+    font-size:12px;color:#94a3b8;text-align:center;">
+    Kein Finanzberatung. Alle Vorschläge sind algorithmisch generiert.
+  </div>
+</div>
+</body></html>"""
+
+
+def _build_no_trade_email(today: str) -> str:
+    """Fallback No-Trade-Email ohne Pipeline-Stats."""
+    return _build_status_email({"trades": 0, "stop_reason": "Kein Signal hat alle Filter passiert."}, today)
+
+
+def _send_smtp(subject: str, html: str) -> None:
+    """Sendet die Email via Gmail SMTP."""
     sender   = os.getenv("GMAIL_SENDER", "")
-    app_pw   = os.getenv("GMAIL_APP_PW", "")
-    recipient = os.getenv("NOTIFY_EMAIL", sender)
+    password = os.getenv("GMAIL_APP_PW", "")
+    receiver = os.getenv("NOTIFY_EMAIL", sender)
 
-    if not sender or not app_pw:
-        log.warning("GMAIL_SENDER oder GMAIL_APP_PW nicht gesetzt – kein Email-Versand.")
+    if not sender or not password:
+        log.warning("GMAIL_SENDER oder GMAIL_APP_PW nicht gesetzt → Email übersprungen.")
         return
-
-    if not proposals:
-        log.info("Keine Vorschläge – kein Email-Versand.")
-        return
-
-    # Nur Top-Signal (höchster FinalScore)
-    top = proposals[0]
-    ticker = top.get("ticker", "Signal")
-
-    html_body = build_html(top, today)
 
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = f"{ticker} · {top.get('strategy','—').replace('_', ' ')} · news-mirofish"
-    msg["From"]    = f"Asymmetry Scanner <{sender}>"
-    msg["To"]      = recipient
-
-    # Plaintext-Fallback
-    plain = (
-        f"Asymmetry Scanner – {today}\n\n"
-        f"Top Signal: {ticker}\n"
-        f"Strategie:  {top.get('strategy','—')}\n"
-        f"Richtung:   {top.get('deep_analysis',{}).get('direction','—')}\n"
-        f"FinalScore: {top.get('final_score',0):.4f}\n"
-        f"Mismatch:   {top.get('features',{}).get('mismatch',0):.2f}\n\n"
-        f"Details im GitHub-Repo:\n"
-        f"https://github.com/pcctradinginc-alt/news-mirofish/tree/main/outputs/daily_reports"
-    )
-    msg.attach(MIMEText(plain, "plain"))
-    msg.attach(MIMEText(html_body, "html"))
+    msg["Subject"] = subject
+    msg["From"]    = sender
+    msg["To"]      = receiver
+    msg.attach(MIMEText(html, "html"))
 
     try:
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-            smtp.login(sender, app_pw)
-            smtp.sendmail(sender, recipient, msg.as_string())
-        log.info(f"Email erfolgreich gesendet an {recipient} ({ticker})")
+            smtp.login(sender, password)
+            smtp.sendmail(sender, receiver, msg.as_string())
+        log.info(f"Email gesendet: '{subject}' → {receiver}")
     except Exception as e:
-        log.error(f"Email-Versand fehlgeschlagen: {e}")
+        log.error(f"SMTP-Fehler: {e}")
