@@ -19,7 +19,9 @@ from modules.options_designer    import OptionsDesigner
 from modules.reporter            import Reporter
 from modules.risk_gates          import RiskGates
 from modules.email_reporter      import send_email, send_status_email
-from modules.finbert_sentiment   import score_candidate
+from modules.sentiment_tracker import enrich_with_sentiment_drift
+# In der Enrichment-Schleife:
+c = enrich_with_sentiment_drift(c, history)
 from modules.reddit_signals      import enrich_candidate
 from modules.intraday_delta      import filter_by_intraday_delta
 from modules.alpha_sources       import enrich_with_alpha_sources
