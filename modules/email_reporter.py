@@ -31,10 +31,10 @@ def send_email(proposals: list[dict], today: str) -> None:
     """
     if proposals:
         html = _build_trade_email(proposals, today)
-        subject = f"🎯 {len(proposals)} Trade-Signal(e) – {today}"
+        subject = f"Adaptive Asymmetry-Scanner – Trade Empfehlung – {today}"
     else:
         html = _build_no_trade_email(today)
-        subject = f"📊 Scanner-Status: Kein Trade – {today}"
+        subject = f"Adaptive Asymmetry-Scanner – Kein Trade – {today}"
 
     _send_smtp(subject, html)
 
@@ -61,9 +61,9 @@ def send_status_email(pipeline_stats: dict, today: str) -> None:
     """
     trades  = pipeline_stats.get("trades", 0)
     subject = (
-        f"🎯 {trades} Trade(s) – {today}"
+        f"Adaptive Asymmetry-Scanner – Trade Empfehlung – {today}"
         if trades > 0
-        else f"📊 Kein Trade heute – {today}"
+        else f"Adaptive Asymmetry-Scanner – Kein Trade – {today}"
     )
     html = _build_status_email(pipeline_stats, today)
     _send_smtp(subject, html)
@@ -86,7 +86,7 @@ def _build_status_email(stats: dict, today: str) -> str:
     # Farbe je nach Ergebnis
     header_color = "#16a34a" if trades > 0 else "#0f172a"
     status_icon  = "🎯" if trades > 0 else "📊"
-    status_text  = f"{trades} Trade-Signal(e) generiert" if trades > 0 else "Kein Trade heute"
+    status_text  = "Trade Empfehlung" if trades > 0 else "Kein Trade heute"
 
     # Filter-Funnel als Tabelle
     funnel_rows = [
@@ -232,7 +232,7 @@ def _build_trade_email(proposals: list[dict], today: str) -> str:
   <div style="background:#16a34a;padding:28px 32px;">
     <div style="font-size:28px;">🎯</div>
     <div style="color:#fff;font-size:22px;font-weight:bold;">
-      {len(proposals)} Trade-Signal(e) heute
+      Adaptive Asymmetry-Scanner – Trade Empfehlung
     </div>
     <div style="color:rgba(255,255,255,0.7);font-size:14px;margin-top:4px;">
       {today} · Adaptive Asymmetry-Scanner v5.0
