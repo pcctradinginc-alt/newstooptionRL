@@ -1,6 +1,7 @@
 """
 Adaptive Asymmetry-Scanner v5.0
 NEU: Tägliche Status-Email wird IMMER gesendet.
+Korrektur: Sentiment-Drift in die Ingestion-Schleife integriert.
 """
 
 import json
@@ -10,24 +11,23 @@ from datetime import datetime
 from pathlib import Path
 
 from modules.data_ingestion      import DataIngestion
-from modules.prescreener         import Prescreener
-from modules.deep_analysis       import DeepAnalysis
-from modules.mismatch_scorer     import MismatchScorer
+from modules.prescreener          import Prescreener
+from modules.deep_analysis        import DeepAnalysis
+from modules.mismatch_scorer      import MismatchScorer
 from modules.mirofish_simulation import MirofishSimulation
-from modules.rl_agent            import RLScorer
-from modules.options_designer    import OptionsDesigner
-from modules.reporter            import Reporter
-from modules.risk_gates          import RiskGates
-from modules.email_reporter      import send_email, send_status_email
-from modules.sentiment_tracker import enrich_with_sentiment_drift
-# In der Enrichment-Schleife:
-c = enrich_with_sentiment_drift(c, history)
-from modules.reddit_signals      import enrich_candidate
-from modules.intraday_delta      import filter_by_intraday_delta
-from modules.alpha_sources       import enrich_with_alpha_sources
-from modules.data_validator      import validate_candidate_data, compute_option_roi
-from modules.premium_signals     import enrich_top_candidates
-from modules.config              import cfg
+from modules.rl_agent             import RLScorer
+from modules.options_designer     import OptionsDesigner
+from modules.reporter             import Reporter
+from modules.risk_gates           import RiskGates
+from modules.email_reporter       import send_email, send_status_email
+from modules.sentiment_tracker    import enrich_with_sentiment_drift
+from modules.finbert_sentiment    import score_candidate  # Wichtig: Import ergänzt
+from modules.reddit_signals       import enrich_candidate
+from modules.intraday_delta       import filter_by_intraday_delta
+from modules.alpha_sources        import enrich_with_alpha_sources
+from modules.data_validator       import validate_candidate_data, compute_option_roi
+from modules.premium_signals      import enrich_top_candidates
+from modules.config               import cfg
 
 logging.basicConfig(
     level=logging.INFO,
@@ -137,17 +137,32 @@ def main() -> None:
         send_daily_email()
         return
 
-    # ── STUFE 1b: FinBERT + Reddit ───────────────────────────────────────────
-    log.info("Stufe 1b: FinBERT-Sentiment + Reddit-Enrichment")
+    # ── STUFE 1b: FinBERT + Reddit + Sentiment Drift ─────────────────────────
+    log.info("Stufe 1b: Sentiment + Reddit-Enrichment")
     enriched = []
     for c in candidates:
-        try: c = enrich_candidate(c)
-        except Exception: pass
+        # Reddit Signale
+        try: 
+            c = enrich_candidate(c)
+        except Exception: 
+            pass
+        
+        # Sentiment Drift
+        try:
+            c = enrich_with_sentiment_drift(c, history)
+        except Exception as e:
+            log.debug(f"Sentiment Drift Fehler für {c.get('ticker')}: {e}")
+
+        # FinBERT Sentiment
         try:
             sentiment = score_candidate(c)
             c.setdefault("features", {}).update(sentiment)
         except Exception:
-            c.setdefault("features", {}).update({"sentiment_score": 0.0, "sentiment_label": "neutral", "sentiment_confidence": 0.0})
+            c.setdefault("features", {}).update({
+                "sentiment_score": 0.0, 
+                "sentiment_label": "neutral", 
+                "sentiment_confidence": 0.0
+            })
         enriched.append(c)
     candidates = enriched
 
