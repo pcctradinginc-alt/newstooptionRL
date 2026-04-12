@@ -4,7 +4,7 @@ on:
   schedule:
     # 14:30 MEZ = 12:30 UTC (Mo-Fr)
     - cron: "30 12 * * 1-5"
-  workflow_dispatch:   # Manueller Trigger für Tests
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -38,26 +38,33 @@ jobs:
           GMAIL_SENDER:      ${{ secrets.GMAIL_SENDER }}
           GMAIL_APP_PW:      ${{ secrets.GMAIL_APP_PW }}
           NOTIFY_EMAIL:      ${{ secrets.NOTIFY_EMAIL }}
+          # FIX: FinBERT-Cache nach /tmp → wird nicht committed
+          FINBERT_CACHE:     /tmp/finbert_cache
         run: python pipeline.py
 
       - name: Run Feedback Loop
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TRADIER_API_KEY:   ${{ secrets.TRADIER_API_KEY }}
+          FINBERT_CACHE:     /tmp/finbert_cache
         run: python feedback.py
 
       - name: Commit Reports & History
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add outputs/
+          # Nur outputs/ committen – NICHT outputs/models/finbert/
+          git add outputs/daily_reports/
+          git add outputs/history.json
+          # PPO-Modell committen wenn vorhanden (klein, <1 MB)
+          git add outputs/models/ppo_options_agent.zip 2>/dev/null || true
           git diff --staged --quiet || git commit -m "chore: daily report $(date -u +%Y-%m-%d)"
           git push
 
   feedback_weekly:
     name: Weekly Weight Recalibration
     runs-on: ubuntu-latest
-    if: github.event.schedule == '0 8 * * 6'   # Samstag 08:00 UTC
+    if: github.event.schedule == '0 8 * * 6'
 
     steps:
       - uses: actions/checkout@v4
@@ -74,12 +81,14 @@ jobs:
       - name: Run Feedback Loop (Weekly)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FINBERT_CACHE:     /tmp/finbert_cache
         run: python feedback.py
 
-      - name: Commit Updated History
+      - name: Commit Updated History & RL-Modell
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add outputs/history.json
+          git add outputs/models/ppo_options_agent.zip 2>/dev/null || true
           git diff --staged --quiet || git commit -m "chore: weekly weight recalibration $(date -u +%Y-%m-%d)"
           git push
