@@ -1,15 +1,16 @@
-# Adaptive Asymmetry-Scanner – Konfiguration v4.0
+# Adaptive Asymmetry-Scanner – Konfiguration v4.1
 # Alle Parameter hier zentral ändern, nie im Code.
 
 pipeline:
-  confidence_gate: 0.70        # MiroFish: Mindest-Anteil Pfade die Strike erreichen
-  n_simulation_paths: 10000    # Monte-Carlo Pfade
-  simulation_days: 120         # Simulationshorizont in Tagen
+  confidence_gate: 0.70
+  n_simulation_paths: 10000
+  simulation_days: 120
+  min_impact_threshold: 4      # NEU Fix #5: Signale mit Impact < 4 werden nicht simuliert
 
 filters:
-  min_market_cap: 2_000_000_000   # 2 Mrd USD
-  min_avg_volume: 1_000_000       # 1 Mio Aktien/Tag (10-Tages-Ø)
-  universe: "sp500_nasdaq100"     # sp500_nasdaq100 | sp500 | nasdaq100
+  min_market_cap: 2_000_000_000
+  min_avg_volume: 1_000_000
+  universe: "sp500_nasdaq100"
 
 models:
   prescreener: "claude-haiku-4-5-20251001"
@@ -19,33 +20,31 @@ risk:
   vix_threshold: 35.0
   earnings_buffer_days: 7
   min_open_interest: 100
-  max_bid_ask_ratio: 0.10        # 10%
-  max_bear_case_severity: 7      # 0-10
+  max_bid_ask_ratio: 0.10
+  max_bear_case_severity: 7    # Fix #2: >= 7 blockiert (war > 7 → Severity=7 passierte)
 
 options:
   dte_min: 120
   dte_max: 200
   delta_target_low:  0.60
   delta_target_high: 0.70
-  target_move_pct:   0.10        # 10% Strike-Abstand für Simulation
+  target_move_pct:   0.10
 
 learning:
   learning_rate: 0.05
-  min_bin_count:  3              # Mindestdaten vor ML-Scoring
-  close_after_days: 130          # Tage bis Trade als abgeschlossen gilt
+  min_bin_count:  3
+  close_after_days: 130
 
 eps_drift:
   noise_threshold:    0.02
   relevant_threshold: 0.05
   massive_threshold:  0.10
 
-# NEU v4.0: RL-Agent Konfiguration
 rl:
-  enabled: true                  # false → QuasiML-Fallback
+  enabled: true
   model_path: "outputs/models/ppo_options_agent.zip"
-  min_trades_for_training: 5     # Mindest closed_trades vor erstem Training
-  timesteps_per_update: 2000     # PPO-Steps pro feedback.py-Lauf
-  # Observation-Gewichte (müssen mit rl_agent.py übereinstimmen)
+  min_trades_for_training: 5
+  timesteps_per_update: 2000
   obs_weights:
     impact:         0.15
     surprise:       0.10
@@ -57,15 +56,13 @@ rl:
     sentiment:      0.10
     bear_severity:  0.10
 
-# NEU v4.0: FinBERT Konfiguration
 finbert:
   enabled: true
   model_name: "ProsusAI/finbert"
-  cache_dir: "outputs/models/finbert"
-  max_headlines: 8               # Max Headlines pro Batch-Inference
-  max_tokens: 128                # Max Tokens pro Headline (CPU-Performance)
+  cache_dir: "/tmp/finbert_cache"
+  max_headlines: 8
+  max_tokens: 128
 
-# NEU v4.0: Reddit-Konfiguration
 reddit:
   enabled: true
   subreddits:
@@ -74,5 +71,5 @@ reddit:
     - "investing"
     - "options"
   max_posts_per_ticker: 50
-  time_filter: "day"             # "day" | "week"
-  request_delay: 0.5             # Sekunden zwischen Requests (Rate-Limit)
+  time_filter: "day"
+  request_delay: 0.5
