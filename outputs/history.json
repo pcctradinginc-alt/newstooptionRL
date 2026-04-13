@@ -525,5 +525,35 @@
     "impact": 0.35,
     "mismatch": 0.45,
     "eps_drift": 0.2
+  },
+  "sentiment_history": {
+    "TECH": [
+      {
+        "date": "2026-04-13",
+        "score": 0.0,
+        "headline_count": 1
+      }
+    ],
+    "GEN": [
+      {
+        "date": "2026-04-13",
+        "score": 0.0,
+        "headline_count": 1
+      }
+    ],
+    "HAS": [
+      {
+        "date": "2026-04-13",
+        "score": 0.0,
+        "headline_count": 1
+      }
+    ],
+    "WELL": [
+      {
+        "date": "2026-04-13",
+        "score": 0.0,
+        "headline_count": 1
+      }
+    ]
   }
 }
