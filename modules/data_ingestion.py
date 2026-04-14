@@ -1,227 +1,283 @@
 """
-Stufe 1: Daten-Ingestion & Hard-Filter
+modules/data_ingestion.py v6.0
 
-Fixes:
-  #1: Ticker ≤ 2 Zeichen (ON, V, A, C, F...) werden im RSS-Feed NICHT mehr
-      per Regex gematcht – zu viele False-Positives ("ON sale", "depends ON").
-      Für Kurzticker gilt: nur NewsAPI mit exaktem Quoted-Query.
-  #4: EPS-Drift-Berechnung fällt auf yfinance trailingEps zurück wenn
-      kein stored_eps in history.json vorhanden (neue Ticker).
-  #5: Min-Impact-Schwelle aus config.yaml (min_impact_threshold).
+Hard-Filter Optimierung:
+  - Market Cap Gate:    > 2 Mrd. USD  (war: vermutlich > 10 Mrd.)
+  - Liquidity Gate:     Avg Volume > 1 Mio. Stück/Tag
+  - Dollar-Volume Gate: Preis × Volumen > 10 Mio. USD/Tag
+  - Relative Volume:    RV > 0.8 (war: > 1.5 / nur "High")
+  - Logging:            Zeigt genau welcher Filter wie viele Ticker eliminiert
+
+Ziel: 30-60 Kandidaten für Prescreening (statt bisher 4-7).
 """
 
-import os
-import re
+from __future__ import annotations
 import logging
-import feedparser
+import os
+import time
+from datetime import datetime, timedelta
+from typing import Optional
+
 import requests
 import yfinance as yf
-from typing import Any
 
-from modules.config import cfg
+from modules.config   import cfg
 from modules.universe import get_universe
 
 log = logging.getLogger(__name__)
 
-RSS_FEEDS = [
-    "https://feeds.reuters.com/reuters/businessNews",
-    "https://www.cnbc.com/id/100003114/device/rss/rss.html",
-]
-
-# FIX #1: Kurzticker (≤ 2 Zeichen) NICHT per RSS matchen
-# Begründung: "ON", "V", "A", "C", "F" sind zu häufige englische Wörter/
-# Buchstaben und produzieren massenhaft False-Positives im RSS-Matching.
-# Für diese Ticker gilt: ausschließlich NewsAPI (exakter Quoted-Query).
-SHORT_TICKER_MIN_LEN = 3   # Ticker kürzer als 3 Zeichen → kein RSS-Matching
-
-_TICKER_PATTERNS: dict[str, re.Pattern] = {}
-
-
-def _get_ticker_pattern(ticker: str) -> re.Pattern:
-    """Word-Boundary-Regex für Ticker-Matching im RSS-Feed."""
-    if ticker not in _TICKER_PATTERNS:
-        escaped = re.escape(ticker)
-        _TICKER_PATTERNS[ticker] = re.compile(
-            rf"\b{escaped}\b", re.IGNORECASE
-        )
-    return _TICKER_PATTERNS[ticker]
-
-
-def _is_rss_safe(ticker: str) -> bool:
-    """
-    FIX #1: Prüft ob ein Ticker sicher per RSS gematcht werden kann.
-    Kurzticker (≤ 2 Zeichen) sind NICHT RSS-sicher.
-    Zusätzlich: bekannte problematische Ticker explizit ausschließen.
-    """
-    if len(ticker) < SHORT_TICKER_MIN_LEN:
-        return False
-    # Explizite Ausschlussliste für häufige englische Wörter
-    UNSAFE = {"ON", "IT", "OR", "ARE", "BE", "TO", "DO", "GO", "SO", "RE",
-               "AI", "GE", "AM", "PM", "IS", "AS", "AT", "BY", "IN", "OF"}
-    if ticker.upper() in UNSAFE:
-        return False
-    return True
+# ── Hard-Filter Schwellenwerte ────────────────────────────────────────────────
+MIN_MARKET_CAP_USD    = 2_000_000_000   # > 2 Mrd. USD
+MIN_AVG_VOLUME        = 1_000_000       # > 1 Mio. Stück/Tag (30d Durchschnitt)
+MIN_DOLLAR_VOLUME_USD = 10_000_000      # > 10 Mio. USD/Tag (Preis × Volumen)
+MIN_RELATIVE_VOLUME   = 0.8             # > 80% des normalen Volumens
+MAX_INTRADAY_MOVE     = 0.07            # < 7% Intraday-Bewegung (kein Chase)
 
 
 class DataIngestion:
 
-    def __init__(self, history: dict):
-        self.history      = history
-        self.news_api_key = os.getenv("NEWS_API_KEY", "")
+    def __init__(self, history: dict | None = None):
+        self.history       = history or {}
+        self.news_api_key  = os.getenv("NEWS_API_KEY", "")
 
     def run(self) -> list[dict]:
-        universe = get_universe()
-        log.info(
-            f"Universum '{cfg.filters.universe}': "
-            f"{len(universe)} Ticker geladen."
-        )
+        tickers = get_universe()
+        log.info(f"Stufe 1: Hard-Filter auf {len(tickers)} Ticker")
 
-        news_by_ticker = self._fetch_news(universe)
-        candidates     = []
+        # Tracking pro Filter-Kriterium
+        stats = {
+            "total":          len(tickers),
+            "no_data":        0,
+            "market_cap":     0,
+            "avg_volume":     0,
+            "dollar_volume":  0,
+            "rel_volume":     0,
+            "no_news":        0,
+            "passed":         0,
+        }
 
-        for ticker in universe:
-            info = self._get_ticker_info(ticker)
-            if info is None:
-                continue
-            if not self._passes_hard_filter(info):
-                continue
+        candidates = []
+        for ticker in tickers:
+            result = self._evaluate_ticker(ticker, stats)
+            if result:
+                candidates.append(result)
 
-            eps_drift = self._compute_eps_drift(ticker, info)
-            news      = news_by_ticker.get(ticker, [])
-            if not news:
-                continue
-
-            candidates.append({
-                "ticker":    ticker,
-                "info":      info,
-                "eps_drift": eps_drift,
-                "news":      news,
-            })
-
+        self._log_filter_stats(stats)
+        log.info(f"  → {len(candidates)} Kandidaten nach Hard-Filter")
         return candidates
 
-    # ── News-Fetching ─────────────────────────────────────────────────────────
+    # ── Ticker-Evaluation ─────────────────────────────────────────────────────
 
-    def _fetch_news(self, universe: list[str]) -> dict[str, list[str]]:
-        result: dict[str, list[str]] = {t: [] for t in universe}
-
-        # NewsAPI: funktioniert für ALLE Ticker (exakter Quoted-Query)
-        if self.news_api_key:
-            for ticker in universe:
-                try:
-                    url = (
-                        "https://newsapi.org/v2/everything"
-                        f"?q=%22{ticker}%22"
-                        f"&language=en&pageSize=5"
-                        f"&apiKey={self.news_api_key}"
-                    )
-                    resp     = requests.get(url, timeout=10)
-                    articles = resp.json().get("articles", [])
-                    result[ticker] += [
-                        a["title"] for a in articles if a.get("title")
-                    ]
-                except Exception as e:
-                    log.debug(f"NewsAPI Fehler für {ticker}: {e}")
-
-        # RSS: NUR für RSS-sichere Ticker (FIX #1)
-        rss_universe = [t for t in universe if _is_rss_safe(t)]
-        log.debug(
-            f"RSS-Matching: {len(rss_universe)}/{len(universe)} Ticker "
-            f"(Kurzticker ausgeschlossen: "
-            f"{len(universe)-len(rss_universe)})"
-        )
-
-        for feed_url in RSS_FEEDS:
-            try:
-                feed = feedparser.parse(feed_url)
-                for entry in feed.entries:
-                    title = entry.get("title", "")
-                    for ticker in rss_universe:
-                        if _get_ticker_pattern(ticker).search(title):
-                            result[ticker].append(title)
-            except Exception as e:
-                log.debug(f"RSS Fehler ({feed_url}): {e}")
-
-        return result
-
-    # ── Ticker-Info ───────────────────────────────────────────────────────────
-
-    def _get_ticker_info(self, ticker: str) -> dict | None:
+    def _evaluate_ticker(self, ticker: str, stats: dict) -> Optional[dict]:
+        """Prüft einen Ticker gegen alle Hard-Filter."""
         try:
             t    = yf.Ticker(ticker)
             info = t.info
-            if not info or "marketCap" not in info:
+
+            if not info or not isinstance(info, dict):
+                stats["no_data"] += 1
                 return None
-            return info
+
+            # ── Filter 1: Market Cap ──────────────────────────────────────────
+            market_cap = info.get("marketCap") or 0
+            if market_cap < MIN_MARKET_CAP_USD:
+                stats["market_cap"] += 1
+                log.debug(
+                    f"  [{ticker}] ❌ Market Cap: "
+                    f"${market_cap/1e9:.2f}B < ${MIN_MARKET_CAP_USD/1e9:.0f}B"
+                )
+                return None
+
+            # ── Filter 2: Durchschnittliches Volumen (30d) ────────────────────
+            avg_vol = info.get("averageVolume") or info.get("averageVolume10days") or 0
+            if avg_vol < MIN_AVG_VOLUME:
+                stats["avg_volume"] += 1
+                log.debug(
+                    f"  [{ticker}] ❌ Avg Volume: "
+                    f"{avg_vol/1e6:.2f}M < {MIN_AVG_VOLUME/1e6:.0f}M"
+                )
+                return None
+
+            # ── Filter 3: Dollar-Volume ───────────────────────────────────────
+            current_price = (
+                info.get("currentPrice") or
+                info.get("regularMarketPrice") or
+                info.get("previousClose") or 0
+            )
+            dollar_volume = current_price * avg_vol
+            if dollar_volume < MIN_DOLLAR_VOLUME_USD:
+                stats["dollar_volume"] += 1
+                log.debug(
+                    f"  [{ticker}] ❌ Dollar-Volume: "
+                    f"${dollar_volume/1e6:.1f}M < ${MIN_DOLLAR_VOLUME_USD/1e6:.0f}M"
+                )
+                return None
+
+            # ── Filter 4: Relative Volume (RV) ────────────────────────────────
+            volume_today = info.get("volume") or info.get("regularMarketVolume") or 0
+            if avg_vol > 0 and volume_today > 0:
+                rel_volume = volume_today / avg_vol
+            else:
+                rel_volume = 0.0
+
+            if rel_volume < MIN_RELATIVE_VOLUME:
+                stats["rel_volume"] += 1
+                log.debug(
+                    f"  [{ticker}] ❌ Rel. Volume: "
+                    f"RV={rel_volume:.2f} < {MIN_RELATIVE_VOLUME}"
+                )
+                return None
+
+            # ── Filter 5: News vorhanden ──────────────────────────────────────
+            news = self._fetch_news(ticker, info)
+            if not news:
+                stats["no_news"] += 1
+                log.debug(f"  [{ticker}] ❌ Keine News in letzten 48h")
+                return None
+
+            # ── Alle Filter bestanden ─────────────────────────────────────────
+            stats["passed"] += 1
+            log.info(
+                f"  [{ticker}] ✅ "
+                f"Cap=${market_cap/1e9:.1f}B "
+                f"AvgVol={avg_vol/1e6:.1f}M "
+                f"$Vol=${dollar_volume/1e6:.0f}M "
+                f"RV={rel_volume:.2f} "
+                f"News={len(news)}"
+            )
+
+            return {
+                "ticker":        ticker,
+                "info":          info,
+                "news":          news,
+                "market_cap":    market_cap,
+                "avg_volume":    avg_vol,
+                "dollar_volume": dollar_volume,
+                "rel_volume":    round(rel_volume, 3),
+                "current_price": current_price,
+                "features":      {},
+            }
+
         except Exception as e:
-            log.debug(f"yfinance Fehler für {ticker}: {e}")
+            log.debug(f"  [{ticker}] Fehler: {e}")
+            stats["no_data"] += 1
             return None
 
-    # ── Hard-Filter ───────────────────────────────────────────────────────────
+    # ── Logging ───────────────────────────────────────────────────────────────
 
-    def _passes_hard_filter(self, info: dict) -> bool:
-        market_cap = info.get("marketCap", 0) or 0
-        avg_volume = info.get("averageVolume10days", 0) or 0
-        if market_cap < cfg.filters.min_market_cap:
-            return False
-        if avg_volume < cfg.filters.min_avg_volume:
-            return False
-        return True
+    def _log_filter_stats(self, stats: dict) -> None:
+        """Zeigt transparent warum Ticker eliminiert wurden."""
+        total   = stats["total"]
+        passed  = stats["passed"]
+        dropped = total - passed
 
-    # ── EPS-Drift (FIX #4: trailingEps-Fallback) ─────────────────────────────
+        log.info("=" * 55)
+        log.info(f"HARD-FILTER ERGEBNIS: {passed}/{total} Ticker bestanden")
+        log.info("-" * 55)
+        log.info(f"  ❌ Kein Data/Fehler:      {stats['no_data']:>4}  "
+                 f"({stats['no_data']/total*100:.1f}%)")
+        log.info(f"  ❌ Market Cap < 2 Mrd.:   {stats['market_cap']:>4}  "
+                 f"({stats['market_cap']/total*100:.1f}%)")
+        log.info(f"  ❌ Avg Volume < 1M:        {stats['avg_volume']:>4}  "
+                 f"({stats['avg_volume']/total*100:.1f}%)")
+        log.info(f"  ❌ Dollar-Vol < $10M:      {stats['dollar_volume']:>4}  "
+                 f"({stats['dollar_volume']/total*100:.1f}%)")
+        log.info(f"  ❌ Rel. Volume < 0.8:      {stats['rel_volume']:>4}  "
+                 f"({stats['rel_volume']/total*100:.1f}%)")
+        log.info(f"  ❌ Keine News:             {stats['no_news']:>4}  "
+                 f"({stats['no_news']/total*100:.1f}%)")
+        log.info(f"  ✅ Bestanden:              {passed:>4}  "
+                 f"({passed/total*100:.1f}%)")
+        log.info("=" * 55)
 
-    def _compute_eps_drift(self, ticker: str, info: dict) -> dict[str, Any]:
-        current_eps = info.get("forwardEps") or 0.0
-        rec_mean    = info.get("recommendationMean") or 0.0
+        if passed < 10:
+            log.warning(
+                f"Nur {passed} Kandidaten — wenig Material für Prescreening. "
+                f"Ggf. Filter weiter lockern."
+            )
+        elif passed > 80:
+            log.warning(
+                f"{passed} Kandidaten — sehr viel für Prescreening. "
+                f"Könnte API-Kosten erhöhen."
+            )
 
-        stored = self._get_stored_eps(ticker)
+    # ── News Fetching ─────────────────────────────────────────────────────────
 
-        # FIX #4: Wenn kein stored_eps vorhanden (neuer Ticker) →
-        # trailingEps als Baseline nutzen statt 0.0-Drift auszugeben.
-        # Das macht den EPS-Drift für neue Ticker sofort bedeutsam.
-        if stored is None or stored == 0:
-            trailing_eps = info.get("trailingEps") or 0.0
-            if trailing_eps != 0 and current_eps != 0:
-                stored = trailing_eps
-                log.debug(
-                    f"  [{ticker}] EPS-Drift: kein stored_eps → "
-                    f"nutze trailingEps={trailing_eps:.2f} als Baseline"
-                )
+    def _fetch_news(self, ticker: str, info: dict) -> list[str]:
+        """
+        Versucht News in dieser Reihenfolge:
+        1. Finnhub (ticker-spezifisch, beste Qualität)
+        2. NewsAPI (Firmenname-Suche)
+        3. yfinance news (Fallback)
+        """
+        # Finnhub
+        finnhub_key = os.getenv("FINNHUB_API_KEY", "")
+        if finnhub_key:
+            news = self._fetch_finnhub_news(ticker, finnhub_key)
+            if news:
+                return news
 
-        if stored and stored != 0 and current_eps != 0:
-            drift = (current_eps - stored) / abs(stored)
-        else:
-            drift = 0.0
+        # NewsAPI Fallback
+        if self.news_api_key:
+            company_name = info.get("longName", ticker).split()[0]
+            news = self._fetch_newsapi(ticker, company_name)
+            if news:
+                return news
 
-        abs_drift = abs(drift)
-        if abs_drift > cfg.eps_drift.massive_threshold:
-            weight = "massive"
-        elif abs_drift > cfg.eps_drift.relevant_threshold:
-            weight = "relevant"
-        else:
-            weight = "noise"
+        # yfinance Fallback
+        return self._fetch_yfinance_news(ticker)
 
-        return {
-            "current_eps":  current_eps,
-            "stored_eps":   stored,
-            "drift":        round(drift, 4),
-            "drift_weight": weight,
-            "rec_mean":     rec_mean,
-        }
-
-    def _get_stored_eps(self, ticker: str) -> float | None:
-        for trade in self.history.get("active_trades", []):
-            if trade.get("ticker") == ticker:
-                return trade.get("features", {}).get("eps", None)
-        return None
-
-    @staticmethod
-    def compute_48h_move(ticker: str) -> float:
+    def _fetch_finnhub_news(self, ticker: str, api_key: str) -> list[str]:
         try:
-            hist = yf.Ticker(ticker).history(period="5d")
-            if len(hist) < 3:
-                return 0.0
-            close = hist["Close"]
-            return float((close.iloc[-1] - close.iloc[-3]) / close.iloc[-3])
+            since = (datetime.utcnow() - timedelta(days=2)).strftime("%Y-%m-%d")
+            today = datetime.utcnow().strftime("%Y-%m-%d")
+            resp  = requests.get(
+                "https://finnhub.io/api/v1/company-news",
+                params={"symbol": ticker, "from": since, "to": today, "token": api_key},
+                timeout=8,
+            )
+            resp.raise_for_status()
+            articles = resp.json()
+            if not isinstance(articles, list):
+                return []
+            headlines = [a["headline"] for a in articles[:5] if a.get("headline")]
+            return headlines
         except Exception:
-            return 0.0
+            return []
+
+    def _fetch_newsapi(self, ticker: str, company_name: str) -> list[str]:
+        try:
+            since = (datetime.utcnow() - timedelta(days=2)).strftime("%Y-%m-%d")
+            resp  = requests.get(
+                "https://newsapi.org/v2/everything",
+                params={
+                    "q":        f'"{ticker}" OR "{company_name}"',
+                    "from":     since,
+                    "sortBy":   "publishedAt",
+                    "pageSize": 5,
+                    "apiKey":   self.news_api_key,
+                    "language": "en",
+                },
+                timeout=8,
+            )
+            resp.raise_for_status()
+            articles = resp.json().get("articles", [])
+            return [a["title"] for a in articles if a.get("title")]
+        except Exception:
+            return []
+
+    def _fetch_yfinance_news(self, ticker: str) -> list[str]:
+        try:
+            t     = yf.Ticker(ticker)
+            news  = t.news or []
+            since = datetime.utcnow() - timedelta(hours=48)
+            headlines = []
+            for n in news[:5]:
+                ts = n.get("providerPublishTime", 0)
+                if ts and datetime.fromtimestamp(ts) >= since:
+                    title = n.get("title", "")
+                    if title:
+                        headlines.append(title)
+            return headlines
+        except Exception:
+            return []
