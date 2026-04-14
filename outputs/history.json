@@ -532,6 +532,11 @@
         "date": "2026-04-13",
         "score": 0.0,
         "headline_count": 1
+      },
+      {
+        "date": "2026-04-14",
+        "score": 0.0374,
+        "headline_count": 2
       }
     ],
     "GEN": [
@@ -658,6 +663,307 @@
         "date": "2026-04-14",
         "score": -0.3317,
         "headline_count": 3
+      }
+    ],
+    "ADBE": [
+      {
+        "date": "2026-04-14",
+        "score": 0.1076,
+        "headline_count": 5
+      }
+    ],
+    "META": [
+      {
+        "date": "2026-04-14",
+        "score": 0.0851,
+        "headline_count": 5
+      }
+    ],
+    "APA": [
+      {
+        "date": "2026-04-14",
+        "score": -0.4026,
+        "headline_count": 5
+      }
+    ],
+    "BIIB": [
+      {
+        "date": "2026-04-14",
+        "score": 0.256,
+        "headline_count": 5
+      }
+    ],
+    "BX": [
+      {
+        "date": "2026-04-14",
+        "score": -0.152,
+        "headline_count": 5
+      }
+    ],
+    "CHTR": [
+      {
+        "date": "2026-04-14",
+        "score": 0.1657,
+        "headline_count": 2
+      }
+    ],
+    "C": [
+      {
+        "date": "2026-04-14",
+        "score": 0.2992,
+        "headline_count": 5
+      }
+    ],
+    "CAG": [
+      {
+        "date": "2026-04-14",
+        "score": 0.12,
+        "headline_count": 5
+      }
+    ],
+    "DRI": [
+      {
+        "date": "2026-04-14",
+        "score": -0.3836,
+        "headline_count": 2
+      }
+    ],
+    "FANG": [
+      {
+        "date": "2026-04-14",
+        "score": 0.2435,
+        "headline_count": 5
+      }
+    ],
+    "DOW": [
+      {
+        "date": "2026-04-14",
+        "score": -0.3928,
+        "headline_count": 5
+      }
+    ],
+    "EW": [
+      {
+        "date": "2026-04-14",
+        "score": -0.0139,
+        "headline_count": 1
+      }
+    ],
+    "FAST": [
+      {
+        "date": "2026-04-14",
+        "score": 0.3927,
+        "headline_count": 5
+      }
+    ],
+    "GDDY": [
+      {
+        "date": "2026-04-14",
+        "score": 0.2105,
+        "headline_count": 2
+      }
+    ],
+    "GS": [
+      {
+        "date": "2026-04-14",
+        "score": 0.1512,
+        "headline_count": 5
+      }
+    ],
+    "HSY": [
+      {
+        "date": "2026-04-14",
+        "score": 0.1114,
+        "headline_count": 4
+      }
+    ],
+    "HST": [
+      {
+        "date": "2026-04-14",
+        "score": 0.2428,
+        "headline_count": 2
+      }
+    ],
+    "JPM": [
+      {
+        "date": "2026-04-14",
+        "score": 0.4201,
+        "headline_count": 5
+      }
+    ],
+    "LULU": [
+      {
+        "date": "2026-04-14",
+        "score": -0.2416,
+        "headline_count": 5
+      }
+    ],
+    "MAS": [
+      {
+        "date": "2026-04-14",
+        "score": 0.3081,
+        "headline_count": 3
+      }
+    ],
+    "MGM": [
+      {
+        "date": "2026-04-14",
+        "score": -0.4329,
+        "headline_count": 4
+      }
+    ],
+    "MSFT": [
+      {
+        "date": "2026-04-14",
+        "score": -0.0216,
+        "headline_count": 5
+      }
+    ],
+    "MS": [
+      {
+        "date": "2026-04-14",
+        "score": 0.1646,
+        "headline_count": 5
+      }
+    ],
+    "MOS": [
+      {
+        "date": "2026-04-14",
+        "score": 0.3758,
+        "headline_count": 5
+      }
+    ],
+    "NKE": [
+      {
+        "date": "2026-04-14",
+        "score": -0.0209,
+        "headline_count": 5
+      }
+    ],
+    "NVDA": [
+      {
+        "date": "2026-04-14",
+        "score": 0.276,
+        "headline_count": 5
+      }
+    ],
+    "OXY": [
+      {
+        "date": "2026-04-14",
+        "score": -0.1445,
+        "headline_count": 5
+      }
+    ],
+    "PCG": [
+      {
+        "date": "2026-04-14",
+        "score": -0.169,
+        "headline_count": 5
+      }
+    ],
+    "RSG": [
+      {
+        "date": "2026-04-14",
+        "score": -0.8938,
+        "headline_count": 1
+      }
+    ],
+    "NOW": [
+      {
+        "date": "2026-04-14",
+        "score": 0.081,
+        "headline_count": 5
+      }
+    ],
+    "SYK": [
+      {
+        "date": "2026-04-14",
+        "score": 0.2637,
+        "headline_count": 5
+      }
+    ],
+    "SYY": [
+      {
+        "date": "2026-04-14",
+        "score": -0.3501,
+        "headline_count": 2
+      }
+    ],
+    "TSLA": [
+      {
+        "date": "2026-04-14",
+        "score": 0.0518,
+        "headline_count": 5
+      }
+    ],
+    "TMO": [
+      {
+        "date": "2026-04-14",
+        "score": 0.2828,
+        "headline_count": 5
+      }
+    ],
+    "XEL": [
+      {
+        "date": "2026-04-14",
+        "score": 0.6451,
+        "headline_count": 1
+      }
+    ],
+    "ZBH": [
+      {
+        "date": "2026-04-14",
+        "score": -0.055,
+        "headline_count": 3
+      }
+    ],
+    "ARES": [
+      {
+        "date": "2026-04-14",
+        "score": -0.1909,
+        "headline_count": 5
+      }
+    ],
+    "CVNA": [
+      {
+        "date": "2026-04-14",
+        "score": -0.4198,
+        "headline_count": 5
+      }
+    ],
+    "PLTR": [
+      {
+        "date": "2026-04-14",
+        "score": -0.0276,
+        "headline_count": 5
+      }
+    ],
+    "ARM": [
+      {
+        "date": "2026-04-14",
+        "score": 0.2506,
+        "headline_count": 5
+      }
+    ],
+    "ASML": [
+      {
+        "date": "2026-04-14",
+        "score": -0.2953,
+        "headline_count": 5
+      }
+    ],
+    "PDD": [
+      {
+        "date": "2026-04-14",
+        "score": 0.2313,
+        "headline_count": 5
+      }
+    ],
+    "ZS": [
+      {
+        "date": "2026-04-14",
+        "score": 0.0477,
+        "headline_count": 5
       }
     ]
   }
