@@ -21,7 +21,7 @@ risk:
   earnings_buffer_days: 7
   min_open_interest: 100
   max_bid_ask_ratio: 0.10
-  max_bear_case_severity: 7
+  max_bear_case_severity: 8
 
 options:
   dte_min: 120
