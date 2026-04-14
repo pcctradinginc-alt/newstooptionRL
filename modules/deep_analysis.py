@@ -1,173 +1,258 @@
 """
-modules/deep_analysis.py v7.0
-Fix 3: Makro-Kontext (ISM + Yield Curve) wird in den Claude-Prompt injiziert.
-       Claude bekommt damit wirtschaftliches "Wetter" für mittelfristige Bewertung.
-Fix: Data-Anomaly Flag aus data_validator.py wird im Prompt kommuniziert.
-     Wenn yfinance EPS > 20% von SEC EDGAR abweicht, warnt Claude explizit.
+modules/deep_analysis.py v8.0
+
+Änderung: Devil's Advocate + MC-Kontext im Prompt.
+Kein "Asymmetry Council" Overhead — gleicher Effekt, 1/8 der Kosten.
+
+Devil's Advocate Logik:
+    Claude muss zuerst aktiv GEGEN den Trade argumentieren.
+    Erst dann kommt die finale Bewertung.
+    Verhindert Confirmation-Bias (Claude stimmt Prescreening blind zu).
+
+MC-Injection:
+    Quick MC Hit-Rate wird im Prompt übergeben.
+    Claude prüft ob News-Qualität mit Statistik konsistent ist.
 """
+
 import json
 import logging
 import os
+from datetime import datetime, timedelta
+from typing import Optional
+
 import anthropic
 import yfinance as yf
-from typing import Optional                     # ← Import hierher verschoben
 
-from modules.config import cfg
+from modules.config        import cfg
 from modules.macro_context import get_macro_context
 
 log = logging.getLogger(__name__)
 
-SYSTEM_PROMPT = """Du bist ein erfahrener Quantitativ-Analyst mit Fokus auf mittelfristige Optionsstrategien (2-6 Monate).
-Deine Aufgabe: Analysiere ob eine fundamentale Informations-Asymmetrie existiert — ob der Markt auf eine strukturelle Veränderung unterreagiert hat.
-Bewertungskriterien:
-- Impact (0-10): Wie stark verändert diese News die fundamentalen Ertragserwartungen?
-- Surprise (0-10): Wie unerwartet ist diese Information für den Markt?
-- Direction: BULLISH oder BEARISH (aus der Perspektive des Aktienpreises)
-- Bear Case Severity (0-10): Wie stark ist das Gegenargument?
-- Time to Materialization: Wann wird sich die Asymmetrie einpreisen?
-KRITISCH für Mittelfrist-Trades (2-6 Monate):
-- Einzelne Schlagzeilen sind KEIN ausreichendes Signal. Nur strukturelle Änderungen zählen.
-- Wenn EPS-Daten als "DATA ANOMALY" markiert sind: Sei extra vorsichtig bei EPS-basierten Analysen.
-- Berücksichtige den Makro-Kontext explizit in deiner Bewertung.
+SYSTEM_PROMPT = """Du bist ein skeptischer Quant-Analyst mit Fokus auf mittelfristige Optionsstrategien (2-6 Monate).
+
+PFLICHT-ABLAUF — in dieser Reihenfolge, keine Ausnahme:
+
+SCHRITT 1 — RED TEAM (zuerst immer):
+Finde die 3 stärksten Argumente GEGEN diesen Trade.
+Denke wie ein Short-Seller. Was könnte das Signal zerstören?
+Typische Red Flags: Überbewertung, Sektor-Gegenwind, fragliche Datenqualität, 
+Makro-Risiko, IV-Crush, Katalysator bereits eingepreist.
+
+SCHRITT 2 — STATISTIK-CHECK:
+Ist die MC Hit-Rate realistisch gegeben historischer Volatilität?
+Warnung wenn Hit-Rate > 80% (Modell möglicherweise zu optimistisch).
+
+SCHRITT 3 — MAKRO-KONTEXT:
+Passt das Signal zum aktuellen Zinsumfeld?
+Rezessives Umfeld (invertierte Kurve) → erhöhte Skepsis bei BULLISH-Signalen.
+
+SCHRITT 4 — ERST JETZT: Finale Bewertung.
+Im Zweifel BEARISH. Nur eindeutige strukturelle Signale verdienen Impact > 7.
+
 Antworte ausschließlich mit validem JSON."""
 
-ANALYSIS_TEMPLATE = """{macro_context}
-=== TICKER-ANALYSE ===
-Ticker: {ticker}
-Aktueller Preis: ${current_price}
-Forward EPS: {forward_eps} {eps_warning}
-EPS-Drift: {eps_drift:.1%}
+ANALYSIS_TEMPLATE = """=== MAKRO-KONTEXT ===
+{macro_context}
+
+=== TICKER: {ticker} ===
+Aktueller Preis: ${current_price:.2f}
 Sektor: {sector}
+EPS (yfinance): {forward_eps} | EPS (SEC EDGAR): {sec_eps}
+EPS-Abweichung: {eps_deviation}
 48h-Preisbewegung: {move_48h:+.1%}
-News (letzte 48h):
+
+=== QUICK MONTE CARLO (Vorfilter) ===
+Hit-Rate: {mc_hit_rate:.1%} ({mc_paths} Pfade, {mc_days}d)
+Interpretation: {mc_interpretation}
+
+=== NEWS (letzte 48h) ===
 {news_text}
+
 {data_anomaly_warning}
-Erstelle eine vollständige Analyse im folgenden JSON-Format:
+
+=== DEINE AUFGABE ===
+Folge dem Pflicht-Ablauf: Red Team → Statistik → Makro → Finale Bewertung.
+
+Antworte NUR mit diesem JSON:
 {{
+    "red_team": {{
+        "argument_1": "<Stärkstes Argument gegen den Trade>",
+        "argument_2": "<Zweitstärkstes Argument>",
+        "argument_3": "<Drittstärkstes Argument>",
+        "red_team_verdict": "VETO" oder "PASSIERT"
+    }},
+    "stats_check": {{
+        "mc_assessment": "<Ist {mc_hit_rate:.0%} realistisch?>",
+        "concern_level": "low" oder "medium" oder "high"
+    }},
     "impact": <0-10>,
     "surprise": <0-10>,
     "direction": "BULLISH" oder "BEARISH",
     "bear_case_severity": <0-10>,
     "time_to_materialization": "4-8 Wochen" oder "2-3 Monate" oder "6 Monate",
-    "asymmetry_reasoning": "<Erklärung der Informations-Asymmetrie, max 3 Sätze>",
-    "catalyst": "<Spezifischer Katalysator für Preisbewegung>",
+    "asymmetry_reasoning": "<Max 3 Sätze — warum Markt unterreagiert hat>",
+    "catalyst": "<Spezifischer Katalysator>",
     "bear_case": "<Stärkstes Gegenargument>",
-    "macro_assessment": "<Wie bewertest du das Signal im aktuellen Makro-Umfeld?>",
+    "macro_assessment": "<Bewertung im aktuellen Makro-Umfeld>",
     "data_confidence": "high" oder "medium" oder "low"
 }}"""
 
+
 class DeepAnalysis:
+
     def __init__(self):
         self.client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-        # Makro-Kontext einmal laden (gecached für alle Ticker des Tages)
         self._macro = get_macro_context()
         if self._macro["data_available"]:
             log.info(
-                f"Makro-Kontext: {self._macro['macro_regime']} "
-                f"(YC={self._macro.get('yield_curve_desc', 'n/a')})"
+                f"Makro: {self._macro['macro_regime']} | "
+                f"YC={self._macro.get('yield_curve_desc', 'n/a')}"
             )
-        else:
-            log.warning("Makro-Kontext nicht verfügbar → FRED offline")
 
     def run(self, shortlist: list[dict]) -> list[dict]:
         analyses = []
         for candidate in shortlist:
             analysis = self._analyze(candidate)
-            if analysis:
-                analyses.append({**candidate, "deep_analysis": analysis})
+            if not analysis:
+                continue
+
+            # Red Team Veto: Wenn Red Team "VETO" → Signal verwerfen
+            red_team = analysis.get("red_team", {})
+            if red_team.get("red_team_verdict") == "VETO":
                 log.info(
-                    f" [{candidate['ticker']}] "
-                    f"Impact={analysis['impact']} "
-                    f"Surprise={analysis['surprise']} "
-                    f"Direction={analysis['direction']}"
+                    f"  [{candidate['ticker']}] RED TEAM VETO → verworfen. "
+                    f"Grund: {red_team.get('argument_1', 'n/a')}"
                 )
+                continue
+
+            # Stats-Check: Bei hohem MC-Concern → Impact deckeln
+            stats = analysis.get("stats_check", {})
+            if stats.get("concern_level") == "high" and analysis.get("impact", 0) > 6:
+                original = analysis["impact"]
+                analysis["impact"] = 6
+                log.info(
+                    f"  [{candidate['ticker']}] Stats-Concern HIGH: "
+                    f"Impact {original} → 6 gedeckelt"
+                )
+
+            analyses.append({**candidate, "deep_analysis": analysis})
+            log.info(
+                f"  [{candidate['ticker']}] "
+                f"Impact={analysis['impact']} "
+                f"Surprise={analysis['surprise']} "
+                f"Direction={analysis['direction']} "
+                f"RedTeam={red_team.get('red_team_verdict', '?')}"
+            )
+
         return analyses
 
     def _analyze(self, candidate: dict) -> Optional[dict]:
-        ticker = candidate.get("ticker", "")
-        info = candidate.get("info", {})
-        news = candidate.get("news", [])
-        eps_drift = candidate.get("eps_drift", {})
+        ticker  = candidate.get("ticker", "")
+        info    = candidate.get("info", {})
+        news    = candidate.get("news", [])
+
         current_price = float(
-            info.get("currentPrice") or info.get("regularMarketPrice") or 0
+            info.get("currentPrice") or
+            info.get("regularMarketPrice") or 0
         )
-        forward_eps = info.get("forwardEps") or 0.0
-        sector = info.get("sector", "Unknown")
-        move_48h = self._get_48h_move(ticker)
-        # News als Text
-        news_text = "\n".join(
-            f"- {h}" for h in news[:8]
-        ) if news else "Keine News verfügbar"
-        # EPS-Drift Wert
-        drift_val = eps_drift.get("drift", 0.0) if isinstance(eps_drift, dict) else 0.0
-        # Data-Anomaly Warnung
-        data_anomaly = candidate.get("data_anomaly", False)
-        eps_warning = ""
+        forward_eps = info.get("forwardEps") or info.get("trailingEps") or 0.0
+        sector      = info.get("sector", "Unknown")
+        move_48h    = self._get_48h_move(ticker)
+
+        # EPS Cross-Check Info
+        eps_check   = candidate.get("data_validation", {}).get("eps_cross_check", {})
+        sec_eps     = eps_check.get("sec_eps", "n/a")
+        dev_pct     = eps_check.get("deviation_pct")
+        eps_deviation = f"{dev_pct:.1%}" if dev_pct is not None else "n/a"
+
+        # Data Anomaly Warnung
+        data_anomaly    = candidate.get("data_anomaly", False)
         anomaly_warning = ""
         if data_anomaly:
-            eps_check = candidate.get("data_validation", {}).get("eps_cross_check", {})
-            sec_eps = eps_check.get("sec_eps", "n/a")
-            deviation = eps_check.get("deviation_pct", 0)
-            eps_warning = f"⚠️ DATA ANOMALY: SEC EDGAR EPS={sec_eps} (Abweichung {deviation:.0%})"
             anomaly_warning = (
-                "⚠️ WICHTIG: Die EPS-Daten zeigen eine starke Inkonsistenz zwischen "
-                "yfinance und SEC EDGAR. Bewerte EPS-basierte Argumente mit erhöhter "
-                "Vorsicht und setze data_confidence auf 'low'."
+                "⚠️ DATA ANOMALY: EPS-Daten weichen >20% ab. "
+                "Red Team sollte Datenqualität als Argument 1 nennen. "
+                "data_confidence muss 'low' sein."
             )
-        # Makro-Kontext für Prompt
+
+        # Quick MC Daten
+        qmc         = candidate.get("quick_mc", {})
+        mc_hit_rate = qmc.get("hit_rate", 0.0)
+        mc_paths    = qmc.get("n_paths", 0)
+        mc_days     = qmc.get("n_days", 30)
+
+        if mc_hit_rate == 0:
+            mc_interpretation = "Kein Quick MC durchgeführt — keine Statistik verfügbar."
+        elif mc_hit_rate > 0.80:
+            mc_interpretation = "WARNUNG: >80% Hit-Rate ist ungewöhnlich hoch — Modell möglicherweise zu optimistisch."
+        elif mc_hit_rate > 0.60:
+            mc_interpretation = "Solide statistische Basis — realistisch für 2-6M Horizont."
+        else:
+            mc_interpretation = f"Nur {mc_hit_rate:.0%} — knapp über Minimum-Gate, erhöhte Vorsicht."
+
+        # News
+        news_text = "\n".join(f"- {h}" for h in news[:8]) if news else "Keine News."
+
+        # Makro
         macro_text = (
-            self._macro.get("claude_context", "")
-            if self._macro["data_available"]
-            else "Makro-Kontext: Nicht verfügbar (FRED offline)"
+            self._macro.get("claude_context", "Makro: nicht verfügbar")
+            if self._macro.get("data_available")
+            else "Makro-Kontext: FRED nicht erreichbar."
         )
+
         prompt = ANALYSIS_TEMPLATE.format(
-            macro_context = macro_text,
-            ticker = ticker,
-            current_price = current_price,
-            forward_eps = forward_eps,
-            eps_warning = eps_warning,
-            eps_drift = drift_val,
-            sector = sector,
-            move_48h = move_48h,
-            news_text = news_text,
+            macro_context    = macro_text,
+            ticker           = ticker,
+            current_price    = current_price,
+            sector           = sector,
+            forward_eps      = forward_eps,
+            sec_eps          = sec_eps,
+            eps_deviation    = eps_deviation,
+            move_48h         = move_48h,
+            mc_hit_rate      = mc_hit_rate,
+            mc_paths         = mc_paths,
+            mc_days          = mc_days,
+            mc_interpretation= mc_interpretation,
+            news_text        = news_text,
             data_anomaly_warning = anomaly_warning,
         )
+
         try:
             response = self.client.messages.create(
-                model = cfg.models.deep_analysis,
-                max_tokens = 1024,
-                system = SYSTEM_PROMPT,
-                messages = [{"role": "user", "content": prompt}],
+                model      = cfg.models.deep_analysis,
+                max_tokens = 1200,
+                system     = SYSTEM_PROMPT,
+                messages   = [{"role": "user", "content": prompt}],
             )
             raw = response.content[0].text.strip()
+
             # JSON extrahieren
             if "```" in raw:
                 parts = raw.split("```")
-                raw = parts[1] if len(parts) > 1 else raw
-                if raw.startswith("json"):
-                    raw = raw[4:].strip()
+                raw   = parts[1].lstrip("json").strip() if len(parts) > 1 else raw
             if not raw.startswith("{"):
                 idx = raw.find("{")
                 if idx != -1:
                     raw = raw[idx:]
+
             result = json.loads(raw)
-            # Makro-Regime in Ergebnis speichern
-            result["macro_regime"] = self._macro.get("macro_regime", "unknown")
+            result["macro_regime"]  = self._macro.get("macro_regime", "unknown")
             result["macro_context"] = {
                 "yield_curve": self._macro.get("yield_curve_spread"),
-                "regime": self._macro.get("macro_regime"),
+                "regime":      self._macro.get("macro_regime"),
             }
             return result
+
         except Exception as e:
-            log.error(f" [{ticker}] Deep Analysis Fehler: {e}")
+            log.error(f"  [{ticker}] Deep Analysis Fehler: {e}")
             return None
 
     def _get_48h_move(self, ticker: str) -> float:
         try:
-            hist = yf.Ticker(ticker).history(period="5d")
-            if len(hist) < 3:
-                return 0.0
+            hist  = yf.Ticker(ticker).history(period="5d")
             close = hist["Close"]
+            if len(close) < 3:
+                return 0.0
             return float((close.iloc[-1] - close.iloc[-3]) / close.iloc[-3])
         except Exception:
             return 0.0
