@@ -645,6 +645,20 @@
         "score": 0.045,
         "headline_count": 5
       }
+    ],
+    "CPB": [
+      {
+        "date": "2026-04-14",
+        "score": 0.3558,
+        "headline_count": 4
+      }
+    ],
+    "FSLR": [
+      {
+        "date": "2026-04-14",
+        "score": -0.3317,
+        "headline_count": 3
+      }
     ]
   }
 }
