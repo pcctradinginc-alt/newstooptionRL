@@ -28,6 +28,7 @@ from modules.prescreener         import Prescreener
 from modules.deep_analysis       import DeepAnalysis
 from modules.mismatch_scorer     import MismatchScorer
 from modules.mirofish_simulation import MirofishSimulation, compute_time_value_efficiency
+from modules.trade_scorer        import rank_proposals
 from modules.rl_agent            import RLScorer
 from modules.options_designer    import OptionsDesigner
 from modules.reporter            import Reporter
@@ -282,6 +283,17 @@ def main() -> None:
         p["time_value_efficiency"] = compute_time_value_efficiency(
             roi.get("roi_net", 0), dte
         )
+
+    # Trade-Score berechnen und ranken
+    if trade_proposals:
+        trade_proposals = rank_proposals(trade_proposals)
+        log.info(f"Trade-Ranking:")
+        for p in trade_proposals:
+            ts = p.get("trade_score", {})
+            log.info(
+                f"  #{p.get('trade_rank','-')} [{p['ticker']}] "
+                f"{ts.get('total',0)}/100 — {ts.get('grade','?')}"
+            )
 
     stats["roi_ok"] = len(trade_proposals)
     stats["trades"] = len(trade_proposals)
