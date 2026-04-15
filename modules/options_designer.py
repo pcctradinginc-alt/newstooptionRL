@@ -241,10 +241,16 @@ class OptionsDesigner:
         elif dte <= 135:
             iv_drop = 0.15 if iv_rank >= 70 else (0.07 if iv_rank >= 50 else 0.02)
         else:
-            # LEAPS: IV-Crush nach Event verpufft — weniger Einfluss
             iv_drop = 0.08 if iv_rank >= 70 else (0.03 if iv_rank >= 50 else 0.01)
 
-        vega_loss = max(vega * iv * iv_drop * leverage, 0.0)
+        # KORREKTE Vega-Loss Berechnung:
+        # vega_loss_dollar = vega ($/1pt IV) × delta_iv (absoluter IV-Rückgang)
+        # vega_loss_pct = vega_loss_dollar / ask (als % des Option-Preises)
+        # Cap bei 50%: verhindert Explosion bei sehr teuren Aktien (LLY=$800)
+        if ask > 0:
+            vega_loss = min((vega * iv * iv_drop) / ask, 0.50)
+        else:
+            vega_loss = 0.0
         roi_net   = roi_delta - (spread_pct * 2) - vega_loss
         passes    = roi_net >= min_roi
 
