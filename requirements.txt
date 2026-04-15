@@ -6,10 +6,12 @@ scikit-learn>=1.4.0
 scipy>=1.13.0
 requests>=2.31.0
 feedparser>=6.0.11
+# CPU-only torch: 200MB statt 2.5GB (GitHub Actions hat keine GPU)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.0.0
 stable-baselines3>=2.0.0
 gymnasium>=1.0.0
 transformers>=4.40.0
-torch>=2.0.0
 python-box>=7.0.0
 praw>=7.7.0
 lxml>=5.0.0
