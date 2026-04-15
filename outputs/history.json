@@ -952,6 +952,94 @@
         "dte": 22
       },
       "outcome": null
+    },
+    {
+      "ticker": "AMZN",
+      "entry_date": "2026-04-15",
+      "features": {
+        "impact": 6,
+        "surprise": 5,
+        "mismatch": 6.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.0209,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.97
+      },
+      "strategy": "BULL_CALL_SPREAD",
+      "option": {
+        "expiry": "2026-05-08",
+        "strike": 260.0,
+        "bid": 6.5,
+        "ask": 6.6,
+        "open_interest": 39153,
+        "implied_vol": 0.4401911450195312,
+        "spread_ratio": 0.0152,
+        "dte": 22,
+        "spread_leg": {
+          "strike": 285.0,
+          "bid": 1.5,
+          "ask": 1.66
+        },
+        "net_debit": 5.1
+      },
+      "simulation": {
+        "hit_rate": 0.97,
+        "stderr": 0.0017,
+        "n_paths": 10000,
+        "n_days": 120,
+        "days_to_expiry": 120,
+        "target_price": 273.35,
+        "current_price": 248.5,
+        "sigma_adj": 0.0209,
+        "sector": "Consumer Cyclical",
+        "ema200": {},
+        "macd": {
+          "macd": 8.1626,
+          "signal": 3.4128,
+          "histogram": 4.7498,
+          "momentum_score": 1.0,
+          "data_available": true
+        }
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Bewertungsstress: AMZN handelt bei ~$248 mit einem P/E von ~26x auf SEC-Basis (EPS $7.17 statt der m\u00f6glicherweise bereinigten $9.40). Bei 4.25% risikofreiem Zinssatz ist das Earnings-Yield von ~3.8% kaum attraktiv gegen\u00fcber Treasuries \u2014 klassische 'TINA ist tot'-Falle f\u00fcr Consumer Cyclicals.",
+          "argument_2": "Katalysator bereits eingepreist: AMZN ist seit Jahresbeginn bereits massiv outperformed, und die +3.6% der letzten 48h zeigen, dass DTCC-Deal und Globalstar-News teilweise schon in den Kurs geflossen sind. Der strukturelle AWS-Gewinn durch DTCC ist ein Multi-Jahr-Rollout 'bis Dekade-Ende' \u2014 kein kurzfristiger Earnings-Treiber f\u00fcr einen 2-6-Monats-Horizont.",
+          "argument_3": "Reputations- und Regulierungsrisiko: Der Arbeitsunfall-Vorfall in Oregon (Arbeiter stirbt auf Lagerhaus-Boden, Kollegen m\u00fcssen weitermachen) kann regulatorische Eskalation, NGO-Druck und politische Angriffe ausl\u00f6sen. Im aktuellen populistischen Klima ist AMZN ein politisches Ziel \u2014 Strafz\u00f6lle, Kartellrecht und Arbeitnehmerrechts-Gesetzgebung k\u00f6nnten als Katalysatoren f\u00fcr Underperformance dienen.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "0% Hit-Rate bedeutet kein MC durchgef\u00fchrt \u2014 keine statistische Validierung m\u00f6glich. Dies ist ein signifikantes Informationsloch. Gegeben AMZN's historischer 30-Tage-Volatilit\u00e4t (~25-30% annualisiert, ~7-9% auf 30 Tage) w\u00e4re eine realistische Bullish-Hit-Rate bei moderatem Upside-Target ca. 50-60%. Die fehlende MC-Analyse verhindert quantitative Positionsvalidierung.",
+          "concern_level": "medium"
+        },
+        "impact": 6,
+        "surprise": 5,
+        "direction": "BULLISH",
+        "bear_case_severity": 5,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der DTCC-AWS-Deal ist strukturell bedeutsam, da er Finanzmarkt-Infrastruktur in die Cloud verlagert und AWS als kritische Systeminfrastruktur zementiert \u2014 dies reduziert Churn-Risiko und erh\u00f6ht Switching Costs dauerhaft. F\u00fcnf Insider-K\u00e4ufe im Cluster-Muster innerhalb von 14 Tagen signalisieren, dass Informierte den aktuellen Kurs als unterbewertet einstufen. Der Markt reagiert zu kurzfristig auf den 'bis Dekade-Ende'-Horizont, \u00fcbersieht aber den sofortigen Reputationsgewinn f\u00fcr AWS im Enterprise-Segment.",
+        "catalyst": "DTCC-AWS Cloud-Migration Deal + Insider-Cluster-K\u00e4ufe + Q2/Q3 AWS Wachstumsbeschleunigung durch Enterprise-Vertragsabschl\u00fcsse",
+        "bear_case": "Hohe Bewertung bei flacher Zinskurve und 4.25% 10Y-Yield macht den Earnings-Yield unattraktiv; kurzfristige +3.6%-Bewegung hat Teile des News-Flows bereits eingepreist, und regulatorische/reputationale Risiken durch Arbeitsrechtsvorf\u00e4lle k\u00f6nnten politischen Gegenwind erzeugen.",
+        "macro_assessment": "Neutrales Makroumfeld (Kurve +50bp, Fed Funds 3.64%) ist kein aktiver Gegenwind f\u00fcr AMZN, aber auch kein R\u00fcckenwind. Die flache Kurve signalisiert \u00dcbergangsphase \u2014 kein Rezessionsrisiko, aber auch keine expansive Liquidit\u00e4tsflut. Consumer Cyclical-Sektor leidet bei hohen Realzinsen durch Konsumdruck. AWS als struktureller Cloud-Gewinner ist jedoch zinssensitivit\u00e4tsneutraler als der Retail-Arm, was das Signal partiell isoliert vom Makrorisiko.",
+        "data_confidence": "medium",
+        "macro_regime": "neutral",
+        "macro_context": {
+          "yield_curve": 0.5,
+          "regime": "neutral"
+        },
+        "direction_conflict": false
+      },
+      "tve": {
+        "roi_per_day": 0.042582,
+        "roi_per_day_pct": 4.2582,
+        "annualized_roi": 57941.5264,
+        "efficiency_label": "high",
+        "dte": 22
+      },
+      "outcome": null
     }
   ],
   "closed_trades": [],
@@ -1015,6 +1103,11 @@
       {
         "date": "2026-04-14",
         "score": 0.1508,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-15",
+        "score": -0.0536,
         "headline_count": 5
       }
     ],
@@ -1178,6 +1271,11 @@
       {
         "date": "2026-04-14",
         "score": 0.1076,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-15",
+        "score": 0.3916,
         "headline_count": 5
       }
     ],
@@ -1635,6 +1733,11 @@
     "BDX": [
       {
         "date": "2026-04-14",
+        "score": 0.0221,
+        "headline_count": 2
+      },
+      {
+        "date": "2026-04-15",
         "score": 0.0221,
         "headline_count": 2
       }
@@ -2104,6 +2207,125 @@
         "date": "2026-04-15",
         "score": 0.2294,
         "headline_count": 2
+      }
+    ],
+    "ARE": [
+      {
+        "date": "2026-04-15",
+        "score": 0.9096,
+        "headline_count": 1
+      }
+    ],
+    "APTV": [
+      {
+        "date": "2026-04-15",
+        "score": -0.0832,
+        "headline_count": 4
+      }
+    ],
+    "BALL": [
+      {
+        "date": "2026-04-15",
+        "score": -0.0156,
+        "headline_count": 3
+      }
+    ],
+    "BLDR": [
+      {
+        "date": "2026-04-15",
+        "score": -0.1793,
+        "headline_count": 4
+      }
+    ],
+    "BG": [
+      {
+        "date": "2026-04-15",
+        "score": 0.0892,
+        "headline_count": 5
+      }
+    ],
+    "SCHW": [
+      {
+        "date": "2026-04-15",
+        "score": 0.0957,
+        "headline_count": 5
+      }
+    ],
+    "CTAS": [
+      {
+        "date": "2026-04-15",
+        "score": -0.2456,
+        "headline_count": 4
+      }
+    ],
+    "CB": [
+      {
+        "date": "2026-04-15",
+        "score": -0.4237,
+        "headline_count": 5
+      }
+    ],
+    "CFG": [
+      {
+        "date": "2026-04-15",
+        "score": 0.4295,
+        "headline_count": 5
+      }
+    ],
+    "CMS": [
+      {
+        "date": "2026-04-15",
+        "score": 0.4467,
+        "headline_count": 5
+      }
+    ],
+    "KO": [
+      {
+        "date": "2026-04-15",
+        "score": -0.0,
+        "headline_count": 5
+      }
+    ],
+    "GLW": [
+      {
+        "date": "2026-04-15",
+        "score": -0.1239,
+        "headline_count": 5
+      }
+    ],
+    "COST": [
+      {
+        "date": "2026-04-15",
+        "score": 0.1148,
+        "headline_count": 5
+      }
+    ],
+    "DVA": [
+      {
+        "date": "2026-04-15",
+        "score": 0.1976,
+        "headline_count": 1
+      }
+    ],
+    "DLTR": [
+      {
+        "date": "2026-04-15",
+        "score": 0.1082,
+        "headline_count": 1
+      }
+    ],
+    "ETN": [
+      {
+        "date": "2026-04-15",
+        "score": 0.3838,
+        "headline_count": 5
+      }
+    ],
+    "EXR": [
+      {
+        "date": "2026-04-15",
+        "score": 0.2004,
+        "headline_count": 5
       }
     ]
   }
