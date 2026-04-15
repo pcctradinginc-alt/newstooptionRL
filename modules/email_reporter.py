@@ -132,7 +132,7 @@ def _build_status_email(stats: dict, today: str) -> str:
 
 def _build_trade_email(proposals: list[dict], today: str) -> str:
     cards = ""
-    for p in proposals:
+    for i, p in enumerate(proposals, 1):
         ticker   = p.get("ticker", "?")
         strategy = p.get("strategy", "?")
         score    = p.get("final_score", 0)
@@ -143,6 +143,23 @@ def _build_trade_email(proposals: list[dict], today: str) -> str:
         tve      = p.get("time_value_efficiency", {}) or {}
         red_team = da.get("red_team", {}) or {}
 
+        # Trade-Score
+        ts             = p.get("trade_score", {}) or {}
+        trade_rank     = p.get("trade_rank", i)
+        ts_total       = ts.get("total", 0)
+        ts_grade       = ts.get("grade", "–")
+        ts_comps       = ts.get("components", {}) or {}
+        sig_pts        = ts_comps.get("signal_quality", 0)
+        opt_pts        = ts_comps.get("options_quality", 0)
+        risk_pts_v     = ts_comps.get("risk_deductions", 0)
+        ctx_pts        = ts_comps.get("context_bonus", 0)
+        best_for_v     = (ts.get("best_argument_for", "") or "")[:100]
+        best_ag_v      = (ts.get("best_argument_against", "") or "")[:100]
+        rank_badge     = f"#{trade_rank} "
+        score_color    = "#16a34a" if ts_total >= 75 else ("#ca8a04" if ts_total >= 60 else ("#ea580c" if ts_total >= 45 else "#dc2626"))
+        trade_grade    = ts_grade.split(" ")[0] if ts_grade else "–"
+
+        # Option-Daten
         direction  = da.get("direction", "–")
         current    = sim.get("current_price", "–")
         target     = sim.get("target_price", "–")
@@ -165,38 +182,41 @@ def _build_trade_email(proposals: list[dict], today: str) -> str:
         impact     = da.get("impact", "–")
         surprise   = da.get("surprise", "–")
 
-        roi_color = "#16a34a" if (roi_net or 0) > 0.20 else (
-                    "#f59e0b" if (roi_net or 0) > 0.10 else "#dc2626")
+        roi_color = "#16a34a" if (roi_net or 0) > 0.15 else ("#ca8a04" if (roi_net or 0) > 0 else "#dc2626")
 
         cards += f"""
         <div style="border:1px solid #e2e8f0;border-radius:10px;
                     padding:20px;margin-bottom:24px;">
 
           <div style="display:flex;justify-content:space-between;
-                      align-items:center;margin-bottom:16px;">
+                      align-items:center;margin-bottom:12px;">
             <span style="font-size:22px;font-weight:bold;color:#0f172a;">
               {rank_badge}{ticker}
             </span>
             <span style="background:{score_color};color:#fff;padding:4px 14px;
-                         border-radius:20px;font-size:12px;">
-              {trade_grade} &nbsp;·&nbsp; {trade_score_total}/100
+                         border-radius:20px;font-size:13px;font-weight:600;">
+              {trade_grade} &nbsp;·&nbsp; {ts_total}/100
             </span>
           </div>
+
           <div style="background:#f8fafc;border-radius:6px;padding:10px 14px;
-                      margin-bottom:12px;font-size:12px;color:#334155;">
-            <b>Score-Aufschlüsselung:</b>
+                      margin-bottom:14px;font-size:12px;color:#334155;
+                      border-left:3px solid {score_color};">
+            <b>Score:</b>
             Signal {sig_pts:.0f}/40 &nbsp;|&nbsp;
             Optionen {opt_pts:.0f}/30 &nbsp;|&nbsp;
             Risiko {risk_pts_v:.0f} &nbsp;|&nbsp;
             Kontext {ctx_pts:.0f}/30<br>
-            <b style="color:#16a34a;">✅ Stärkstes Argument:</b> {best_for_v}<br>
-            <b style="color:#dc2626;">⚠️ Hauptrisiko:</b> {best_ag_v}
+            <span style="color:#16a34a;font-weight:600;">✅ Für:</span> {best_for_v}<br>
+            <span style="color:#dc2626;font-weight:600;">⚠️ Gegen:</span> {best_ag_v}
           </div>
 
           <div style="display:grid;grid-template-columns:1fr 1fr;
                       gap:10px;font-size:13px;margin-bottom:14px;">
+            <div><b>Strategie:</b> {strategy}</div>
+            <div><b>Laufzeit:</b> {dte_tier}</div>
             <div><b>Richtung:</b> {direction}</div>
-            <div><b>Laufzeit-Tier:</b> {dte_tier}</div>
+            <div><b>IV-Rank:</b> {iv_rank}%</div>
             <div><b>Preis:</b> ${current}</div>
             <div><b>Ziel:</b> ${target}</div>
             <div><b>Hit-Rate:</b> {hit_rate:.1%} ({mc_n} Pfade)</div>
@@ -204,11 +224,9 @@ def _build_trade_email(proposals: list[dict], today: str) -> str:
             <div><b>Strike:</b> ${strike}</div>
             <div><b>Expiry:</b> {expiry} ({dte}d)</div>
             <div><b>Bid / Ask:</b> ${bid} / ${ask}</div>
-            <div><b>IV-Rank:</b> {iv_rank}%</div>
-            {f'<div><b>ROI netto:</b> <span style="color:{roi_color}">{roi_net:.1%}</span></div>' if roi_net is not None else ''}
+            {f'<div><b>ROI netto:</b> <span style="color:{roi_color};font-weight:600;">{roi_net:.1%}</span></div>' if roi_net is not None else ''}
             {f'<div><b>Vega-Loss:</b> {vega_loss:.1%}</div>' if vega_loss is not None else ''}
             {f'<div><b>ROI/Tag:</b> {roi_day:.3f}%</div>' if roi_day is not None else ''}
-            {f'<div><b>Ann. ROI:</b> {ann_roi:.0%}</div>' if ann_roi is not None and abs(ann_roi) < 50 else ''}
           </div>
 
           <div style="background:#f8fafc;border-radius:6px;
@@ -217,34 +235,6 @@ def _build_trade_email(proposals: list[dict], today: str) -> str:
             <b>🌍 Makro:</b> {macro}
           </div>
         </div>"""
-
-    return f"""<!DOCTYPE html><html><body style="font-family:Arial,sans-serif;
-  background:#f8fafc;margin:0;padding:0;">
-<div style="max-width:620px;margin:30px auto;background:#fff;
-  border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.1);overflow:hidden;">
-
-  <div style="background:#16a34a;padding:28px 32px;">
-    <div style="font-size:28px;margin-bottom:6px;">🎯</div>
-    <div style="color:#fff;font-size:22px;font-weight:bold;">
-      Adaptive Asymmetry-Scanner
-    </div>
-    <div style="color:rgba(255,255,255,0.85);font-size:16px;margin-top:4px;">
-      Trade Empfehlung — {len(proposals)} Signal(e)
-    </div>
-    <div style="color:rgba(255,255,255,0.6);font-size:13px;margin-top:6px;">
-      {today} &nbsp;·&nbsp; v8.0
-    </div>
-  </div>
-
-  <div style="padding:24px 32px;">{cards}</div>
-
-  <div style="padding:14px 32px;background:#f8fafc;
-              border-top:1px solid #e2e8f0;
-              font-size:11px;color:#94a3b8;text-align:center;">
-    Kein Finanzberatung. Algorithmisch generiert. &nbsp;·&nbsp;
-    Adaptive Asymmetry-Scanner v8.0
-  </div>
-</div></body></html>"""
 
 
 def _send_smtp(subject: str, html: str) -> None:
