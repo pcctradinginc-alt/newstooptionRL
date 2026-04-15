@@ -1,4 +1,703 @@
 {
   "date": "2026-04-15",
-  "proposals": []
+  "proposals": [
+    {
+      "ticker": "ABT",
+      "strategy": "BULL_CALL_SPREAD",
+      "iv_rank": 100.0,
+      "iv_gate_applied": true,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-08-21",
+        "strike": 115.0,
+        "bid": 2.25,
+        "ask": 2.3,
+        "open_interest": 980,
+        "implied_vol": 0.27899890930175775,
+        "spread_ratio": 0.0217,
+        "dte": 127,
+        "spread_leg": {
+          "strike": 125.0,
+          "bid": 0.75,
+          "ask": 0.8
+        },
+        "net_debit": 1.55
+      },
+      "roi_analysis": {
+        "roi_gross": 1.0885,
+        "roi_net": 0.7016,
+        "spread_pct": 0.0217,
+        "vega_loss": 0.3435,
+        "delta": 0.2469,
+        "iv_drop_assumed": 0.15,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.12,
+        "dte": 127
+      },
+      "dte_tier": "Mid-Term",
+      "annualized_roi": 3.6077,
+      "all_tiers_tried": [
+        {
+          "tier": "Mid-Term",
+          "dte": 127,
+          "option": {
+            "expiry": "2026-08-21",
+            "strike": 115.0,
+            "bid": 2.25,
+            "ask": 2.3,
+            "open_interest": 980,
+            "implied_vol": 0.27899890930175775,
+            "spread_ratio": 0.0217,
+            "dte": 127,
+            "spread_leg": {
+              "strike": 125.0,
+              "bid": 0.75,
+              "ask": 0.8
+            },
+            "net_debit": 1.55
+          },
+          "roi": {
+            "roi_gross": 1.0885,
+            "roi_net": 0.7016,
+            "spread_pct": 0.0217,
+            "vega_loss": 0.3435,
+            "delta": 0.2469,
+            "iv_drop_assumed": 0.15,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.12,
+            "dte": 127
+          },
+          "annualized_roi": 3.6077,
+          "strategy": "BULL_CALL_SPREAD"
+        }
+      ],
+      "features": {
+        "impact": 6,
+        "surprise": 5,
+        "mismatch": 6.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.0122,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.97
+      },
+      "simulation": {
+        "hit_rate": 0.97,
+        "stderr": 0.0017,
+        "n_paths": 10000,
+        "n_days": 120,
+        "days_to_expiry": 120,
+        "target_price": 111.51,
+        "current_price": 101.37,
+        "sigma_adj": 0.0109,
+        "sector": "Healthcare",
+        "ema200": {},
+        "macd": {
+          "macd": -2.3205,
+          "signal": -2.4092,
+          "histogram": 0.0887,
+          "momentum_score": 0.3513,
+          "data_available": true
+        }
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Die Exact Sciences Akquisition ist ein massiver Deal, der erhebliche Integrationsrisiken, Goodwill-Belastungen und m\u00f6gliche Verw\u00e4sserung mit sich bringt. Strategische M&A-Transaktionen dieser Gr\u00f6\u00dfenordnung f\u00fchren h\u00e4ufig zu kurzfristigen Kursdr\u00fccken, da der Markt Integrationskomplexit\u00e4t und Kapitalbedarf negativ einpreist. Der Haiku nennt dies 'strukturell ver\u00e4ndert', was auch negativ interpretiert werden kann.",
+          "argument_2": "EPS-Abweichung zwischen yfinance (6.11) und SEC EDGAR (3.73) betr\u00e4gt faktisch ~38% \u2013 die angegebenen 0.3% sind offensichtlich falsch. Diese massive Diskrepanz deutet auf accounting adjustments, Non-GAAP vs. GAAP Unterschiede oder Datenfehler hin. Bei einem GAAP-EPS von 3.73 bei einem Kurs von $101.48 ergibt sich ein KGV von ~27x, was f\u00fcr ein defensives Healthcare-Unternehmen in einem \u00dcbergangsumfeld sportlich ist.",
+          "argument_3": "Jim Cramers explizite Skepsis ('Give us a couple of reasons on the call') signalisiert, dass der Markt vor dem Q1 Earnings Call erh\u00f6hte Beweislast fordert. Der Kurs hat sich nur +0.7% in 48h bewegt trotz positiver Nachrichten (Insider-K\u00e4ufe, Cramer-Coverage) \u2013 das deutet auf schwaches Momentum und fehlende institutionelle \u00dcberzeugung hin.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Kein Monte Carlo durchgef\u00fchrt (0 Pfade). Ohne statistische Basis ist jede Hit-Rate-Aussage unm\u00f6glich. Bei einem Healthcare Blue-Chip mit ~20-25% impliziter Volatilit\u00e4t w\u00e4re eine realistische 30d-Trefferquote f\u00fcr einen gerichteten Trade bei 50-65%. Die fehlenden Daten erh\u00f6hen die Unsicherheit erheblich \u2013 Bewertung muss rein fundamental erfolgen.",
+          "concern_level": "high"
+        },
+        "impact": 6,
+        "surprise": 5,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt scheint die Kombination aus Insider-Cluster-K\u00e4ufen (US$3.1M in 14 Tagen) und strategischer Portfolio-Neuausrichtung durch Exact Sciences noch nicht vollst\u00e4ndig bepreist zu haben, da Integrationsrisiken die unmittelbare Reaktion d\u00e4mpfen. Q1 Earnings Call ist der n\u00e4chste Katalysator, der Klarheit \u00fcber Synergiepotenziale und Guidance bringen kann. Das 'Oversold Blue Chip'-Narrativ deutet auf technische Unterperformance relativ zu Fundamentals hin, die sich mittelfristig normalisieren k\u00f6nnte.",
+        "catalyst": "Q1 Earnings Call mit konkreten Aussagen zur Exact Sciences Integration, Synergieerwartungen und Guidance-Best\u00e4tigung",
+        "bear_case": "Massive EPS-Diskrepanz (GAAP ~3.73 vs. Non-GAAP ~6.11) bedeutet das echte KGV ist ~27x \u2013 bei Integrationskosten aus der Akquisition k\u00f6nnte Guidance gesenkt werden, was bei einem bereits 'zu beweisenden' Kurs erheblichen Drawdown ausl\u00f6st.",
+        "macro_assessment": "Neutrales Makro-Umfeld (flache Kurve, Fed bei 3.64%) ist f\u00fcr defensive Healthcare-Werte wie ABT tendenziell supportiv, da Anleger bei Unsicherheit in Quality-Defensives rotieren. Kein signifikanter Gegenwind, aber auch kein starker R\u00fcckenwind \u2013 der Trade steht und f\u00e4llt mit dem unternehmenseigenen Katalysator.",
+        "data_confidence": "low",
+        "macro_regime": "neutral",
+        "macro_context": {
+          "yield_curve": 0.5,
+          "regime": "neutral"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLV",
+        "rel_strength": -0.0576
+      },
+      "final_score": 0.48,
+      "time_value_efficiency": {
+        "roi_per_day": 0.005524,
+        "roi_per_day_pct": 0.5524,
+        "annualized_roi": 3.6077,
+        "efficiency_label": "high",
+        "dte": 127
+      }
+    },
+    {
+      "ticker": "META",
+      "strategy": "BULL_CALL_SPREAD",
+      "iv_rank": 100.0,
+      "iv_gate_applied": true,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-05-08",
+        "strike": 750.0,
+        "bid": 7.15,
+        "ask": 7.4,
+        "open_interest": 788,
+        "implied_vol": 0.4421137332153321,
+        "spread_ratio": 0.0338,
+        "dte": 22,
+        "spread_leg": {
+          "strike": 825.0,
+          "bid": 1.61,
+          "ask": 1.72
+        },
+        "net_debit": 5.79
+      },
+      "roi_analysis": {
+        "roi_gross": 1.5945,
+        "roi_net": 1.0269,
+        "spread_pct": 0.0338,
+        "vega_loss": 0.5,
+        "delta": 0.1751,
+        "iv_drop_assumed": 0.25,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.15,
+        "dte": 22
+      },
+      "dte_tier": "Short-Term",
+      "annualized_roi": 123203.6706,
+      "all_tiers_tried": [
+        {
+          "tier": "Short-Term",
+          "dte": 22,
+          "option": {
+            "expiry": "2026-05-08",
+            "strike": 750.0,
+            "bid": 7.15,
+            "ask": 7.4,
+            "open_interest": 788,
+            "implied_vol": 0.4421137332153321,
+            "spread_ratio": 0.0338,
+            "dte": 22,
+            "spread_leg": {
+              "strike": 825.0,
+              "bid": 1.61,
+              "ask": 1.72
+            },
+            "net_debit": 5.79
+          },
+          "roi": {
+            "roi_gross": 1.5945,
+            "roi_net": 1.0269,
+            "spread_pct": 0.0338,
+            "vega_loss": 0.5,
+            "delta": 0.1751,
+            "iv_drop_assumed": 0.25,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.15,
+            "dte": 22
+          },
+          "annualized_roi": 123203.6706,
+          "strategy": "BULL_CALL_SPREAD"
+        }
+      ],
+      "features": {
+        "impact": 6,
+        "surprise": 5,
+        "mismatch": 6.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.0275,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.97
+      },
+      "simulation": {
+        "hit_rate": 0.97,
+        "stderr": 0.0017,
+        "n_paths": 10000,
+        "n_days": 120,
+        "days_to_expiry": 120,
+        "target_price": 741.08,
+        "current_price": 673.71,
+        "sigma_adj": 0.033,
+        "sector": "Communication Services",
+        "ema200": {},
+        "macd": {
+          "macd": 6.023,
+          "signal": -7.3448,
+          "histogram": 13.3678,
+          "momentum_score": 1.0,
+          "data_available": true
+        }
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Preis bereits +6.1% in 48h gestiegen \u2014 der Broadcom-Deal und Insider-K\u00e4ufe sind weitgehend eingepreist. Bei $673 Marktkapitalisierung von ~1.7 Billionen USD fehlt der Hebel f\u00fcr weiteren kurzfristigen Anstieg; der Katalysator ist verbrannt.",
+          "argument_2": "EPS-Abweichung zwischen yfinance ($35.62) und SEC EDGAR ($23.48) ist mit faktisch ~52% Diskrepanz massiv \u2014 nicht 0.2% wie angegeben. Das deutet auf unterschiedliche Berechnungsbasen (TTM vs. GAAP) hin und macht die Fundamentalbewertung unsicher. KGV auf SEC-Basis liegt bei ~28.7, was bei flacher Kurve ambitioniert ist.",
+          "argument_3": "Der Broadcom-Deal ist strukturell positiv, aber AI-Infrastruktur-Investitionen dr\u00fccken kurzfristig auf die Margen (Capex-Zyklus). META hat bereits signifikant in Reality Labs und AI investiert \u2014 der Markt k\u00f6nnte die CapEx-Eskalation als Belastung f\u00fcr FCF in 2-3 Quartalen einpreisen, besonders bei stabilen aber nicht fallenden Zinsen.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "0% Hit-Rate bedeutet kein MC wurde durchgef\u00fchrt, nicht dass die Wahrscheinlichkeit null ist. Ohne MC-Daten fehlt eine statistische Basis f\u00fcr die Zielbewertung. Bei historischer 30d-Volatilit\u00e4t von META (~30-35% annualisiert) w\u00e4re eine Hit-Rate von 55-65% f\u00fcr einen moderaten Upside-Move realistisch. Die fehlende Simulation erh\u00f6ht die Unsicherheit der Einsch\u00e4tzung.",
+          "concern_level": "medium"
+        },
+        "impact": 6,
+        "surprise": 5,
+        "direction": "BULLISH",
+        "bear_case_severity": 5,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Broadcom-Chip-Deal signalisiert langfristige AI-Infrastruktur-Unabh\u00e4ngigkeit, die der Markt erst in zuk\u00fcnftigen Margin-Verbesserungen vollst\u00e4ndig einpreisen wird. Insider-Cluster-K\u00e4ufe von 4 Personen innerhalb 14 Tagen suggerieren Insider-\u00dcberzeugung jenseits der unmittelbaren News-Reaktion. Die 48h-Reaktion (+6.1%) adressiert die Oberfl\u00e4che des Deals, untersch\u00e4tzt aber die strategische Bedeutung f\u00fcr METAs AI-Cost-Struktur in 2026.",
+        "catalyst": "Multi-Jahres AI-Chip-Partnerschaft mit Broadcom zur Reduktion von NVIDIA-Abh\u00e4ngigkeit + Insider-Cluster-K\u00e4ufe als Konfidenz-Signal vor Q2-Earnings",
+        "bear_case": "Kurzfristiger Katalysator bereits vollst\u00e4ndig eingepreist nach +6.1% Move; CapEx-Eskalation durch AI-Infrastruktur belastet FCF in den n\u00e4chsten 2 Quartalen und k\u00f6nnte den Markt entt\u00e4uschen.",
+        "macro_assessment": "Neutrales Makro-Umfeld mit flacher Zinskurve (0.50%) und Fed Funds bei 3.64% liefert keinen signifikanten R\u00fccken- oder Gegenwind. F\u00fcr ein Large-Cap-Qualit\u00e4tsunternehmen mit strukturellem AI-Wachstum ist dies ein akzeptables Umfeld. Kein Rezessions-Veto erforderlich, aber die Bewertung bleibt anspruchsvoll bei ~$673.",
+        "data_confidence": "medium",
+        "macro_regime": "neutral",
+        "macro_context": {
+          "yield_curve": 0.5,
+          "regime": "neutral"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLC",
+        "rel_strength": 0.0188
+      },
+      "final_score": 0.48,
+      "time_value_efficiency": {
+        "roi_per_day": 0.046677,
+        "roi_per_day_pct": 4.6677,
+        "annualized_roi": 123203.6706,
+        "efficiency_label": "high",
+        "dte": 22
+      }
+    },
+    {
+      "ticker": "CDNS",
+      "strategy": "BULL_CALL_SPREAD",
+      "iv_rank": 100.0,
+      "iv_gate_applied": true,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-09-18",
+        "strike": 310.0,
+        "bid": 35.4,
+        "ask": 37.7,
+        "open_interest": 1664,
+        "implied_vol": 0.4931691308593751,
+        "spread_ratio": 0.061,
+        "dte": 155,
+        "spread_leg": {
+          "strike": 340.0,
+          "bid": 22.3,
+          "ask": 25.3
+        },
+        "net_debit": 15.4
+      },
+      "roi_analysis": {
+        "roi_gross": 0.4455,
+        "roi_net": 0.2408,
+        "spread_pct": 0.061,
+        "vega_loss": 0.0827,
+        "delta": 0.5486,
+        "iv_drop_assumed": 0.08,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.1,
+        "dte": 155
+      },
+      "dte_tier": "Long-Term",
+      "annualized_roi": 0.6621,
+      "all_tiers_tried": [
+        {
+          "tier": "Long-Term",
+          "dte": 155,
+          "option": {
+            "expiry": "2026-09-18",
+            "strike": 310.0,
+            "bid": 35.4,
+            "ask": 37.7,
+            "open_interest": 1664,
+            "implied_vol": 0.4931691308593751,
+            "spread_ratio": 0.061,
+            "dte": 155,
+            "spread_leg": {
+              "strike": 340.0,
+              "bid": 22.3,
+              "ask": 25.3
+            },
+            "net_debit": 15.4
+          },
+          "roi": {
+            "roi_gross": 0.4455,
+            "roi_net": 0.2408,
+            "spread_pct": 0.061,
+            "vega_loss": 0.0827,
+            "delta": 0.5486,
+            "iv_drop_assumed": 0.08,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.1,
+            "dte": 155
+          },
+          "annualized_roi": 0.6621,
+          "strategy": "BULL_CALL_SPREAD"
+        }
+      ],
+      "features": {
+        "impact": 6,
+        "surprise": 5,
+        "mismatch": 6.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.0248,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.97
+      },
+      "simulation": {
+        "hit_rate": 0.97,
+        "stderr": 0.0017,
+        "n_paths": 10000,
+        "n_days": 120,
+        "days_to_expiry": 120,
+        "target_price": 336.79,
+        "current_price": 306.17,
+        "sigma_adj": 0.0322,
+        "sector": "Technology",
+        "ema200": {},
+        "macd": {
+          "macd": -0.3606,
+          "signal": -3.1853,
+          "histogram": 2.8247,
+          "momentum_score": 1.0,
+          "data_available": true
+        }
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Katalysator bereits eingepreist: +6.4% in 48h nach den Ank\u00fcndigungen bedeutet, dass der Markt das NVIDIA- und Google-Partnerschaftssignal bereits stark eingepreist hat. CDNS handelt bei ~32x Sales und ~65x Forward EPS \u2014 eine Pr\u00e4mie, die wenig Fehlertoleranz l\u00e4sst.",
+          "argument_2": "EPS-Diskrepanz als Datenqualit\u00e4ts-Warnung: yfinance EPS 9.44 vs. SEC EDGAR EPS 4.06 \u2014 eine Abweichung von \u00fcber 100% deutet auf unterschiedliche Berechnungsbasen hin (GAAP vs. Non-GAAP). Das signalisiert, dass die 'echten' fundamentalen Zahlen deutlich schw\u00e4cher sind als die kommunizierten, was die Bewertung bei einer Neubewertung riskant macht.",
+          "argument_3": "Partnership-Announcements ohne kurzfristigen Revenue-Impact: Cadence/NVIDIA-Kooperationen im AI-Bereich sind strategisch langfristig relevant, aber EDA-Software-Zyklen sind lang. Robotics-AI und ChipStack-AI sind fr\u00fche Stadien ohne materialisierbaren Earnings-Beitrag in 2-6 Monaten \u2014 das Risiko eines 'Show Me'-Moments auf dem n\u00e4chsten Earnings Call ist real.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Kein Quick MC durchgef\u00fchrt (0 Pfade). Bei CDNS historischer 30d-Volatilit\u00e4t von ca. 25-30% annualisiert w\u00e4re eine Hit-Rate von 0% schlicht ein technisches Daten-Fehler-Signal, nicht aussagekr\u00e4ftig. Die fehlende MC-Statistik erh\u00f6ht Unsicherheit, reduziert aber nicht automatisch die Signalqualit\u00e4t der fundamentalen Katalysatoren.",
+          "concern_level": "medium"
+        },
+        "impact": 6,
+        "surprise": 5,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Trotz +6.4% Move ist die strukturelle Verschiebung \u2014 Cadence als AI-nativer EDA-Player mit Google Cloud und NVIDIA als Plattformpartner \u2014 noch nicht vollst\u00e4ndig in der Neubewertung angekommen. 8 Insider-K\u00e4ufe im 14-Tage-Cluster sind ein starkes Signal mit historisch positiver Forward-Performance. Der Markt behandelt dies noch als Partnerschafts-PR statt als Gesch\u00e4ftsmodell-Transformation, die Q2/Q3-Guidance-Erh\u00f6hungen begr\u00fcnden k\u00f6nnte.",
+        "catalyst": "CadenceLIVE Silicon Valley 2026 Ank\u00fcndigungen: ChipStack AI Super Agent auf Google Cloud + NVIDIA-Erweiterung auf AI-Robotics \u2014 kombiniert mit Cluster-Insider-K\u00e4ufen als Vertrauenssignal f\u00fcr bevorstehende positive Guidance",
+        "bear_case": "Nach +6.4% ist das unmittelbare Risiko-Ertrags-Verh\u00e4ltnis f\u00fcr neue Positionen ung\u00fcnstig. GAAP EPS von 4.06 impliziert ein KGV von ~75x \u2014 bei jeder Entt\u00e4uschung auf dem n\u00e4chsten Earnings Call (typischerweise Juli) droht ein IV-Crush und Bewertungskompression zur\u00fcck zur Peer-Gruppe.",
+        "macro_assessment": "Neutrale Makrolage (flache Kurve 0.5%, Fed Funds 3.64%) ist kein aktiver Gegenwind f\u00fcr ein High-Quality-Tech-Unternehmen wie CDNS. Die Zinsnormalisierung beg\u00fcnstigt selektiv profitable Tech mit AI-Exposure. Kein makro\u00f6konomisches Veto gegen die BULLISH-These, aber auch kein struktureller R\u00fcckenwind \u2014 die Story muss sich durch Earnings beweisen.",
+        "data_confidence": "medium",
+        "macro_regime": "neutral",
+        "macro_context": {
+          "yield_curve": 0.5,
+          "regime": "neutral"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLK",
+        "rel_strength": -0.0359
+      },
+      "final_score": 0.48,
+      "time_value_efficiency": {
+        "roi_per_day": 0.001554,
+        "roi_per_day_pct": 0.1554,
+        "annualized_roi": 0.6621,
+        "efficiency_label": "low",
+        "dte": 155
+      }
+    },
+    {
+      "ticker": "AVGO",
+      "strategy": "BULL_CALL_SPREAD",
+      "iv_rank": 100.0,
+      "iv_gate_applied": true,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-05-08",
+        "strike": 390.0,
+        "bid": 20.2,
+        "ask": 20.9,
+        "open_interest": 845,
+        "implied_vol": 0.46271289245605474,
+        "spread_ratio": 0.0335,
+        "dte": 22,
+        "spread_leg": {
+          "strike": 430.0,
+          "bid": 5.15,
+          "ask": 5.85
+        },
+        "net_debit": 15.75
+      },
+      "roi_analysis": {
+        "roi_gross": 1.0635,
+        "roi_net": 0.7854,
+        "spread_pct": 0.0335,
+        "vega_loss": 0.2112,
+        "delta": 0.5633,
+        "iv_drop_assumed": 0.25,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.15,
+        "dte": 22
+      },
+      "dte_tier": "Short-Term",
+      "annualized_roi": 15013.8605,
+      "all_tiers_tried": [
+        {
+          "tier": "Short-Term",
+          "dte": 22,
+          "option": {
+            "expiry": "2026-05-08",
+            "strike": 390.0,
+            "bid": 20.2,
+            "ask": 20.9,
+            "open_interest": 845,
+            "implied_vol": 0.46271289245605474,
+            "spread_ratio": 0.0335,
+            "dte": 22,
+            "spread_leg": {
+              "strike": 430.0,
+              "bid": 5.15,
+              "ask": 5.85
+            },
+            "net_debit": 15.75
+          },
+          "roi": {
+            "roi_gross": 1.0635,
+            "roi_net": 0.7854,
+            "spread_pct": 0.0335,
+            "vega_loss": 0.2112,
+            "delta": 0.5633,
+            "iv_drop_assumed": 0.25,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.15,
+            "dte": 22
+          },
+          "annualized_roi": 15013.8605,
+          "strategy": "BULL_CALL_SPREAD"
+        }
+      ],
+      "features": {
+        "impact": 6,
+        "surprise": 4,
+        "mismatch": 6.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.0278,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.97
+      },
+      "simulation": {
+        "hit_rate": 0.97,
+        "stderr": 0.0017,
+        "n_paths": 10000,
+        "n_days": 120,
+        "days_to_expiry": 120,
+        "target_price": 434.03,
+        "current_price": 394.57,
+        "sigma_adj": 0.0361,
+        "sector": "Technology",
+        "ema200": {},
+        "macd": {
+          "macd": 14.6955,
+          "signal": 5.6457,
+          "histogram": 9.0498,
+          "momentum_score": 1.0,
+          "data_available": true
+        }
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Katalysator bereits eingepreist: Die +3.9% Bewegung in 48h und die Haiku-Meldung \u00fcber den Meta-Deal suggerieren, dass der Markt diese Information bereits absorbiert hat. Multi-Year-Deals mit Meta sind nicht neu f\u00fcr AVGO \u2013 das Unternehmen hat seit Jahren enge Kundenbeziehungen zu Hyperscalern. Der marginale Informationsgehalt f\u00fcr mittelfristige Kursphantasie ist begrenzt.",
+          "argument_2": "EPS-Diskrepanz als Warnsignal: Die massive Differenz zwischen yfinance EPS (17.99) und SEC EDGAR EPS (5.13) \u2013 trotz angeblich nur 0.2% Abweichung, was rechnerisch nicht stimmt \u2013 deutet auf erhebliche Datenunsicherheit hin. Entweder handelt es sich um adjusted vs. GAAP, oder die Datenbasis ist fehlerhaft. Bei P/E-Bewertungen auf Basis falscher EPS-Zahlen k\u00f6nnten Options-Strategien auf falschen Fundamentaldaten beruhen.",
+          "argument_3": "Bewertungsniveau und AI-Hype-Risiko: AVGO bei ~$395 handelt auf einem sehr hohen Bewertungsmultiple. Wenn AI-Investitionszyklen sich verlangsamen oder Hyperscaler-CapEx-Guidance entt\u00e4uscht (historisch h\u00e4ufig nach gro\u00dfen Ank\u00fcndigungen), kann die Aktie schnell 20-30% korrigieren. Insider-K\u00e4ufe bei 7 Personen k\u00f6nnen auch als Pflicht\u00fcbung nach Aktienprogramm-Grants interpretiert werden, nicht als echtes bullishes Conviction-Signal.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Kein MC durchgef\u00fchrt \u2013 0% Hit-Rate bedeutet Datenmangel, nicht Nullwahrscheinlichkeit. Bei AVGOs historischer 30d-Volatilit\u00e4t von ~35-45% annualisiert w\u00e4re eine realistische Hit-Rate f\u00fcr einen moderaten Bullish-Move (5-10%) bei 30d im Bereich 45-60%. Die fehlende MC-Simulation ist ein methodisches Gap, erh\u00f6ht Unsicherheit aber vetot den Trade nicht.",
+          "concern_level": "medium"
+        },
+        "impact": 6,
+        "surprise": 4,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt reagiert m\u00f6glicherweise nicht vollst\u00e4ndig auf die strukturelle Natur eines Multi-Year-Deals mit Meta, der Revenuepredictability und Kapazit\u00e4tsauslastung f\u00fcr mehrere Quartale sichert. Zus\u00e4tzlich kann das Cluster-Signal von 7 Insider-K\u00e4ufen auf Wissen \u00fcber bevorstehende starke Quartalszahlen hindeuten, das noch nicht im Kurs reflektiert ist. Allerdings ist der Informationsvorteil bei einem bereits +3.9% gestiegenen Kurs begrenzt.",
+        "catalyst": "Meta-Broadcom Multi-Year AI Chip Deal + Earnings Release (n\u00e4chste Quartalsberichte mit erh\u00f6hter Revenue-Visibility durch Hyperscaler-Vertr\u00e4ge)",
+        "bear_case": "Der Kurs hat die News bereits mit +3.9% eingepreist; bei Entt\u00e4uschung \u00fcber Marge oder Guidance beim n\u00e4chsten Earnings droht IV-Crush und Trendumkehr in einem von hohen Erwartungen gepr\u00e4gten AI-Sektor.",
+        "macro_assessment": "Neutrales Makroumfeld (flache Kurve, Fed bei 3.64%) ist weder Gegen- noch R\u00fcckenwind. Technology-Sektor profitiert von stabilen bis leicht sinkenden Zinsen; das Umfeld unterst\u00fctzt Capex-Investitionen bei Hyperscalern. Kein struktureller Makro-Veto, aber auch kein starker Tail-Wind. Impact-Score bleibt moderat.",
+        "data_confidence": "low",
+        "macro_regime": "neutral",
+        "macro_context": {
+          "yield_curve": 0.5,
+          "regime": "neutral"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLK",
+        "rel_strength": 0.1395
+      },
+      "final_score": 0.48,
+      "time_value_efficiency": {
+        "roi_per_day": 0.0357,
+        "roi_per_day_pct": 3.57,
+        "annualized_roi": 15013.8605,
+        "efficiency_label": "high",
+        "dte": 22
+      }
+    },
+    {
+      "ticker": "FISV",
+      "strategy": "LONG_CALL",
+      "iv_rank": 51.61,
+      "iv_gate_applied": false,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-05-08",
+        "strike": 60.0,
+        "bid": 4.9,
+        "ask": 5.1,
+        "open_interest": 187,
+        "implied_vol": 0.6796907031250001,
+        "spread_ratio": 0.0392,
+        "dte": 22
+      },
+      "roi_analysis": {
+        "roi_gross": 0.7108,
+        "roi_net": 0.5385,
+        "spread_pct": 0.0392,
+        "vega_loss": 0.0938,
+        "delta": 0.5904,
+        "iv_drop_assumed": 0.12,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.15,
+        "dte": 22
+      },
+      "dte_tier": "Short-Term",
+      "annualized_roi": 1269.9183,
+      "all_tiers_tried": [
+        {
+          "tier": "Short-Term",
+          "dte": 22,
+          "option": {
+            "expiry": "2026-05-08",
+            "strike": 60.0,
+            "bid": 4.9,
+            "ask": 5.1,
+            "open_interest": 187,
+            "implied_vol": 0.6796907031250001,
+            "spread_ratio": 0.0392,
+            "dte": 22
+          },
+          "roi": {
+            "roi_gross": 0.7108,
+            "roi_net": 0.5385,
+            "spread_pct": 0.0392,
+            "vega_loss": 0.0938,
+            "delta": 0.5904,
+            "iv_drop_assumed": 0.12,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.15,
+            "dte": 22
+          },
+          "annualized_roi": 1269.9183,
+          "strategy": "LONG_CALL"
+        }
+      ],
+      "features": {
+        "impact": 5,
+        "surprise": 6,
+        "mismatch": 5.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.0198,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.97
+      },
+      "simulation": {
+        "hit_rate": 0.97,
+        "stderr": 0.0017,
+        "n_paths": 10000,
+        "n_days": 120,
+        "days_to_expiry": 120,
+        "target_price": 67.61,
+        "current_price": 61.47,
+        "sigma_adj": 0.0198,
+        "sector": "default",
+        "ema200": {},
+        "macd": {
+          "macd": -0.1433,
+          "signal": -0.9054,
+          "histogram": 0.7621,
+          "momentum_score": 1.0,
+          "data_available": true
+        }
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Avalara-Akquisition ist bereits bekannt und im Kurs eingepreist: Der +4.8% Move in 48h deutet darauf hin, dass der Markt das M&A-Event bereits verarbeitet hat. Klassischer 'Buy the rumor, sell the news'-Effekt bei Fintech-Akquisitionen, die oft Integrations-Komplexit\u00e4t und kurzfristige Margenkompression mit sich bringen.",
+          "argument_2": "EPS = 0.0 (yfinance) und None (SEC EDGAR) ist ein massives Datenproblem. Ein Unternehmen mit $61.58-Kurs und keinen ausgewiesenen Gewinnen deutet entweder auf fehlerhafte Datenlage oder auf massive Restrukturierungskosten durch die Avalara-\u00dcbernahme hin. Ohne valide Fundamentaldaten ist eine Bewertung hochspekulativ.",
+          "argument_3": "Bewertungsrisiko nach Rebound: Der Haiku-Hinweis auf 'Rebound in Share Price Performance' kombiniert mit der Bewertungsfrage impliziert, dass FISV m\u00f6glicherweise von einem niedrigeren Niveau stark gestiegen ist und jetzt \u00fcberbewertet gehandelt wird \u2014 gerade bei Fintech mit Integrationsrisiken ist ein Mean-Reversion-Szenario realistisch.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Hit-Rate 0% ist nicht realistisch interpretierbar \u2014 kein MC wurde durchgef\u00fchrt. Dies bedeutet keine statistische Validierung des Signals. Die fehlende MC-Basis erh\u00f6ht die Unsicherheit erheblich und erlaubt keine quantitative Absicherung der Preis-These.",
+          "concern_level": "high"
+        },
+        "impact": 5,
+        "surprise": 6,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Das Cluster-Insider-Kaufsignal (9 Insider in 14 Tagen) ist ein statistisch relevantes Underreaction-Signal, da Insider-Cluster bei Fintech-M&A typischerweise Confidence in die Integrations-Roadmap signalisieren. Der Markt fokussiert sich kurzfristig auf Integrationsrisiken und EPS-Verw\u00e4sserung, untersch\u00e4tzt aber m\u00f6glicherweise den strategischen Wert der Tax-Automation-Integration in Clover. Da Haiku eine neutrale Kategorie (n/a) zuweist und der Sektor unbekannt bleibt, ist die Bullish-Einsch\u00e4tzung prim\u00e4r durch das Insider-Signal getrieben, nicht durch fundamentale \u00dcberzeugung.",
+        "catalyst": "9 Insider-K\u00e4ufe als Cluster-Signal innerhalb 14 Tagen, kombiniert mit Avalara-Integration in Clover-Plattform als strategischer Umsatz-Multiplikator",
+        "bear_case": "EPS-Datenl\u00fccke und m\u00f6gliche Margenkompression durch Akquisitionskosten; +4.8% Kursanstieg hat m\u00f6glicherweise das Upside bereits vorweggenommen",
+        "macro_assessment": "Neutrales Makro-Umfeld (flache Kurve 0.50%, Fed Funds 3.64%) ist weder starker R\u00fccken- noch Gegenwind f\u00fcr FISV. Fintech-Payment-Unternehmen sind zinssensitiver als der Markt, aber bei flacher Kurve reduziert sich dieser Gegenwind. Neutral gewichteter Makro-Effekt rechtfertigt keine Auf- oder Abwertung des Signals.",
+        "data_confidence": "low",
+        "macro_regime": "neutral",
+        "macro_context": {
+          "yield_curve": 0.5,
+          "regime": "neutral"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "SPY",
+        "rel_strength": -0.0143
+      },
+      "final_score": 0.4,
+      "time_value_efficiency": {
+        "roi_per_day": 0.024477,
+        "roi_per_day_pct": 2.4477,
+        "annualized_roi": 1269.9183,
+        "efficiency_label": "high",
+        "dte": 22
+      }
+    }
+  ]
 }
