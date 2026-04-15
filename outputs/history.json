@@ -1210,6 +1210,94 @@
         "dte": 22
       },
       "outcome": null
+    },
+    {
+      "ticker": "CTVA",
+      "entry_date": "2026-04-15",
+      "features": {
+        "impact": 5,
+        "surprise": 4,
+        "mismatch": 5.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.0149,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.97
+      },
+      "strategy": "BULL_CALL_SPREAD",
+      "option": {
+        "expiry": "2026-05-15",
+        "strike": 80.0,
+        "bid": 3.7,
+        "ask": 4.1,
+        "open_interest": 383,
+        "implied_vol": 0.36255520263671875,
+        "spread_ratio": 0.0976,
+        "dte": 29,
+        "spread_leg": {
+          "strike": 90.0,
+          "bid": 0.3,
+          "ask": 0.8
+        },
+        "net_debit": 3.8
+      },
+      "simulation": {
+        "hit_rate": 0.97,
+        "stderr": 0.0017,
+        "n_paths": 10000,
+        "n_days": 120,
+        "days_to_expiry": 120,
+        "target_price": 89.45,
+        "current_price": 81.32,
+        "sigma_adj": 0.0164,
+        "sector": "Basic Materials",
+        "ema200": {},
+        "macd": {
+          "macd": 1.3359,
+          "signal": 1.7096,
+          "histogram": -0.3737,
+          "momentum_score": -1.0,
+          "data_available": true
+        }
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Bewertungsrisiko nach 40% Rally: Der Artikel 'Is Corteva Still Reasonable After A 40% One-Year Share Price Rally?' signalisiert, dass die Aktie m\u00f6glicherweise bereits fair bis \u00fcberbewertet ist. Bei einem KGV auf Basis des bereinigten EPS von ~4.05 ergibt sich ein P/E von ~20x \u2014 f\u00fcr ein agrochemisches Unternehmen mit zyklischem Exposure durchaus ambitioniert. Das Alpha k\u00f6nnte bereits verbraucht sein.",
+          "argument_2": "Management-Disruption als Risiko: Die Aufspaltung in zwei separate Einheiten (Crop Protection unter neuem CEO Kissam ab Juni 2026 und eine 'Advanced Seed and Genetics'-Gesellschaft) erzeugt erhebliche operative Unsicherheit. Spin-Off-Transitionen binden Management-Kapazit\u00e4ten, verursachen Restrukturierungskosten und k\u00f6nnen zu Kundenunsicherheit f\u00fchren. Die 2-6 Monats-Periode ist genau das Fenster maximaler Disruption.",
+          "argument_3": "EPS-Divergenz und Datenqualit\u00e4t: Die Diskrepanz zwischen yfinance EPS (4.05) und SEC EDGAR EPS (1.75) ist erheblich (2.3x Faktor) und deutet auf erhebliche Non-GAAP-Adjustierungen hin. Ohne Kenntnis der genauen Zusammensetzung ist unklar, wie nachhaltig die Ertragskraft ist. Zus\u00e4tzlich der -2.6% Preisr\u00fcckgang in 48h trotz positiver Insider-K\u00e4ufe zeigt, dass der Markt die Restrukturierungs-News skeptisch aufnimmt.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Monte Carlo nicht durchgef\u00fchrt (0 Pfade). Bei CTVA mit historischer Volatilit\u00e4t im Bereich 25-35% f\u00fcr einen Agrochemie-Titel w\u00e4ren in einem 30-Tage-Fenster normalerweise ca. 40-60% Aufw\u00e4rtspfade realistisch. Der fehlende MC-Check liefert keine verwertbare statistische Grundlage \u2014 Vorsicht geboten.",
+          "concern_level": "medium"
+        },
+        "impact": 5,
+        "surprise": 4,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "6 Monate",
+        "asymmetry_reasoning": "Der Markt verarbeitet die Aufspaltungs-Ank\u00fcndigung kurzfristig negativ (Unsicherheits-Discount), untersch\u00e4tzt dabei m\u00f6glicherweise den Sum-of-Parts-Value der zwei entstehenden fokussierten Unternehmen. Insider-Cluster-K\u00e4ufe (4 Insider in 14 Tagen) trotz laufendem Preisr\u00fcckgang signalisieren Insider\u00fcberzeugung, dass der Markt \u00fcberreagiert. Jedoch ist die Haiku-Einsch\u00e4tzung 'n/a' zutreffend: Das Signal ist strategisch aber ohne klaren Short-Term-Katalysator, was einen Impact >6 nicht rechtfertigt.",
+        "catalyst": "Q1 2026 Earnings Report als erster Beweis f\u00fcr operative Stabilit\u00e4t w\u00e4hrend der Restrukturierung; anschlie\u00dfend konkrete Kapitalmarkt-Kommunikation zum Spin-Off-Timeline und Bewertungsrahmen beider Einheiten",
+        "bear_case": "Nach einer 40% Jahresrally mit laufendem Restrukturierungsrisiko und ambitionierter Bewertung k\u00f6nnte der Q1-Earnings-Report bei jeder Guidance-Entt\u00e4uschung einen erheblichen De-Rating-Effekt ausl\u00f6sen \u2014 typisches 'Sell the restructuring news'-Muster in zyklischen Sektoren.",
+        "macro_assessment": "Neutrales Makro-Umfeld (flache Kurve, Fed Funds bei 3.64%) ist f\u00fcr CTVA nicht besonders unterst\u00fctzend: Agrochemie profitiert wenig von Zinssenkungserwartungen, und ein schw\u00e4cherer Agrar-Commodity-Zyklus (Mais, Soja) k\u00f6nnte Saatgut/Crop-Protection-Nachfrage d\u00e4mpfen. Keine signifikante Makro-Einschr\u00e4nkung, aber auch kein struktureller R\u00fcckenwind.",
+        "data_confidence": "low",
+        "macro_regime": "neutral",
+        "macro_context": {
+          "yield_curve": 0.5,
+          "regime": "neutral"
+        },
+        "direction_conflict": false
+      },
+      "tve": {
+        "roi_per_day": 0.026362,
+        "roi_per_day_pct": 2.6362,
+        "annualized_roi": 1269.6656,
+        "efficiency_label": "high",
+        "dte": 29
+      },
+      "outcome": null
     }
   ],
   "closed_trades": [],
@@ -1946,6 +2034,11 @@
         "date": "2026-04-14",
         "score": -0.2808,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-15",
+        "score": 0.1392,
+        "headline_count": 5
       }
     ],
     "HRL": [
@@ -2671,6 +2764,20 @@
       {
         "date": "2026-04-15",
         "score": 0.3208,
+        "headline_count": 5
+      }
+    ],
+    "CTSH": [
+      {
+        "date": "2026-04-15",
+        "score": -0.1416,
+        "headline_count": 3
+      }
+    ],
+    "CTVA": [
+      {
+        "date": "2026-04-15",
+        "score": 0.1598,
         "headline_count": 5
       }
     ]
