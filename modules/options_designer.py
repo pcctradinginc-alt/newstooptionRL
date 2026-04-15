@@ -114,7 +114,7 @@ class OptionsDesigner:
             )
 
             log.info(
-                f"  [{ticker}] {label} ({option['dte']}d): "
+                f"  [{ticker}] {label} ({int(option['dte'] or 0)}d): "
                 f"ROI={roi['roi_net']:.1%} "
                 f"(ann.={annualized_roi:.1%}) "
                 f"{'✅ PASS' if roi['passes_roi_gate'] else '❌ FAIL'}"
@@ -301,7 +301,7 @@ class OptionsDesigner:
                 "open_interest": int(best["openInterest"]),
                 "implied_vol":  float(best.get("impliedVolatility", 0.30)),
                 "spread_ratio": round(float(best["spread_ratio"]), 4),
-                "dte":          dte,
+                "dte":          int(dte),  # Explizit int — verhindert ValueError
             }
 
             if "SPREAD" in strategy:
@@ -390,6 +390,7 @@ class OptionsDesigner:
 
     def _days_to(self, expiry_str: str) -> int:
         try:
-            return (datetime.strptime(expiry_str, "%Y-%m-%d") - datetime.utcnow()).days
+            delta = datetime.strptime(expiry_str, "%Y-%m-%d") - datetime.utcnow()
+            return max(0, int(delta.days))  # Immer int, nie komplex
         except Exception:
             return 0
