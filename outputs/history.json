@@ -1355,6 +1355,11 @@
         "date": "2026-04-15",
         "score": -0.2381,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.0255,
+        "headline_count": 5
       }
     ],
     "AMZN": [
@@ -1391,6 +1396,11 @@
         "date": "2026-04-15",
         "score": 0.3419,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.3548,
+        "headline_count": 5
       }
     ],
     "DAL": [
@@ -1415,6 +1425,11 @@
         "date": "2026-04-15",
         "score": 0.2304,
         "headline_count": 3
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.2448,
+        "headline_count": 3
       }
     ],
     "INTC": [
@@ -1426,6 +1441,11 @@
       {
         "date": "2026-04-15",
         "score": -0.1639,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.1943,
         "headline_count": 5
       }
     ],
@@ -1439,6 +1459,11 @@
         "date": "2026-04-15",
         "score": -0.1631,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.0845,
+        "headline_count": 5
       }
     ],
     "ORCL": [
@@ -1451,6 +1476,11 @@
         "date": "2026-04-15",
         "score": 0.1556,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.386,
+        "headline_count": 5
       }
     ],
     "USB": [
@@ -1462,6 +1492,11 @@
       {
         "date": "2026-04-15",
         "score": -0.0732,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.2684,
         "headline_count": 5
       }
     ],
@@ -1487,6 +1522,11 @@
         "date": "2026-04-15",
         "score": -0.2787,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.2238,
+        "headline_count": 5
       }
     ],
     "HOOD": [
@@ -1498,6 +1538,11 @@
       {
         "date": "2026-04-15",
         "score": 0.1942,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.3009,
         "headline_count": 5
       }
     ],
@@ -1522,6 +1567,11 @@
       {
         "date": "2026-04-15",
         "score": -0.4035,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.4636,
         "headline_count": 5
       }
     ],
@@ -1619,6 +1669,11 @@
         "date": "2026-04-15",
         "score": 0.1128,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.1128,
+        "headline_count": 5
       }
     ],
     "DRI": [
@@ -1662,6 +1717,11 @@
         "date": "2026-04-15",
         "score": -0.1129,
         "headline_count": 4
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.035,
+        "headline_count": 5
       }
     ],
     "FAST": [
@@ -1772,6 +1832,11 @@
         "date": "2026-04-15",
         "score": 0.413,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.0547,
+        "headline_count": 5
       }
     ],
     "MS": [
@@ -1796,6 +1861,11 @@
         "date": "2026-04-15",
         "score": 0.1704,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.0293,
+        "headline_count": 5
       }
     ],
     "NKE": [
@@ -1807,6 +1877,11 @@
       {
         "date": "2026-04-15",
         "score": 0.1211,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.2921,
         "headline_count": 5
       }
     ],
@@ -1858,6 +1933,11 @@
         "date": "2026-04-15",
         "score": 0.1284,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.1569,
+        "headline_count": 5
       }
     ],
     "SYK": [
@@ -1893,6 +1973,11 @@
       {
         "date": "2026-04-15",
         "score": -0.0138,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.1788,
         "headline_count": 5
       }
     ],
@@ -1939,6 +2024,11 @@
         "date": "2026-04-14",
         "score": -0.4198,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.0491,
+        "headline_count": 5
       }
     ],
     "PLTR": [
@@ -1951,12 +2041,22 @@
         "date": "2026-04-15",
         "score": 0.323,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.338,
+        "headline_count": 5
       }
     ],
     "ARM": [
       {
         "date": "2026-04-14",
         "score": 0.2506,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.462,
         "headline_count": 5
       }
     ],
@@ -1970,6 +2070,11 @@
         "date": "2026-04-15",
         "score": -0.0892,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.1879,
+        "headline_count": 5
       }
     ],
     "PDD": [
@@ -1977,6 +2082,11 @@
         "date": "2026-04-14",
         "score": 0.2313,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.0334,
+        "headline_count": 4
       }
     ],
     "ZS": [
@@ -1988,6 +2098,11 @@
       {
         "date": "2026-04-15",
         "score": -0.011,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.0083,
         "headline_count": 5
       }
     ],
@@ -2013,6 +2128,11 @@
         "date": "2026-04-15",
         "score": 0.0221,
         "headline_count": 2
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.2466,
+        "headline_count": 4
       }
     ],
     "CE": [
@@ -2065,6 +2185,11 @@
         "date": "2026-04-15",
         "score": 0.3434,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.3657,
+        "headline_count": 5
       }
     ],
     "AOS": [
@@ -2085,6 +2210,11 @@
       {
         "date": "2026-04-15",
         "score": 0.0363,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.523,
         "headline_count": 5
       }
     ],
@@ -2107,6 +2237,11 @@
         "date": "2026-04-15",
         "score": 0.1416,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.0217,
+        "headline_count": 5
       }
     ],
     "AVGO": [
@@ -2127,6 +2262,11 @@
       {
         "date": "2026-04-15",
         "score": -0.4658,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.1027,
         "headline_count": 5
       }
     ],
@@ -2184,6 +2324,11 @@
         "date": "2026-04-15",
         "score": 0.5088,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.2257,
+        "headline_count": 5
       }
     ],
     "LRCX": [
@@ -2197,6 +2342,11 @@
       {
         "date": "2026-04-15",
         "score": -0.2705,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.4498,
         "headline_count": 5
       }
     ],
@@ -2289,6 +2439,11 @@
         "date": "2026-04-15",
         "score": -0.0544,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.3527,
+        "headline_count": 5
       }
     ],
     "UBER": [
@@ -2324,6 +2479,11 @@
         "date": "2026-04-15",
         "score": 0.0344,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.1394,
+        "headline_count": 5
       }
     ],
     "ADP": [
@@ -2337,6 +2497,11 @@
       {
         "date": "2026-04-15",
         "score": 0.1379,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.2589,
         "headline_count": 5
       }
     ],
@@ -2352,6 +2517,11 @@
         "date": "2026-04-15",
         "score": 0.1535,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.0442,
+        "headline_count": 5
       }
     ],
     "CVS": [
@@ -2359,12 +2529,22 @@
         "date": "2026-04-15",
         "score": 0.3033,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.1495,
+        "headline_count": 5
       }
     ],
     "DXCM": [
       {
         "date": "2026-04-15",
         "score": -0.2883,
+        "headline_count": 3
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.2092,
         "headline_count": 3
       }
     ],
@@ -2393,6 +2573,11 @@
       {
         "date": "2026-04-15",
         "score": 0.3261,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.0131,
         "headline_count": 5
       }
     ],
@@ -2499,6 +2684,11 @@
         "date": "2026-04-15",
         "score": -0.0832,
         "headline_count": 4
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.0532,
+        "headline_count": 5
       }
     ],
     "BALL": [
@@ -2506,6 +2696,11 @@
         "date": "2026-04-15",
         "score": -0.0156,
         "headline_count": 3
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.2925,
+        "headline_count": 2
       }
     ],
     "BLDR": [
@@ -2526,6 +2721,11 @@
       {
         "date": "2026-04-15",
         "score": 0.1426,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.3644,
         "headline_count": 5
       }
     ],
@@ -2548,6 +2748,11 @@
         "date": "2026-04-15",
         "score": 0.4295,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.08,
+        "headline_count": 5
       }
     ],
     "CMS": [
@@ -2568,6 +2773,11 @@
       {
         "date": "2026-04-15",
         "score": -0.1239,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.3367,
         "headline_count": 5
       }
     ],
@@ -2617,6 +2827,11 @@
       {
         "date": "2026-04-15",
         "score": 0.4201,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": 0.1332,
         "headline_count": 5
       }
     ],
@@ -2723,6 +2938,11 @@
         "date": "2026-04-15",
         "score": 0.1781,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-16",
+        "score": -0.1318,
+        "headline_count": 5
       }
     ],
     "CPT": [
@@ -2778,6 +2998,83 @@
       {
         "date": "2026-04-15",
         "score": 0.1598,
+        "headline_count": 5
+      }
+    ],
+    "ALB": [
+      {
+        "date": "2026-04-16",
+        "score": 0.1245,
+        "headline_count": 5
+      }
+    ],
+    "GE": [
+      {
+        "date": "2026-04-16",
+        "score": 0.0172,
+        "headline_count": 5
+      }
+    ],
+    "IVZ": [
+      {
+        "date": "2026-04-16",
+        "score": 0.1199,
+        "headline_count": 5
+      }
+    ],
+    "ON": [
+      {
+        "date": "2026-04-16",
+        "score": 0.0656,
+        "headline_count": 5
+      }
+    ],
+    "PEP": [
+      {
+        "date": "2026-04-16",
+        "score": -0.1677,
+        "headline_count": 5
+      }
+    ],
+    "PPG": [
+      {
+        "date": "2026-04-16",
+        "score": 0.0391,
+        "headline_count": 5
+      }
+    ],
+    "PLD": [
+      {
+        "date": "2026-04-16",
+        "score": 0.1979,
+        "headline_count": 5
+      }
+    ],
+    "RCL": [
+      {
+        "date": "2026-04-16",
+        "score": 0.3656,
+        "headline_count": 5
+      }
+    ],
+    "STT": [
+      {
+        "date": "2026-04-16",
+        "score": 0.7404,
+        "headline_count": 5
+      }
+    ],
+    "GFS": [
+      {
+        "date": "2026-04-16",
+        "score": 0.825,
+        "headline_count": 1
+      }
+    ],
+    "TTD": [
+      {
+        "date": "2026-04-16",
+        "score": -0.0423,
         "headline_count": 5
       }
     ]
