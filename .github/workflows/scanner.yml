@@ -1,64 +1,72 @@
-name: Adaptive Asymmetry-Scanner
+name: Adaptive Asymmetry Scanner
 
 on:
   schedule:
-    # 15:00 UTC = 17:00 MEZ (30 Min nach US-Open um 14:30 UTC)
-    - cron: "0 15 * * 1-5"
+    - cron: '30 13 * * 1-5'  # 13:30 UTC = 15:30 MEZ (entspricht US-Marktöffnung)
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  pipeline:
-    name: Daily Pipeline Run
+  scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45        # Hartes Limit: kein Run > 45 Min
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
+          fetch-depth: 1
 
-      - name: Set up Python 3.11
+      # ── FinBERT Model Cache ──────────────────────────────────────────────
+      # Wichtig: Cache persistiert zwischen Runs → kein 440MB Download täglich
+      - name: Cache FinBERT Model
+        uses: actions/cache@v4
+        id: finbert-cache
+        with:
+          path: /tmp/finbert_cache
+          key: finbert-prosusai-v1
+          restore-keys: finbert-prosusai-
+
+      # ── Python + pip Cache ───────────────────────────────────────────────
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
-          cache: "pip"
+          python-version: '3.11'
+          cache: 'pip'
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run Pipeline
+      # ── Scanner ──────────────────────────────────────────────────────────
+      - name: Run Scanner
         env:
-          ANTHROPIC_API_KEY:     ${{ secrets.ANTHROPIC_API_KEY }}
-          TRADIER_API_KEY:       ${{ secrets.TRADIER_API_KEY }}
-          NEWS_API_KEY:          ${{ secrets.NEWS_API_KEY }}
-          GMAIL_SENDER:          ${{ secrets.GMAIL_SENDER }}
-          GMAIL_APP_PW:          ${{ secrets.GMAIL_APP_PW }}
-          NOTIFY_EMAIL:          ${{ secrets.NOTIFY_EMAIL }}
-          FINNHUB_API_KEY:       ${{ secrets.FINNHUB_API_KEY }}
+          ANTHROPIC_API_KEY:    ${{ secrets.ANTHROPIC_API_KEY }}
+          TRADIER_API_KEY:      ${{ secrets.TRADIER_API_KEY }}
+          NEWS_API_KEY:         ${{ secrets.NEWS_API_KEY }}
+          GMAIL_SENDER:         ${{ secrets.GMAIL_SENDER }}
+          GMAIL_APP_PW:         ${{ secrets.GMAIL_APP_PW }}
+          NOTIFY_EMAIL:         ${{ secrets.NOTIFY_EMAIL }}
+          FINNHUB_API_KEY:      ${{ secrets.FINNHUB_API_KEY }}
           ALPHA_VANTAGE_API_KEY: ${{ secrets.ALPHA_VANTAGE_API_KEY }}
-          FLASH_ALPHA_API_KEY:   ${{ secrets.FLASH_ALPHA_API_KEY }}
-          EULERPOOL_API_KEY:     ${{ secrets.EULERPOOL_API_KEY }}
-          FINBERT_CACHE:         /tmp/finbert_cache
+          FLASH_ALPHA_API_KEY:  ${{ secrets.FLASH_ALPHA_API_KEY }}
+          EULERPOOL_API_KEY:    ${{ secrets.EULERPOOL_API_KEY }}
+          HF_HUB_CACHE:         /tmp/finbert_cache
+          TRANSFORMERS_CACHE:   /tmp/finbert_cache
+          HF_HOME:              /tmp/finbert_cache
         run: python pipeline.py
 
+      # ── Feedback Loop ────────────────────────────────────────────────────
       - name: Run Feedback Loop
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          TRADIER_API_KEY:   ${{ secrets.TRADIER_API_KEY }}
-          FINBERT_CACHE:     /tmp/finbert_cache
         run: python feedback.py
 
-      - name: Commit Reports & History
+      # ── Git Commit ───────────────────────────────────────────────────────
+      - name: Commit daily report
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add outputs/daily_reports/ outputs/history.json
-          git add outputs/models/ppo_options_agent.zip 2>/dev/null || true
-          git diff --staged --quiet || git commit -m "chore: daily report $(date -u +%Y-%m-%d)"
+          git add outputs/
+          git diff --cached --quiet || git commit -m "chore: daily report $(date +%Y-%m-%d)"
           git pull --rebase origin main
-          git push --force-with-lease
+          git push
