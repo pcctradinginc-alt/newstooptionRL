@@ -1538,6 +1538,158 @@
         "dte": 27
       },
       "outcome": null
+    },
+    {
+      "ticker": "HOOD",
+      "entry_date": "2026-04-20",
+      "features": {
+        "impact": 7,
+        "surprise": 6,
+        "mismatch": 7.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.0414,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "strong",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.6506
+      },
+      "strategy": "BULL_CALL_SPREAD",
+      "option": {
+        "expiry": "2026-05-15",
+        "strike": 100.0,
+        "bid": 3.4,
+        "ask": 3.5,
+        "open_interest": 13428,
+        "implied_vol": 0.7319362744140624,
+        "spread_ratio": 0.0286,
+        "dte": 24,
+        "spread_leg": {
+          "strike": 110.0,
+          "bid": 1.53,
+          "ask": 1.59
+        },
+        "net_debit": 1.97
+      },
+      "simulation": {
+        "current_price": 89.94,
+        "target_price": 97.14,
+        "hit_rate": 0.8011,
+        "n_paths": 10000,
+        "days": 120,
+        "sigma": 0.0454,
+        "alpha": 0.00031
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Bewertungs-Risiko: Bei $89.94 und einem EPS von ~$2.05-2.69 handelt HOOD auf einem KGV von 33-44x \u2014 eine Premium-Bewertung, die bereits viel Wachstum einpreist. Eine SEC-Regel\u00e4nderung, die 'die Schleusen \u00f6ffnet', ist m\u00f6glicherweise bereits durch den +3.6% Move in 48h und das Mizuho-Upgrade auf $115 weitgehend diskontiert.",
+          "argument_2": "Regulatorisches Risiko ist zweischneidig: Dieselbe SEC, die Pattern-Day-Trader-Regeln lockert, kann in einem anderen politischen Klima neue restriktive Ma\u00dfnahmen einf\u00fchren. HOOD hat eine Geschichte mit regulatorischen Strafen (FINRA, SEC Settlement 2021). Retailbroker sind strukturell exponiert gegen\u00fcber regulatorischer Unsicherheit \u2014 ein zuk\u00fcnftiger Gegenwind k\u00f6nnte diesen Katalysator umkehren.",
+          "argument_3": "Monetarisierungs-Unsicherheit: HOOD's Revenue ist stark von Payment-for-Order-Flow (PFOF) abh\u00e4ngig, das in Europa bereits verboten ist und in den USA unter Beobachtung steht. Zudem h\u00e4ngt der Umsatz stark von Marktvolatilit\u00e4t und Retail-Aktivit\u00e4t ab \u2014 in einem ruhigeren Marktumfeld (VIX unter 15) kollabiert das Trading-Volumen \u00fcberproportional.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "MC nicht durchgef\u00fchrt (0 Pfade). Bei HOOD mit historischer Volatilit\u00e4t von ~70-80% annualisiert ist keine statistische Einsch\u00e4tzung m\u00f6glich. Die fehlende MC-Simulation ist ein Datenl\u00fccke, erh\u00f6ht aber nicht das fundamentale Risiko des Setups. Concern-Level bleibt medium da Richtungssignal durch andere Quellen (Insider, Analyst-Upgrade) gest\u00fctzt wird.",
+          "concern_level": "medium"
+        },
+        "impact": 7,
+        "surprise": 6,
+        "direction": "BULLISH",
+        "bear_case_severity": 5,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt hat die strukturelle Tragweite der PDT-Regel\u00e4nderung noch nicht vollst\u00e4ndig eingepreist: Eine Lockerung w\u00fcrde Millionen von Retail-Konten mit unter $25k aus der Pattern-Day-Trader-Beschr\u00e4nkung befreien und direkt HOOD's Kernzielgruppe freischalten. Das Cluster-Insider-Kaufsignal (4 Insider in 14 Tagen) deutet darauf hin, dass interne Akteure die Gesch\u00e4ftschance h\u00f6her bewerten als der aktuelle Kurs reflektiert. Mizuho's Upgrade auf $115 gibt ~28% Upside und kommt von einer typischerweise konservativen Institution.",
+        "catalyst": "SEC Pattern-Day-Trader-Regelreform: Lockerung der $25k-Mindestkapitalanforderung w\u00fcrde HOOD's adressierbaren Markt signifikant erweitern und Trading-Volumen sowie PFOF-Revenues strukturell steigern.",
+        "bear_case": "Valuation bereits gestreckt bei 33-44x KGV, +3.6% in 48h k\u00f6nnte den Katalysator kurzfristig \u00fcberdiskontieren, und PFOF-Abh\u00e4ngigkeit bleibt ein strukturelles Risiko bei zuk\u00fcnftigen Regulierungs\u00e4nderungen.",
+        "macro_assessment": "Expansives Makro-Umfeld mit steiler Zinskurve (+0.55%) und Fed Funds bei 3.64% beg\u00fcnstigt Retail-Broker strukturell: H\u00f6here Zinsen auf Cash-Best\u00e4nde st\u00e4rken NIM-Komponenten, und Risk-On-Umfeld treibt Retail-Engagement. HOOD profitiert \u00fcberproportional von expansivem Regime. Makro-Kontext st\u00fctzt BULLISH-Signal klar.",
+        "data_confidence": "medium",
+        "macro_regime": "expansive",
+        "macro_context": {
+          "yield_curve": 0.55,
+          "regime": "expansive"
+        },
+        "direction_conflict": false
+      },
+      "tve": {
+        "roi_per_day_pct": 0.7008,
+        "annualized_roi": null,
+        "dte": 24
+      },
+      "outcome": null
+    },
+    {
+      "ticker": "ON",
+      "entry_date": "2026-04-20",
+      "features": {
+        "impact": 5,
+        "surprise": 6,
+        "mismatch": 5.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.0378,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.8334
+      },
+      "strategy": "BULL_CALL_SPREAD",
+      "option": {
+        "expiry": "2026-05-15",
+        "strike": 85.0,
+        "bid": 5.4,
+        "ask": 5.75,
+        "open_interest": 3117,
+        "implied_vol": 0.631839619140625,
+        "spread_ratio": 0.0609,
+        "dte": 24,
+        "spread_leg": {
+          "strike": 95.0,
+          "bid": 2.14,
+          "ask": 2.39
+        },
+        "net_debit": 3.61
+      },
+      "simulation": {
+        "current_price": 84.63,
+        "target_price": 91.4,
+        "hit_rate": 0.97,
+        "n_paths": 10000,
+        "days": 120,
+        "sigma": 0.0306,
+        "alpha": 0.00615
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "ON Semiconductor (onsemi) ist prim\u00e4r ein Automotive/Industrial-Halbleiter-Lieferant (SiC, IGBT), NICHT ein Lithium-Batterie- oder Energy-Storage-Hersteller. Die Haiku-Pr\u00e4misse 'Lithium-Engpass + Energy Storage Boom' trifft das Gesch\u00e4ftsmodell nur indirekt \u00fcber Leistungshalbleiter \u2013 das ist ein fundamentales Narrativ-Mismatch, das die Signalqualit\u00e4t massiv schw\u00e4cht.",
+          "argument_2": "EV-Slowdown ist explizit benannt und ON's gr\u00f6\u00dfter Wachstumstreiber (SiC f\u00fcr EVs) leidet darunter direkt. ON hat in den letzten Quartalen Guidance-Cuts bei Automotive SiC gemacht. Der +5.9% Move in 48h k\u00f6nnte eine Bear-Market-Rally in einem strukturell geschw\u00e4chten Segment sein \u2013 Momentum ohne fundamentale Revision nach oben.",
+          "argument_3": "Insider-Cluster-K\u00e4ufe bei Halbleiter-Unternehmen sind oft opportunistisch nach Kursr\u00fcckg\u00e4ngen und kein verl\u00e4sslicher Forward-Indikator. Der Kurs bei $84.63 impliziert ein KGV von ~21x auf annualisiertes EPS \u2013 bei verlangsamtem Wachstum und US/China-Geopolitik-Risiken f\u00fcr die Lieferkette ist das keine billige Bewertung. Zudem: EPS-Diskrepanz zwischen yfinance ($4.05) und SEC EDGAR ($0.29) deutet auf massive Bilanzierungs- oder Periodenunterschiede hin.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Kein MC durchgef\u00fchrt \u2013 0 Pfade verf\u00fcgbar. Kein statistischer R\u00fcckenwind auswertbar. Bei einer 48h-Bewegung von +5.9% und fehlender MC-Validierung ist das Signal rein news-getrieben ohne quantitative Best\u00e4tigung. Concern: Die EPS-Abweichung (yfinance $4.05 vs. SEC $0.29) ist extrem verd\u00e4chtig und k\u00f6nnte auf fehlerhafte Datenbasis im Modell hinweisen.",
+          "concern_level": "high"
+        },
+        "impact": 5,
+        "surprise": 6,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt k\u00f6nnte die indirekte Benefizierung von ON durch Energy-Storage-Boom (Leistungshalbleiter f\u00fcr Wechselrichter/BMS) noch nicht vollst\u00e4ndig eingepreist haben, da das EV-Slowdown-Narrativ dominiert. Insider-Cluster-K\u00e4ufe (9 in 14 Tagen) signalisieren Management-Zuversicht bei aktuellem Kursniveau. Allerdings weicht meine Bewertung von der Haiku-Einsch\u00e4tzung ab: ON ist kein Batterie-Produzent, sondern Profiteur via Leistungselektronik \u2013 das ist eine schw\u00e4chere, mittelbare Kausalit\u00e4t.",
+        "catalyst": "Q-Earnings mit \u00fcberraschend starker Energy-Storage/Industrial-Power-Guidance als Offset zum EV-Slowdown + m\u00f6gliche Erh\u00f6hung US-Produktionssubventionen f\u00fcr Leistungshalbleiter in domestischer Energieinfrastruktur",
+        "bear_case": "ON's Kerngesch\u00e4ft Automotive SiC leidet unter EV-Marktschw\u00e4che; Energy-Storage-Exposure ist indirekt und margenschw\u00e4cher; der +5.9% Move k\u00f6nnte bereits das gesamte kurzfristige Upside absorbiert haben vor dem n\u00e4chsten Earnings-Katalysator.",
+        "macro_assessment": "Expansives Makro-Umfeld (steile Kurve +0.55%, Fed Funds 3.64%) beg\u00fcnstigt grunds\u00e4tzlich zyklische Technologie/Halbleiter-Positionen. Die Kombination aus niedrigeren Finanzierungskosten und staatlichen Subventionen f\u00fcr US-Energieinfrastruktur schafft einen strukturellen R\u00fcckenwind f\u00fcr ON's Industrial-Power-Segment. Makro ist supportiv, d\u00e4mpft aber nicht die unternehmensspezifischen Risiken im EV-Segment.",
+        "data_confidence": "low",
+        "macro_regime": "expansive",
+        "macro_context": {
+          "yield_curve": 0.55,
+          "regime": "expansive"
+        },
+        "direction_conflict": false
+      },
+      "tve": {
+        "roi_per_day_pct": 1.0621,
+        "annualized_roi": null,
+        "dte": 24
+      },
+      "outcome": null
     }
   ],
   "closed_trades": [],
@@ -1707,6 +1859,11 @@
         "date": "2026-04-17",
         "score": 0.0297,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": 0.1476,
+        "headline_count": 5
       }
     ],
     "MU": [
@@ -1824,6 +1981,11 @@
         "date": "2026-04-17",
         "score": 0.0428,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": 0.1661,
+        "headline_count": 5
       }
     ],
     "CPB": [
@@ -1869,6 +2031,11 @@
       {
         "date": "2026-04-15",
         "score": 0.3407,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": 0.1378,
         "headline_count": 5
       }
     ],
@@ -2113,6 +2280,11 @@
         "date": "2026-04-15",
         "score": 0.238,
         "headline_count": 4
+      },
+      {
+        "date": "2026-04-20",
+        "score": -0.2356,
+        "headline_count": 5
       }
     ],
     "MGM": [
@@ -2319,6 +2491,11 @@
         "date": "2026-04-17",
         "score": 0.2156,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": 0.2905,
+        "headline_count": 5
       }
     ],
     "TMO": [
@@ -2403,6 +2580,11 @@
         "date": "2026-04-16",
         "score": -0.072,
         "headline_count": 4
+      },
+      {
+        "date": "2026-04-20",
+        "score": 0.0395,
+        "headline_count": 2
       }
     ],
     "ASML": [
@@ -2807,6 +2989,11 @@
         "date": "2026-04-17",
         "score": 0.0399,
         "headline_count": 3
+      },
+      {
+        "date": "2026-04-20",
+        "score": -0.6185,
+        "headline_count": 4
       }
     ],
     "PNC": [
@@ -2859,6 +3046,11 @@
         "date": "2026-04-17",
         "score": 0.0744,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": -0.0133,
+        "headline_count": 5
       }
     ],
     "UBER": [
@@ -2908,6 +3100,11 @@
       {
         "date": "2026-04-17",
         "score": -0.1584,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": -0.3829,
         "headline_count": 5
       }
     ],
@@ -3009,6 +3206,11 @@
         "date": "2026-04-16",
         "score": -0.0131,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": 0.2261,
+        "headline_count": 5
       }
     ],
     "MAR": [
@@ -3066,6 +3268,11 @@
         "date": "2026-04-17",
         "score": -0.6709,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": 0.0079,
+        "headline_count": 1
       }
     ],
     "A": [
@@ -3163,6 +3370,11 @@
         "date": "2026-04-17",
         "score": -0.3356,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": -0.0141,
+        "headline_count": 1
       }
     ],
     "BG": [
@@ -3308,6 +3520,11 @@
         "date": "2026-04-17",
         "score": 0.4153,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": -0.0737,
+        "headline_count": 5
       }
     ],
     "GOOG": [
@@ -3357,6 +3574,11 @@
         "date": "2026-04-15",
         "score": 0.1465,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": 0.1015,
+        "headline_count": 3
       }
     ],
     "AMAT": [
@@ -3542,6 +3764,11 @@
         "date": "2026-04-17",
         "score": 0.0568,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": -0.3252,
+        "headline_count": 4
       }
     ],
     "PEP": [
@@ -3604,6 +3831,11 @@
         "date": "2026-04-17",
         "score": 0.2462,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": -0.0153,
+        "headline_count": 2
       }
     ],
     "TTD": [
@@ -3698,6 +3930,11 @@
         "date": "2026-04-17",
         "score": -0.398,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": -0.1224,
+        "headline_count": 5
       }
     ],
     "VLO": [
@@ -3718,6 +3955,11 @@
       {
         "date": "2026-04-17",
         "score": -0.0086,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": 0.0111,
         "headline_count": 5
       }
     ],
@@ -3789,6 +4031,11 @@
         "date": "2026-04-17",
         "score": -0.2003,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-20",
+        "score": -0.2899,
+        "headline_count": 5
       }
     ],
     "RJF": [
@@ -3831,6 +4078,34 @@
         "date": "2026-04-17",
         "score": 0.046,
         "headline_count": 5
+      }
+    ],
+    "HAL": [
+      {
+        "date": "2026-04-20",
+        "score": -0.0307,
+        "headline_count": 5
+      }
+    ],
+    "HPE": [
+      {
+        "date": "2026-04-20",
+        "score": -0.1409,
+        "headline_count": 2
+      }
+    ],
+    "STLD": [
+      {
+        "date": "2026-04-20",
+        "score": -0.1626,
+        "headline_count": 5
+      }
+    ],
+    "VTRS": [
+      {
+        "date": "2026-04-20",
+        "score": 0.0698,
+        "headline_count": 1
       }
     ]
   }
