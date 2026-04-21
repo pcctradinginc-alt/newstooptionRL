@@ -153,8 +153,8 @@ def _build_trade_email(proposals: list[dict], today: str) -> str:
         opt_pts        = ts_comps.get("options_quality", 0)
         risk_pts_v     = ts_comps.get("risk_deductions", 0)
         ctx_pts        = ts_comps.get("context_bonus", 0)
-        best_for_v     = (ts.get("best_argument_for", "") or "")[:400]
-        best_ag_v      = (ts.get("best_argument_against", "") or "")[:400]
+        best_for_v     = (ts.get("best_argument_for", "") or "")[:600]
+        best_ag_v      = (ts.get("best_argument_against", "") or "")[:600]
         rank_badge     = f"#{trade_rank} " if trade_rank else ""
         score_color    = "#16a34a" if ts_total >= 75 else ("#ca8a04" if ts_total >= 60 else ("#ea580c" if ts_total >= 45 else "#dc2626"))
         # Grade sauber extrahieren: "STRONG BUY 🟢" → "STRONG BUY"
