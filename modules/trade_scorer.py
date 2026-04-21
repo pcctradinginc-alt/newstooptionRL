@@ -110,7 +110,9 @@ def compute_trade_score(proposal: dict) -> dict:
     # ── C: RISIKO-ABZÜGE (0 bis -30) ─────────────────────────────────────────
     bear_sev = float(da.get("bear_case_severity", 0) or 0)
     iv_rank  = float(proposal.get("iv_rank", 50) or 50)
-    move_48h = abs(float(features.get("price_change_48h", 0) or 0))
+    _raw_move = float(features.get("price_change_48h", 0) or 0)
+    # Sicherheits-Check: Wenn Wert > 1.0 → als Integer-Prozent interpretiert → /100
+    move_48h = abs(_raw_move / 100.0 if abs(_raw_move) > 1.0 else _raw_move)
 
     # Bear Case: Severity 0-6 = kein Abzug, 7 = -10, 9-10 = -15
     if bear_sev <= 6:
@@ -121,12 +123,15 @@ def compute_trade_score(proposal: dict) -> dict:
         bear_deduct = -10.0 - (bear_sev - 7) * 2.5  # -10 bis -15
 
     # IV-Rank: teuer einkaufen kostet Punkte
+    # Ausnahme: Bei extremer Surprise (>=8) ist hohe IV durch echtes Asymmetrie-Event
+    # gerechtfertigt — Abzug halbieren damit "Home Runs" nicht abgewertet werden
+    surprise_high = surprise >= 8.0
     if iv_rank >= 95:
-        iv_deduct = -10.0
+        iv_deduct = -5.0 if surprise_high else -10.0
     elif iv_rank >= 85:
-        iv_deduct = -5.0
+        iv_deduct = -2.5 if surprise_high else -5.0
     elif iv_rank >= 70:
-        iv_deduct = -2.0
+        iv_deduct = -1.0 if surprise_high else -2.0
     else:
         iv_deduct = 0.0
 
