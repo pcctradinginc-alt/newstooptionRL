@@ -292,6 +292,12 @@ def main() -> None:
     # Trade-Score berechnen und ranken
     if trade_proposals:
         trade_proposals = rank_proposals(trade_proposals)
+        # AVOID-Trades herausfiltern (Score < 45)
+        before = len(trade_proposals)
+        trade_proposals = [p for p in trade_proposals
+                           if p.get("trade_score", {}).get("total", 0) >= 45]
+        if len(trade_proposals) < before:
+            log.info(f"  {before - len(trade_proposals)} AVOID-Trade(s) herausgefiltert (Score < 45)")
         log.info(f"Trade-Ranking:")
         for p in trade_proposals:
             ts = p.get("trade_score", {})
