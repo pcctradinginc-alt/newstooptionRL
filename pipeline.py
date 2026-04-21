@@ -143,7 +143,16 @@ def main() -> None:
         stats["stop_reason"] = f"Alle {len(candidates)} im Prescreening als kein Signal bewertet."
         send_email(); return
 
-    shortlist = [enrich_with_alpha_sources(c) for c in shortlist]
+    enriched_with_alpha = []
+    for c in shortlist:
+        c = enrich_with_alpha_sources(c)
+        # Earnings-Gate: Wenn Earnings in < 7 Tagen → aus Pipeline entfernen
+        if c.get("has_near_earnings"):
+            earnings_date = c.get("alpha_signals", {}).get("earnings_date", "?")
+            log.info(f"  [{c['ticker']}] EARNINGS-GATE: Earnings in 7d ({earnings_date}) → Hard-Block.")
+            continue
+        enriched_with_alpha.append(c)
+    shortlist = enriched_with_alpha
     shortlist = [validate_candidate_data(c) for c in shortlist]
 
     # ── STUFE 3: ROI Pre-Check (Fail Fast) ───────────────────────────────────
