@@ -29,21 +29,29 @@ BACKOFF_BASE  = 2
 BATCH_SIZE    = 20
 MAX_HEADLINES = 3
 
-SYSTEM_PROMPT = """Du bist ein extrem selektiver Quantitativ-Analyst.
-Deine Aufgabe: Filtere AGGRESSIV. Nur echte strukturelle Signale kommen durch.
+SYSTEM_PROMPT = """Du bist ein Options-Analyst mit Fokus auf Informations-Asymmetrie.
 
-HARTE REGELN — kein Ausnahme:
-1. Im Zweifel IMMER [NO]. Lieber ein echtes Signal verpassen als 10 falsche durchlassen.
-2. [NO] für: Earnings in Rahmen, Analyst-Upgrades/-Downgrades, Dividenden, Aktienrückkäufe, CEO-Statements ohne Substanz, allgemeine Markt-News.
-3. [YES] NUR wenn ALLE drei Bedingungen erfüllt:
-   a) STRUKTURELL: Neue Produktkategorie, Akquisition, FDA-Zulassung, Verlust/Gewinn Grosskunde, Technologie-Durchbruch, Regulierungs-Entscheid.
-   b) UNERWARTET: Nicht im Konsens erwartet, überrascht den Markt.
-   c) FUNDAMENTAL: Verändert die langfristigen Ertragserwartungen (2-6 Monate).
+KERNFRAGE fuer jeden Ticker: "Enthaelt diese Nachricht eine Information, die der breite
+Markt noch nicht vollstaendig verarbeitet hat — und koennte ein Options-Kaeufer davon profitieren?"
 
-Ziel: Maximal 10-20% der Ticker bekommen [YES].
+[YES] wenn MINDESTENS EINE der folgenden Bedingungen zutrifft:
+  a) EINGEBETTETES SIGNAL: Guidance-Erhoehung im Nebensatz, strukturelle Aenderung versteckt
+     in Routine-Meldung, Insider-Kauf-Cluster, unerwartete Margenaenderung.
+  b) MARKT-UNTERREAKTION: Kurs hat nur halb so stark reagiert wie fundamental gerechtfertigt.
+     Typisch bei: komplexen Regulierungsentscheiden, mehrstufigen M&A-Auswirkungen.
+  c) KATALYSATOR VORAUS: Bekanntes Event in 10-60 Tagen (Earnings, FDA, Produktlaunch, 
+     Regulierungs-Deadline) bei dem die aktuelle News die Ausgangslage veraendert hat.
+  d) SEKTOR-SPILLOVER: News bei Unternehmen X beeinflusst Unternehmen Y strukturell,
+     Markt hat Y noch nicht repriced.
+
+[NO] fuer: reine Analyst-Upgrades/Downgrades ohne neuen Datenpunkt, Standard-Dividenden,
+Ruckkaeufe im Plan, vage CEO-Aussagen, Indexaufnahmen, allgemeine Wirtschaftsnews.
+
+WICHTIG: Du suchst Asymmetrie, keine Gewissheit. Eine 60%-Chance auf +15% reicht fuer [YES].
+Ziel: 15-25% YES-Rate. Bei <10 Kandidaten mindestens 1 YES wenn irgendein Signal erkennbar.
 Antworte ausschliesslich mit validem JSON."""
 
-USER_TEMPLATE = """Bewerte diese {n} Ticker. Sei SEHR restriktiv.
+USER_TEMPLATE = """Bewerte diese {n} Ticker auf Options-Asymmetrie-Potenzial.
 
 {ticker_news}
 
@@ -53,13 +61,14 @@ Antworte NUR mit diesem JSON:
     {{
       "ticker": "AAPL",
       "decision": "[YES]" oder "[NO]",
-      "category": "structural_change|routine_news|analyst_opinion|earnings|other",
-      "reason": "Max 15 Woerter Begruendung"
+      "category": "structural_change|routine_news|analyst_opinion|earnings|catalyst",
+      "reason": "Konkreter Grund in max 20 Worten — spezifisch, nicht vage"
     }}
   ]
 }}
 
-Erinnerung: Ziel ist max. 10-20% YES. Im Zweifel [NO]."""
+Richtwert: ~15% YES bei vorhandenen Signalen. Vergib [YES] NUR bei echtem Signal.
+An nachrichtenarmen Tagen ist 0% YES korrekt — erzwinge keine Quote."""
 
 
 class Prescreener:
@@ -106,7 +115,15 @@ class Prescreener:
                         )
                         no_count += 1
                         continue
-                    all_yes[ticker] = r.get("reason", "")
+                    # Quick Options-Liquiditäts-Check
+                    if not self._has_options_liquidity(ticker):
+                        log.info(f"  [{ticker}] OPTIONS-LIQUIDITÄT: zu gering → übersprungen")
+                        no_count += 1
+                        continue
+                    all_yes[ticker] = {
+                        "reason":    r.get("reason", ""),
+                        "category":  r.get("category", ""),
+                    }
                     yes_count += 1
                 else:
                     no_count += 1
@@ -119,9 +136,11 @@ class Prescreener:
         shortlist = []
         for c in candidates:
             if c["ticker"] in all_yes:
-                c["prescreen_reason"] = all_yes[c["ticker"]]
+                prescreen_data = all_yes[c["ticker"]]
+                c["prescreen_reason"]   = prescreen_data.get("reason", "")
+                c["prescreen_category"] = prescreen_data.get("category", "")
                 shortlist.append(c)
-                log.info(f"  [YES] {c['ticker']}: {all_yes[c['ticker']]}")
+                log.info(f"  [YES] {c['ticker']}: {prescreen_data.get('reason','')} [{prescreen_data.get('category','')}]")
 
         log.info(
             f"Prescreening gesamt: {len(shortlist)}/{len(candidates)} YES "
@@ -129,14 +148,29 @@ class Prescreener:
         )
         return shortlist
 
+    def _has_options_liquidity(self, ticker: str) -> bool:
+        """Prüft ob genug Optionskontrakte verfügbar sind (schnell, kein API-Call)."""
+        try:
+            import yfinance as yf
+            t     = yf.Ticker(ticker)
+            dates = t.options
+            if not dates or len(dates) < 2:
+                return False
+            # Mindestens 2 Verfallsdaten → ausreichend liquide
+            return True
+        except Exception:
+            return True  # Im Zweifel durchlassen
+
     def _call_with_retry(self, batch: list[dict]) -> list | None:
         ticker_news_str = "\n".join([
             f"[{c['ticker']}]: {' | '.join(c['news'][:MAX_HEADLINES])}"
             for c in batch
         ])
-        prompt = USER_TEMPLATE.format(
+        min_yes = len(batch) // 7   # ~15% Richtwert, kann 0 sein — kein Zwang
+        prompt  = USER_TEMPLATE.format(
             n           = len(batch),
             ticker_news = ticker_news_str,
+            min_yes     = min_yes,
         )
 
         for attempt in range(1, MAX_RETRIES + 1):
