@@ -55,8 +55,20 @@ REPORTS_DIR  = Path("outputs/daily_reports")
 
 QUICK_MC_PATHS    = 3_000
 QUICK_MC_DAYS     = 30
-QUICK_MC_MIN_PROB = 0.45
 FINAL_MC_PATHS    = 10_000
+
+def get_mc_threshold(vix: float) -> float:
+    """VIX-abhängige MC-Schwelle:
+    VIX < 20 → 48% (ruhiger Markt, mehr Sicherheit nötig)
+    VIX 20-30 → 45% (Standard)
+    VIX > 30 → 42% (hohe Vola sorgt selbst für Weite der Pfade)
+    """
+    if vix < 20:
+        return 0.48
+    elif vix > 30:
+        return 0.42
+    else:
+        return 0.45
 
 
 def load_history() -> dict:
@@ -218,8 +230,9 @@ def main() -> None:
         result   = sim.run_for_dte(s, days_to_expiry=QUICK_MC_DAYS)
         hit_rate = result["simulation"]["hit_rate"] if result else 0.0
 
-        if hit_rate < QUICK_MC_MIN_PROB:
-            log.info(f"  [{ticker}] Quick MC: {hit_rate:.1%} < {QUICK_MC_MIN_PROB:.0%} → verworfen")
+        mc_threshold = get_mc_threshold(gates.last_vix or 20.0)
+        if hit_rate < mc_threshold:
+            log.info(f"  [{ticker}] Quick MC: {hit_rate:.1%} < {mc_threshold:.0%} (VIX={gates.last_vix:.1f}) → verworfen")
             continue
 
         s["quick_mc"] = {"hit_rate": hit_rate, "n_paths": QUICK_MC_PATHS, "n_days": QUICK_MC_DAYS}
@@ -229,6 +242,33 @@ def main() -> None:
 
     stats["quick_mc"] = len(mc_viable)
     log.info(f"  → {len(mc_viable)} nach Quick MC")
+
+    # Schatten-Trading: Grenzfälle (40-47.9%) als rejected_candidates speichern
+    # Ermöglicht nach 6+ Monaten T-Test: Hätten diese Trades gewonnen?
+    mc_threshold_used = get_mc_threshold(gates.last_vix or 20.0)
+    shadow_lower = mc_threshold_used - 0.08  # 8% unter Schwelle = Grenzfall
+    for s in scored:
+        ticker = s.get("ticker", "")
+        qmc = s.get("quick_mc", {})
+        hit = qmc.get("hit_rate", 0.0)
+        if shadow_lower <= hit < mc_threshold_used:
+            shadow_entry = {
+                "ticker":       ticker,
+                "date":         today,
+                "mc_hit_rate":  round(hit, 4),
+                "mc_threshold": mc_threshold_used,
+                "regime":       macro.get("macro_regime", "unknown"),
+                "yield_curve":  macro.get("yield_curve_spread"),
+                "vix":          gates.last_vix,
+                "impact":       s.get("deep_analysis", {}).get("impact", 0),
+                "surprise":     s.get("deep_analysis", {}).get("surprise", 0),
+            }
+            history.setdefault("rejected_candidates", []).append(shadow_entry)
+            log.info(
+                f"  [{ticker}] SCHATTEN-TRADE: MC={hit:.1%} (Schwelle={mc_threshold_used:.0%}) "
+                f"→ gespeichert für spätere Analyse"
+            )
+
     if not mc_viable:
         stats["stop_reason"] = f"Alle unter Quick-MC-Schwelle ({QUICK_MC_MIN_PROB:.0%})."
         save_history(history); send_email(); return
