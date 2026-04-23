@@ -1,16 +1,9 @@
 """
-modules/email_reporter.py v8.0
+modules/email_reporter.py v8.1
 
-Angepasst an Pipeline v8.0 (9 Stufen):
-  1. Hard-Filter
-  2. Prescreening (Haiku)
-  3. ROI Pre-Check (NEU)
-  4. Quick Monte Carlo (NEU)
-  5. Deep Analysis (Sonnet)
-  6. Mismatch + Intraday
-  7. Final Monte Carlo (NEU)
-  8. RL-Scoring
-  9. Options Design + ROI-Gate
+Änderungen v8.1:
+    - Textlimit: [:700] statt [:600]
+    - Score-Schwelle für Email: >= 50 (WATCH und besser)
 """
 
 import logging
@@ -35,6 +28,9 @@ def send_status_email(pipeline_stats: dict, today: str) -> None:
 
 
 def send_email(proposals: list[dict], today: str) -> None:
+    # Nur Trades mit Score >= 50 in der Email
+    proposals = [p for p in proposals
+                 if p.get("trade_score", {}).get("total", 0) >= 50]
     if proposals:
         html    = _build_trade_email(proposals, today)
         subject = f"Adaptive Asymmetry-Scanner – Trade Empfehlung – {today}"
@@ -52,7 +48,6 @@ def _build_status_email(stats: dict, today: str) -> str:
     status_icon = "🎯" if trades > 0 else "📊"
     status_text = "Trade Empfehlung" if trades > 0 else "Kein Trade heute"
 
-    # Pipeline v8.0 — 9 Stufen
     funnel = [
         ("498 Ticker im Universum",                                                     "📋", True),
         (f"{stats.get('candidates',   0)} nach Hard-Filter (Cap>2B, Vol>1M, RV>0.6)", "🔍", stats.get("candidates",   0) > 0),
@@ -62,7 +57,7 @@ def _build_status_email(stats: dict, today: str) -> str:
         (f"{stats.get('mismatch_ok',  0)} nach Mismatch-Score",                        "📐", stats.get("mismatch_ok",  0) > 0),
         (f"{stats.get('quick_mc',     0)} nach Quick Monte Carlo (3k, 30d)",           "🎲", stats.get("quick_mc",     0) > 0),
         (f"{stats.get('intraday_ok',  0)} nach Intraday-Delta-Filter",                 "⏱️", stats.get("intraday_ok",  0) > 0),
-        (f"{stats.get('final_mc',     0)} nach Final Monte Carlo (10k, 120d)",         "🎯", stats.get("final_mc",     0) > 0),
+        (f"{stats.get('final_mc',     0)} nach Final Monte Carlo (10k, adaptive DTE)", "🎯", stats.get("final_mc",     0) > 0),
         (f"{stats.get('rl_scored',    0)} nach RL-Scoring",                            "🤖", stats.get("rl_scored",    0) > 0),
         (f"{stats.get('roi_ok',       0)} nach Options Design + ROI-Gate",             "✅" if stats.get("roi_ok", 0) > 0 else "❌", stats.get("roi_ok", 0) > 0),
         (f"{trades} finale Trade-Vorschläge",                                          "🏆" if trades > 0 else "❌", trades > 0),
@@ -89,6 +84,29 @@ def _build_status_email(stats: dict, today: str) -> str:
           <b>Pipeline-Stop:</b> {stop}
         </div>"""
 
+    # Reject Summary falls vorhanden
+    rejects     = stats.get("rejects", {})
+    reject_html = ""
+    if rejects:
+        reject_rows = ""
+        for reason, count in sorted(rejects.items(), key=lambda x: -x[1]):
+            reject_rows += f"""
+            <tr>
+              <td style="padding:6px 12px;font-size:12px;color:#475569;
+                         border-bottom:1px solid #e2e8f0;">{reason}</td>
+              <td style="padding:6px 12px;font-size:12px;color:#dc2626;
+                         font-weight:600;border-bottom:1px solid #e2e8f0;
+                         text-align:right;">{count}x</td>
+            </tr>"""
+        reject_html = f"""
+        <h3 style="margin:20px 0 10px;color:#0f172a;font-size:14px;font-weight:600;">
+          Reject-Gründe
+        </h3>
+        <table style="width:100%;border-collapse:collapse;border-radius:8px;
+                      overflow:hidden;border:1px solid #e2e8f0;">
+          {reject_rows}
+        </table>"""
+
     vix_str = f"{float(vix):.2f}" if vix else "–"
 
     return f"""<!DOCTYPE html><html><body style="font-family:Arial,sans-serif;
@@ -105,7 +123,7 @@ def _build_status_email(stats: dict, today: str) -> str:
       {status_text}
     </div>
     <div style="color:rgba(255,255,255,0.6);font-size:13px;margin-top:6px;">
-      {today} &nbsp;·&nbsp; VIX {vix_str} &nbsp;·&nbsp; v8.0
+      {today} &nbsp;·&nbsp; VIX {vix_str} &nbsp;·&nbsp; v8.1
     </div>
   </div>
 
@@ -118,12 +136,13 @@ def _build_status_email(stats: dict, today: str) -> str:
       {rows}
     </table>
     {stop_html}
+    {reject_html}
   </div>
 
   <div style="padding:14px 32px;background:#f8fafc;
               border-top:1px solid #e2e8f0;
               font-size:11px;color:#94a3b8;text-align:center;">
-    Adaptive Asymmetry-Scanner v8.0 &nbsp;·&nbsp;
+    Adaptive Asymmetry-Scanner v8.1 &nbsp;·&nbsp;
     GitHub Actions &nbsp;·&nbsp;
     {datetime.utcnow().strftime('%H:%M UTC')}
   </div>
@@ -135,7 +154,6 @@ def _build_trade_email(proposals: list[dict], today: str) -> str:
     for i, p in enumerate(proposals, 1):
         ticker   = p.get("ticker", "?")
         strategy = p.get("strategy", "?")
-        score    = p.get("final_score", 0)
         da       = p.get("deep_analysis", {}) or {}
         sim      = p.get("simulation", {}) or {}
         option   = p.get("option", {}) or {}
@@ -143,53 +161,69 @@ def _build_trade_email(proposals: list[dict], today: str) -> str:
         tve      = p.get("time_value_efficiency", {}) or {}
         red_team = da.get("red_team", {}) or {}
 
-        # Trade-Score
-        ts             = p.get("trade_score", {}) or {}
-        trade_rank     = p.get("trade_rank", i)
-        ts_total       = ts.get("total", 0)
-        ts_grade       = ts.get("grade", "–")
-        ts_comps       = ts.get("components", {}) or {}
-        sig_pts        = ts_comps.get("signal_quality", 0)
-        opt_pts        = ts_comps.get("options_quality", 0)
-        risk_pts_v     = ts_comps.get("risk_deductions", 0)
-        ctx_pts        = ts_comps.get("context_bonus", 0)
-        best_for_v     = (ts.get("best_argument_for", "") or "")[:700]
-        best_ag_v      = (ts.get("best_argument_against", "") or "")[:700]
-        rank_badge     = f"#{trade_rank} " if trade_rank else ""
-        score_color    = "#16a34a" if ts_total >= 75 else ("#ca8a04" if ts_total >= 60 else ("#ea580c" if ts_total >= 45 else "#dc2626"))
-        # Grade sauber extrahieren: "STRONG BUY 🟢" → "STRONG BUY"
-        grade_parts    = (ts_grade or "–").split(" ")
-        trade_grade    = " ".join(p for p in grade_parts if not any(c in p for c in "🟢🟡🟠🔴")).strip() or "–"
+        ts         = p.get("trade_score", {}) or {}
+        trade_rank = p.get("trade_rank", i)
+        ts_total   = ts.get("total", 0)
+        ts_grade   = ts.get("grade", "–")
+        ts_comps   = ts.get("components", {}) or {}
+        sig_pts    = ts_comps.get("signal_quality", 0)
+        opt_pts    = ts_comps.get("options_quality", 0)
+        risk_pts_v = ts_comps.get("risk_deductions", 0)
+        ctx_pts    = ts_comps.get("context_bonus", 0)
+        best_for_v = (ts.get("best_argument_for", "") or "")[:700]
+        best_ag_v  = (ts.get("best_argument_against", "") or "")[:700]
+        rank_badge = f"#{trade_rank} " if trade_rank else ""
+        score_color = (
+            "#16a34a" if ts_total >= 75 else
+            "#ca8a04" if ts_total >= 60 else
+            "#ea580c" if ts_total >= 45 else
+            "#dc2626"
+        )
+        grade_parts = (ts_grade or "–").split(" ")
+        trade_grade = " ".join(
+            p for p in grade_parts if not any(c in p for c in "🟢🟡🟠🔴")
+        ).strip() or "–"
 
-        # Option-Daten
         def _s(v, default="–"):
-            """None-sicherer String-Konverter."""
             if v is None: return default
             return str(v)
 
-        direction  = _s(da.get("direction"))
-        current    = _s(sim.get("current_price"))
-        target     = _s(sim.get("target_price"))
-        hit_rate   = float(sim.get("hit_rate") or 0)
-        mc_n       = _s(sim.get("n_paths"))
-        strike     = _s(option.get("strike"))
-        expiry     = _s(option.get("expiry"))
-        dte        = _s(option.get("dte"))
-        bid        = _s(option.get("bid"))
-        ask        = _s(option.get("ask"))
-        iv_rank    = _s(p.get("iv_rank"))
-        roi_net    = roi.get("roi_net")
-        vega_loss  = roi.get("vega_loss")
-        roi_day    = tve.get("roi_per_day_pct")
-        ann_roi    = tve.get("annualized_roi")
-        dte_tier   = _s(p.get("dte_tier"))
+        direction = _s(da.get("direction"))
+        current   = _s(sim.get("current_price"))
+        target    = _s(sim.get("target_price"))
+        hit_rate  = float(sim.get("hit_rate") or 0)
+        mc_n      = _s(sim.get("n_paths"))
+        strike    = _s(option.get("strike"))
+        expiry    = _s(option.get("expiry"))
+        dte       = _s(option.get("dte"))
+        bid       = _s(option.get("bid"))
+        ask       = _s(option.get("ask"))
+        iv_rank   = _s(p.get("iv_rank"))
+        roi_net   = roi.get("roi_net")
+        vega_loss = roi.get("vega_loss")
+        roi_day   = tve.get("roi_per_day_pct")
+        dte_tier  = _s(p.get("dte_tier"))
         rt_verdict = _s(red_team.get("red_team_verdict"))
         rt_arg1    = _s(red_team.get("argument_1"))
         macro      = _s(da.get("macro_assessment"))
         impact     = _s(da.get("impact"))
         surprise   = _s(da.get("surprise"))
 
-        roi_color = "#16a34a" if (roi_net or 0) > 0.15 else ("#ca8a04" if (roi_net or 0) > 0 else "#dc2626")
+        roi_color = (
+            "#16a34a" if (roi_net or 0) > 0.15 else
+            "#ca8a04" if (roi_net or 0) > 0 else
+            "#dc2626"
+        )
+
+        ev_html = ""
+        if roi.get("delta") is not None and roi_net is not None:
+            ev = roi["delta"] * roi_net
+            ev_color = "#16a34a" if ev > 0.05 else "#ca8a04"
+            ev_html = (
+                f'<div><b>Expected Value:</b> '
+                f'<span style="color:{ev_color};font-weight:600;">{ev:.1%}</span> '
+                f'<span style="font-size:11px;color:#94a3b8;">(ROI×Δ)</span></div>'
+            )
 
         cards += f"""
         <div style="border:1px solid #e2e8f0;border-radius:10px;
@@ -233,7 +267,7 @@ def _build_trade_email(proposals: list[dict], today: str) -> str:
             <div><b>Expiry:</b> {expiry} ({dte}d)</div>
             <div><b>Bid / Ask:</b> ${bid} / ${ask}</div>
             {f'<div><b>ROI netto:</b> <span style="color:{roi_color};font-weight:600;">{roi_net:.1%}</span></div>' if roi_net is not None else ''}
-            {(lambda delta, r: f'<div><b>Expected Value:</b> <span style="color:{"#16a34a" if delta*r > 0.05 else "#ca8a04"};font-weight:600;">{delta*r:.1%}</span> <span style="font-size:11px;color:#94a3b8;">(ROI×Δ)</span></div>' if delta is not None and r is not None else '')(roi.get("delta"), roi_net)}
+            {ev_html}
             {f'<div><b>Vega-Loss:</b> {vega_loss:.1%}</div>' if vega_loss is not None else ''}
             {f'<div><b>ROI/Tag:</b> {roi_day:.3f}%</div>' if roi_day is not None else ''}
           </div>
@@ -258,7 +292,7 @@ def _build_trade_email(proposals: list[dict], today: str) -> str:
       Trade Empfehlung — {len(proposals)} Signal(e)
     </div>
     <div style="color:rgba(255,255,255,0.6);font-size:13px;margin-top:6px;">
-      {today} &nbsp;·&nbsp; v8.0
+      {today} &nbsp;·&nbsp; v8.1
     </div>
   </div>
   <div style="padding:24px 32px;">{cards}</div>
@@ -266,7 +300,7 @@ def _build_trade_email(proposals: list[dict], today: str) -> str:
               border-top:1px solid #e2e8f0;
               font-size:11px;color:#94a3b8;text-align:center;">
     Kein Finanzberatung. Algorithmisch generiert. &nbsp;·&nbsp;
-    Adaptive Asymmetry-Scanner v8.0
+    Adaptive Asymmetry-Scanner v8.1
   </div>
 </div></body></html>"""
 
