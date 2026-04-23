@@ -51,7 +51,9 @@ Im Zweifel BEARISH. Nur eindeutige strukturelle Signale verdienen Impact > 7.
 
 Antworte ausschließlich mit validem JSON."""
 
-ANALYSIS_TEMPLATE = """=== MAKRO-KONTEXT ===
+ANALYSIS_TEMPLATE = """=== ANALYSEDATUM: {analysis_date} (WICHTIG: Alle Jahreszahlen müssen ≥ {analysis_year} sein) ===
+
+=== MAKRO-KONTEXT ===
 {macro_context}
 
 === TICKER: {ticker} ===
@@ -93,7 +95,7 @@ Antworte NUR mit diesem JSON:
     "direction": "BULLISH" oder "BEARISH",
     "bear_case_severity": <0-10>,
     "time_to_materialization": "4-8 Wochen" oder "2-3 Monate" oder "6 Monate",
-    "asymmetry_reasoning": "<Min 3, Max 5 vollständige Sätze — warum der Markt unterreagiert hat. Mindestens 300 Zeichen. Konkret und vollständig>",  
+    "asymmetry_reasoning": "<Genau 3 vollständige Sätze — warum der Markt unterreagiert hat. Maximal 500 Zeichen. Kein Satz darf abgebrochen werden>",  
     "catalyst": "<Spezifischer Katalysator>",
     "bear_case": "<Stärkstes Gegenargument>",
     "macro_assessment": "<Bewertung im aktuellen Makro-Umfeld>",
@@ -240,7 +242,11 @@ class DeepAnalysis:
         prescreen_reason   = candidate.get("prescreen_reason", "n/a")
         prescreen_category = candidate.get("prescreen_category", "n/a")
 
+        from datetime import datetime as _dt
+        _today = _dt.now()
         prompt = ANALYSIS_TEMPLATE.format(
+            analysis_date    = _today.strftime("%d.%m.%Y"),
+            analysis_year    = _today.year,
             macro_context    = macro_text,
             ticker           = ticker,
             current_price    = current_price,
@@ -263,7 +269,7 @@ class DeepAnalysis:
             response = self.client.messages.create(
                 model      = cfg.models.deep_analysis,
                 max_tokens = 1500,
-                system     = SYSTEM_PROMPT,
+                system     = SYSTEM_PROMPT.format(current_year=_dt.now().year),
                 messages   = [{"role": "user", "content": prompt}],
             )
             raw = response.content[0].text.strip()
