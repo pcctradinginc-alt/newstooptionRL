@@ -1,17 +1,10 @@
 """
-modules/deep_analysis.py v8.0
+modules/deep_analysis.py v8.1
 
-Änderung: Devil's Advocate + MC-Kontext im Prompt.
-Kein "Asymmetry Council" Overhead — gleicher Effekt, 1/8 der Kosten.
-
-Devil's Advocate Logik:
-    Claude muss zuerst aktiv GEGEN den Trade argumentieren.
-    Erst dann kommt die finale Bewertung.
-    Verhindert Confirmation-Bias (Claude stimmt Prescreening blind zu).
-
-MC-Injection:
-    Quick MC Hit-Rate wird im Prompt übergeben.
-    Claude prüft ob News-Qualität mit Statistik konsistent ist.
+Änderungen v8.1:
+    - Analysedatum im SYSTEM_PROMPT + ANALYSIS_TEMPLATE (verhindert Jahreszahlen-Halluzination)
+    - current_year dynamisch in SYSTEM_PROMPT
+    - asymmetry_reasoning: Genau 3 Sätze, max 500 Zeichen
 """
 
 import json
@@ -28,7 +21,7 @@ from modules.macro_context import get_macro_context
 
 log = logging.getLogger(__name__)
 
-SYSTEM_PROMPT = """Du bist ein skeptischer Quant-Analyst mit Fokus auf mittelfristige Optionsstrategien (2-6 Monate).
+SYSTEM_PROMPT = """Du bist ein skeptischer Quant-Analyst mit Fokus auf mittelfristige Optionsstrategien (2-6 Monate). Das aktuelle Jahr ist {current_year}. Alle Jahreszahlen in deinen Analysen müssen ≥ {current_year} sein. Ignoriere historische Jahreszahlen aus deinen Trainingsdaten — orientiere dich ausschließlich am Analysedatum im Prompt.
 
 PFLICHT-ABLAUF — in dieser Reihenfolge, keine Ausnahme:
 
@@ -121,8 +114,6 @@ class DeepAnalysis:
             if not analysis:
                 continue
 
-            # Red Team Veto: Wenn Red Team "VETO" → Signal verwerfen
-            # Auch: Automatisches VETO bei Narrativ-Mismatch-Schlüsselwörtern
             red_team = analysis.get("red_team", {})
             arg1 = (red_team.get("argument_1", "") or "").lower()
             narrativ_mismatch = any(w in arg1 for w in [
@@ -144,7 +135,6 @@ class DeepAnalysis:
                 )
                 continue
 
-            # Stats-Check: Bei hohem MC-Concern → Impact deckeln
             stats = analysis.get("stats_check", {})
             if stats.get("concern_level") == "high" and analysis.get("impact", 0) > 6:
                 original = analysis["impact"]
@@ -154,7 +144,6 @@ class DeepAnalysis:
                     f"Impact {original} → 6 gedeckelt"
                 )
 
-            # Widerspruchs-Check: Haiku bullish → Sonnet bearish
             haiku_reason  = candidate.get("prescreen_reason", "").lower()
             sonnet_dir    = analysis.get("direction", "")
             haiku_bullish = any(w in haiku_reason for w in
@@ -198,13 +187,11 @@ class DeepAnalysis:
         sector      = info.get("sector", "Unknown")
         move_48h    = self._get_48h_move(ticker)
 
-        # EPS Cross-Check Info
-        eps_check   = candidate.get("data_validation", {}).get("eps_cross_check", {})
-        sec_eps     = eps_check.get("sec_eps", "n/a")
-        dev_pct     = eps_check.get("deviation_pct")
+        eps_check     = candidate.get("data_validation", {}).get("eps_cross_check", {})
+        sec_eps       = eps_check.get("sec_eps", "n/a")
+        dev_pct       = eps_check.get("deviation_pct")
         eps_deviation = f"{dev_pct:.1%}" if dev_pct is not None else "n/a"
 
-        # Data Anomaly Warnung
         data_anomaly    = candidate.get("data_anomaly", False)
         anomaly_warning = ""
         if data_anomaly:
@@ -214,7 +201,6 @@ class DeepAnalysis:
                 "data_confidence muss 'low' sein."
             )
 
-        # Quick MC Daten
         qmc         = candidate.get("quick_mc", {})
         mc_hit_rate = qmc.get("hit_rate", 0.0)
         mc_paths    = qmc.get("n_paths", 0)
@@ -229,10 +215,8 @@ class DeepAnalysis:
         else:
             mc_interpretation = f"Nur {mc_hit_rate:.0%} — knapp über Minimum-Gate, erhöhte Vorsicht."
 
-        # News
         news_text = "\n".join(f"- {h}" for h in news[:8]) if news else "Keine News."
 
-        # Makro
         macro_text = (
             self._macro.get("claude_context", "Makro: nicht verfügbar")
             if self._macro.get("data_available")
@@ -245,23 +229,23 @@ class DeepAnalysis:
         from datetime import datetime as _dt
         _today = _dt.now()
         prompt = ANALYSIS_TEMPLATE.format(
-            analysis_date    = _today.strftime("%d.%m.%Y"),
-            analysis_year    = _today.year,
-            macro_context    = macro_text,
-            ticker           = ticker,
-            current_price    = current_price,
-            sector           = sector,
+            analysis_date      = _today.strftime("%d.%m.%Y"),
+            analysis_year      = _today.year,
+            macro_context      = macro_text,
+            ticker             = ticker,
+            current_price      = current_price,
+            sector             = sector,
             prescreen_reason   = prescreen_reason,
             prescreen_category = prescreen_category,
-            forward_eps      = forward_eps,
-            sec_eps          = sec_eps,
-            eps_deviation    = eps_deviation,
-            move_48h         = move_48h,
-            mc_hit_rate      = mc_hit_rate,
-            mc_paths         = mc_paths,
-            mc_days          = mc_days,
-            mc_interpretation= mc_interpretation,
-            news_text        = news_text,
+            forward_eps        = forward_eps,
+            sec_eps            = sec_eps,
+            eps_deviation      = eps_deviation,
+            move_48h           = move_48h,
+            mc_hit_rate        = mc_hit_rate,
+            mc_paths           = mc_paths,
+            mc_days            = mc_days,
+            mc_interpretation  = mc_interpretation,
+            news_text          = news_text,
             data_anomaly_warning = anomaly_warning,
         )
 
@@ -269,12 +253,11 @@ class DeepAnalysis:
             response = self.client.messages.create(
                 model      = cfg.models.deep_analysis,
                 max_tokens = 1500,
-                system     = SYSTEM_PROMPT.format(current_year=_dt.now().year),
+                system     = SYSTEM_PROMPT.format(current_year=_today.year),
                 messages   = [{"role": "user", "content": prompt}],
             )
             raw = response.content[0].text.strip()
 
-            # JSON extrahieren
             if "```" in raw:
                 parts = raw.split("```")
                 raw   = parts[1].lstrip("json").strip() if len(parts) > 1 else raw
@@ -283,13 +266,10 @@ class DeepAnalysis:
                 if idx != -1:
                     raw = raw[idx:]
 
-            # Robuster JSON-Parser: bei unterminated string → reparieren
             try:
                 result = json.loads(raw)
             except json.JSONDecodeError as je:
-                # Versuche JSON bis zum letzten vollständigen Feld zu parsen
                 log.warning(f"  [{ticker}] JSON teilweise abgeschnitten: {je} → Reparatur-Versuch")
-                # Schneide bei letztem vollständigen Wert ab
                 last_comma = raw.rfind('",')
                 last_brace = raw.rfind('"')
                 cutoff = max(last_comma, 0)
@@ -299,7 +279,6 @@ class DeepAnalysis:
                         result = json.loads(raw_fixed)
                         log.info(f"  [{ticker}] JSON repariert (gekürzt auf {cutoff} Zeichen)")
                     except Exception:
-                        # Fallback: Minimal-Response mit niedrigem Impact
                         log.warning(f"  [{ticker}] JSON nicht reparierbar → Fallback-Response")
                         result = {
                             "red_team": {"argument_1": "JSON-Parse-Fehler", "red_team_verdict": "PASSIERT"},
@@ -313,6 +292,7 @@ class DeepAnalysis:
                         }
                 else:
                     raise
+
             result["macro_regime"]  = self._macro.get("macro_regime", "unknown")
             result["macro_context"] = {
                 "yield_curve": self._macro.get("yield_curve_spread"),
