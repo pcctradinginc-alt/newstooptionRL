@@ -1,0 +1,279 @@
+{
+  "date": "2026-04-27",
+  "proposals": [
+    {
+      "ticker": "BKR",
+      "strategy": "LONG_CALL",
+      "iv_rank": 36.3,
+      "iv_gate_applied": false,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-05-15",
+        "strike": 70.0,
+        "bid": 1.75,
+        "ask": 1.9,
+        "open_interest": 3488,
+        "implied_vol": 0.3813538427734374,
+        "spread_ratio": 0.0789,
+        "dte": 17
+      },
+      "roi_analysis": {
+        "roi_gross": 1.2575,
+        "roi_net": 1.041,
+        "spread_pct": 0.0789,
+        "vega_loss": 0.0586,
+        "delta": 0.4336,
+        "iv_drop_assumed": 0.05,
+        "cost_basis": 1.9,
+        "is_spread": false,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.15,
+        "dte": 17
+      },
+      "dte_tier": "Short-Term",
+      "annualized_roi": 4492741.955,
+      "all_tiers_tried": [
+        {
+          "tier": "Short-Term",
+          "dte": 17,
+          "option": {
+            "expiry": "2026-05-15",
+            "strike": 70.0,
+            "bid": 1.75,
+            "ask": 1.9,
+            "open_interest": 3488,
+            "implied_vol": 0.3813538427734374,
+            "spread_ratio": 0.0789,
+            "dte": 17
+          },
+          "roi": {
+            "roi_gross": 1.2575,
+            "roi_net": 1.041,
+            "spread_pct": 0.0789,
+            "vega_loss": 0.0586,
+            "delta": 0.4336,
+            "iv_drop_assumed": 0.05,
+            "cost_basis": 1.9,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.15,
+            "dte": 17
+          },
+          "annualized_roi": 4492741.955,
+          "strategy": "LONG_CALL"
+        }
+      ],
+      "features": {
+        "impact": 7,
+        "surprise": 6,
+        "mismatch": 7.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.0251,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "strong",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.85
+      },
+      "simulation": {
+        "current_price": 68.81,
+        "target_price": 74.32,
+        "hit_rate": 0.85,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.0212,
+        "alpha": 0.00603
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Der Kurs ist bereits um +6,8% in 48 Stunden gestiegen, was stark darauf hindeutet, dass der Markt den Hormuz-Katalysator bereits eingepreist hat. Ein Einstieg nach einem solchen Move birgt erhebliches Mean-Reversion-Risiko, insbesondere wenn die geopolitische Pr\u00e4mie sich als tempor\u00e4r oder \u00fcbertrieben erweist. Optionsk\u00e4ufer zahlen nach einem solchen Spike deutlich erh\u00f6hte Implied Volatility (IV-Crush-Risiko post-Catalyst).",
+          "argument_2": "Die Stra\u00dfe von Hormuz als Investment-Thesis ist strukturell fragil: Geopolitische Krisen deeskalieren h\u00e4ufig schneller als erwartet, und jede Nachricht \u00fcber Verhandlungen oder \u00d6ffnung der Meerenge w\u00fcrde die geopolitische Pr\u00e4mie sofort aufl\u00f6sen. BKR als Oilfield-Services-Unternehmen profitiert prim\u00e4r von Bohraktivit\u00e4t, nicht direkt von \u00d6lpreispr\u00e4mien \u2014 der direkte Transmissionsmechanismus vom Hormuz-Risiko zu BKR-Earnings ist schw\u00e4cher als bei integrierten \u00d6lkonzernen.",
+          "argument_3": "Der CFO-Kommentar zur Hormuz-Blockade bis H2 2026 k\u00f6nnte als Forward Guidance-Signal missverstanden werden. Baker Hughes hat keine operative Kontrolle \u00fcber geopolitische Entwicklungen, und wenn sich diese Aussage als \u00fcbertrieben pessimistisch erweist oder der Markt sie als Risiko-Framing (nicht als Upside-Catalyst) interpretiert, k\u00f6nnte die Aktie korrigieren. Zudem sind 7 Insider-K\u00e4ufe zwar positiv, aber der absolute Dollarwert der Transaktionen ist aus den vorliegenden Daten nicht ersichtlich.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Kein Monte Carlo durchgef\u00fchrt \u2014 0% Hit-Rate ist technisch bedeutungslos und nicht als bearisches Signal zu werten. Die fehlende Statistik erh\u00f6ht die Unsicherheit der quantitativen Absicherung erheblich. Ohne MC-Daten muss die Bewertung st\u00e4rker auf fundamentale und qualitative Signale gest\u00fctzt werden, was die Datenconfidence reduziert.",
+          "concern_level": "medium"
+        },
+        "impact": 7,
+        "surprise": 6,
+        "direction": "BULLISH",
+        "bear_case_severity": 5,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt hat zwar kurzfristig reagiert, untersch\u00e4tzt aber die strukturelle Neubewertung von BKR als Benefiziar prolongierter Middle-East-Disruption im IET-Segment. Record-IET-Orders und starke EBITDA-Entwicklung liefern fundamentale Unterst\u00fctzung jenseits der rein geopolitischen Pr\u00e4mie. Insider-Cluster-K\u00e4ufe signalisieren, dass das Management die aktuelle Bewertung als attraktiv erachtet, was eine nachhaltige Underreaction impliziert.",
+        "catalyst": "CFO-Guidance zur anhaltenden Hormuz-Disruption bis H2 2026 kombiniert mit Record-IET-Orders aus Q1 2026 und 7-facher Insider-Akkumulation als strukturelles Repricing-Signal",
+        "bear_case": "Geopolitische Deeskalation am Persischen Golf w\u00fcrde die Hormuz-Pr\u00e4mie sofort aufl\u00f6sen; nach +6,8% in 48h ist erhebliche IV bereits eingepreist, was Optionsstrategien verteuert und IV-Crush-Risiko bei weiterer Entspannung schafft.",
+        "macro_assessment": "Das expansive Makroumfeld mit steiler Zinskurve (+0,53%) und Fed Funds Rate von 3,64% beg\u00fcnstigt kapitalintensive Industriesektoren wie Oilfield Services. Die 10Y-Rate von 4,25% ist moderat und dr\u00fcckt nicht auf die Bewertung von zyklischen Wachstumswerten. Gesamtbewertung: Makro-R\u00fcckenwind unterst\u00fctzt die bullische These und kompensiert teilweise das Risiko der bereits erfolgten Kursbewegung.",
+        "data_confidence": "medium",
+        "macro_regime": "expansive",
+        "macro_context": {
+          "yield_curve": 0.53,
+          "regime": "expansive"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLE",
+        "rel_strength": 0.1261
+      },
+      "final_score": 0.1558,
+      "time_value_efficiency": {
+        "roi_per_day_pct": 6.1235,
+        "annualized_roi": null,
+        "dte": 17
+      },
+      "trade_score": {
+        "total": 78,
+        "grade": "STRONG BUY \ud83d\udfe2",
+        "grade_short": "STRONG BUY",
+        "components": {
+          "signal_quality": 25.9,
+          "options_quality": 27.0,
+          "risk_deductions": 0.0,
+          "context_bonus": 25.0
+        },
+        "reasoning": "St\u00e4rken: starkes Signal (Impact=7/Surprise=6), guter ROI (104%), g\u00fcnstige IV (36%)",
+        "best_argument_for": "Der Markt hat zwar kurzfristig reagiert, untersch\u00e4tzt aber die strukturelle Neubewertung von BKR als Benefiziar prolongierter Middle-East-Disruption im IET-Segment. Record-IET-Orders und starke EBITDA-Entwicklung liefern fundamentale Unterst\u00fctzung jenseits der rein geopolitischen Pr\u00e4mie. Insider-Cluster-K\u00e4ufe signalisieren, dass das Management die aktuelle Bewertung als attraktiv erachtet, was eine nachhaltige Underreaction impliziert.",
+        "best_argument_against": "Der Kurs ist bereits um +6,8% in 48 Stunden gestiegen, was stark darauf hindeutet, dass der Markt den Hormuz-Katalysator bereits eingepreist hat. Ein Einstieg nach einem solchen Move birgt erhebliches Mean-Reversion-Risiko, insbesondere wenn die geopolitische Pr\u00e4mie sich als tempor\u00e4r oder \u00fcbertrieben erweist. Optionsk\u00e4ufer zahlen nach einem solchen Spike deutlich erh\u00f6hte Implied Volatility (IV-Crush-Risiko post-Catalyst)."
+      },
+      "trade_rank": 1
+    },
+    {
+      "ticker": "CMCSA",
+      "strategy": "LONG_PUT",
+      "iv_rank": 73.4,
+      "iv_gate_applied": false,
+      "direction": "BEARISH",
+      "option": {
+        "expiry": "2026-05-15",
+        "strike": 28.5,
+        "bid": 1.19,
+        "ask": 1.32,
+        "open_interest": 138,
+        "implied_vol": 0.36817038085937503,
+        "spread_ratio": 0.0985,
+        "dte": 17
+      },
+      "roi_analysis": {
+        "roi_gross": 0.6511,
+        "roi_net": 0.2941,
+        "spread_pct": 0.0985,
+        "vega_loss": 0.16,
+        "delta": 0.3871,
+        "iv_drop_assumed": 0.25,
+        "cost_basis": 1.32,
+        "is_spread": false,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.15,
+        "dte": 17
+      },
+      "dte_tier": "Short-Term",
+      "annualized_roi": 252.5218,
+      "all_tiers_tried": [
+        {
+          "tier": "Short-Term",
+          "dte": 17,
+          "option": {
+            "expiry": "2026-05-15",
+            "strike": 28.5,
+            "bid": 1.19,
+            "ask": 1.32,
+            "open_interest": 138,
+            "implied_vol": 0.36817038085937503,
+            "spread_ratio": 0.0985,
+            "dte": 17
+          },
+          "roi": {
+            "roi_gross": 0.6511,
+            "roi_net": 0.2941,
+            "spread_pct": 0.0985,
+            "vega_loss": 0.16,
+            "delta": 0.3871,
+            "iv_drop_assumed": 0.25,
+            "cost_basis": 1.32,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.15,
+            "dte": 17
+          },
+          "annualized_roi": 252.5218,
+          "strategy": "LONG_PUT"
+        }
+      ],
+      "features": {
+        "impact": 6,
+        "surprise": 5,
+        "mismatch": 6.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.0295,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.644
+      },
+      "simulation": {
+        "current_price": 27.77,
+        "target_price": 29.99,
+        "hit_rate": 0.7392,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.0215,
+        "alpha": 0.00267
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "FCC-Regulierungsdruck ist strukturell und nicht kurzfristig l\u00f6sbar: Die Trump-FCC verfolgt aktiv neue Wege, TV-Networks zu belasten, was Comcasts Kerngesch\u00e4ft (NBCUniversal, Broadcast) direkt trifft. Diese regulatorische Unsicherheit kann die Bewertungsmultiples dauerhaft komprimieren und ist kein einmaliges Event.",
+          "argument_2": "Peacock verliert weiterhin massiv Geld (-432 Mio USD) und skaliert nicht profitabel. In einem Umfeld mit steigendem Streaming-Wettbewerb (Disney+, Netflix, Max) fehlt Peacock die kritische Content-Masse. Ohne klaren Weg zur Profitabilit\u00e4t belastet der Streamingarm die Gesamtmargen nachhaltig.",
+          "argument_3": "Der -12,1% Preisr\u00fcckgang in 48h deutet auf erheblichen fundamentalen Schock hin (vermutlich schlechte Earnings oder Guidance-Cut). Insider-K\u00e4ufe k\u00f6nnen ein Catching-Falling-Knife-Signal sein \u2014 Management glaubt an die Aktie, aber der Markt preist strukturellen Verfall ein. Der EPS-Gap zwischen yfinance (3,84) und SEC EDGAR (5,10) deutet zudem auf Qualit\u00e4tsprobleme bei den Gewinndaten hin.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Die 0% Hit-Rate ist bei einem bereits -12,1% gefallenen Titel ohne MC-Simulation nicht aussagekr\u00e4ftig. Da kein Quick MC durchgef\u00fchrt wurde, fehlt die statistische Basis f\u00fcr eine Wahrscheinlichkeitsaussage. Der fehlende MC erh\u00f6ht die Datelunsicherheit erheblich \u2014 keine Warnung wegen \u00dcberkalibrierung, aber Confidence sinkt.",
+          "concern_level": "high"
+        },
+        "impact": 6,
+        "surprise": 5,
+        "direction": "BEARISH",
+        "bear_case_severity": 7,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt hat den -12,1%-Drop m\u00f6glicherweise als \u00fcberverkauft eingestuft, w\u00e4hrend strukturelle Faktoren (FCC-Druck, Peacock-Verluste, Kabelkundenschwund) dauerhaft wirken. Insider-K\u00e4ufe erzeugen ein bullisches Gegensignal, das kurzfristig stabilisiert, aber die fundamentalen Probleme nicht l\u00f6st. Das Risiko liegt in einer weiteren Neubewertung der Multiples bei anhaltend schwachen Streaming-Metriken im Q2-2026-Ergebnis.",
+        "catalyst": "Q2-2026-Earnings mit Peacock-Verlustentwicklung und FCC-Regulierungsank\u00fcndigungen bis Juli 2026",
+        "bear_case": "Struktureller Kabelkunden-Exodus kombiniert mit Peacock-Verlusten und FCC-Druck kann die FCF-Generation nachhaltig komprimieren, was weitere Multiple-Kontraktion erzwingt \u2014 Insider-K\u00e4ufe reichen nicht aus, um diesen Trend umzukehren.",
+        "macro_assessment": "Das expansive Makro-Umfeld (steile Kurve +0,53%, Fed Funds 3,64%) ist grunds\u00e4tzlich positiv f\u00fcr Leverage-intensive Unternehmen wie Comcast. Allerdings \u00fcberlagern sektorspezifische Strukturrisiken (Regulierung, Streaming-Burn) den makro-tailwind, weshalb das bullische Makro-Signal hier nur begrenzte Unterst\u00fctzung bietet.",
+        "data_confidence": "low",
+        "macro_regime": "expansive",
+        "macro_context": {
+          "yield_curve": 0.53,
+          "regime": "expansive"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLC",
+        "rel_strength": -0.0877
+      },
+      "final_score": 0.1351,
+      "time_value_efficiency": {
+        "roi_per_day_pct": 1.73,
+        "annualized_roi": null,
+        "dte": 17
+      },
+      "trade_score": {
+        "total": 48,
+        "grade": "WATCH \ud83d\udfe0",
+        "grade_short": "WATCH",
+        "components": {
+          "signal_quality": 21.9,
+          "options_quality": 23.2,
+          "risk_deductions": -12.0,
+          "context_bonus": 15.0
+        },
+        "reasoning": "St\u00e4rken: solides Signal (Impact=6/Surprise=5), guter ROI (29%), expansives Makro-Umfeld | Risiken: hohes Bear-Risiko (7/10), Sektor underperformt Markt",
+        "best_argument_for": "Der Markt hat den -12,1%-Drop m\u00f6glicherweise als \u00fcberverkauft eingestuft, w\u00e4hrend strukturelle Faktoren (FCC-Druck, Peacock-Verluste, Kabelkundenschwund) dauerhaft wirken. Insider-K\u00e4ufe erzeugen ein bullisches Gegensignal, das kurzfristig stabilisiert, aber die fundamentalen Probleme nicht l\u00f6st. Das Risiko liegt in einer weiteren Neubewertung der Multiples bei anhaltend schwachen Streaming-Metriken im Q2-2026-Ergebnis.",
+        "best_argument_against": "FCC-Regulierungsdruck ist strukturell und nicht kurzfristig l\u00f6sbar: Die Trump-FCC verfolgt aktiv neue Wege, TV-Networks zu belasten, was Comcasts Kerngesch\u00e4ft (NBCUniversal, Broadcast) direkt trifft. Diese regulatorische Unsicherheit kann die Bewertungsmultiples dauerhaft komprimieren und ist kein einmaliges Event."
+      },
+      "trade_rank": 2
+    }
+  ]
+}

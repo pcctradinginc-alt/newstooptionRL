@@ -2,36 +2,36 @@
   "feature_stats": {
     "impact": {
       "low": {
-        "count": 144,
-        "avg_return": 0.33058
+        "count": 152,
+        "avg_return": 0.330572
       },
       "mid": {
-        "count": 177,
-        "avg_return": 0.149076
+        "count": 197,
+        "avg_return": 0.144407
       },
       "high": {
-        "count": 39,
-        "avg_return": -0.232134
+        "count": 41,
+        "avg_return": -0.24313
       }
     },
     "mismatch": {
       "weak": {
-        "count": 222,
-        "avg_return": 0.227823
+        "count": 234,
+        "avg_return": 0.228353
       },
       "good": {
-        "count": 138,
-        "avg_return": 0.104053
+        "count": 155,
+        "avg_return": 0.099127
       },
       "strong": {
-        "count": 0,
-        "avg_return": 0.0
+        "count": 1,
+        "avg_return": -0.07296
       }
     },
     "eps_drift": {
       "noise": {
-        "count": 360,
-        "avg_return": 0.180379
+        "count": 390,
+        "avg_return": 0.176221
       },
       "relevant": {
         "count": 0,
@@ -71,8 +71,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 881.605,
-      "current_return": -0.4494
+      "last_price": 879.65,
+      "current_return": -0.4576
     },
     {
       "ticker": "META",
@@ -101,8 +101,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 679.985,
-      "current_return": 0.5907
+      "last_price": 675.89,
+      "current_return": 0.6484
     },
     {
       "ticker": "MRK",
@@ -131,8 +131,8 @@
         "dte": 159
       },
       "outcome": null,
-      "last_price": 111.74,
-      "current_return": -0.5157
+      "last_price": 111.4401,
+      "current_return": -0.5413
     },
     {
       "ticker": "AAPL",
@@ -161,8 +161,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 269.92,
-      "current_return": 0.4079
+      "last_price": 267.0,
+      "current_return": 0.2316
     },
     {
       "ticker": "UNH",
@@ -191,8 +191,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 352.56,
-      "current_return": 1.0378
+      "last_price": 349.745,
+      "current_return": 1.0068
     },
     {
       "ticker": "LLY",
@@ -221,8 +221,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 881.33,
-      "current_return": -0.4494
+      "last_price": 879.65,
+      "current_return": -0.4576
     },
     {
       "ticker": "UNH",
@@ -251,8 +251,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 352.56,
-      "current_return": 1.5781
+      "last_price": 349.745,
+      "current_return": 1.5797
     },
     {
       "ticker": "META",
@@ -281,8 +281,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 679.985,
-      "current_return": 0.5907
+      "last_price": 675.89,
+      "current_return": 0.6484
     },
     {
       "ticker": "MRK",
@@ -311,8 +311,8 @@
         "dte": 159
       },
       "outcome": null,
-      "last_price": 111.74,
-      "current_return": -0.5157
+      "last_price": 111.4401,
+      "current_return": -0.5413
     },
     {
       "ticker": "AAPL",
@@ -341,8 +341,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 269.92,
-      "current_return": 0.4079
+      "last_price": 267.0,
+      "current_return": 0.2316
     },
     {
       "ticker": "TSLA",
@@ -371,8 +371,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 375.9999,
-      "current_return": 0.3935
+      "last_price": 364.87,
+      "current_return": 0.2586
     },
     {
       "ticker": "LLY",
@@ -401,8 +401,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 881.33,
-      "current_return": -0.4494
+      "last_price": 879.65,
+      "current_return": -0.4576
     },
     {
       "ticker": "LLY",
@@ -431,8 +431,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 881.33,
-      "current_return": -0.4494
+      "last_price": 879.65,
+      "current_return": -0.4576
     },
     {
       "ticker": "LLY",
@@ -461,8 +461,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 881.33,
-      "current_return": -0.4494
+      "last_price": 879.65,
+      "current_return": -0.4576
     },
     {
       "ticker": "ON",
@@ -518,8 +518,8 @@
         "direction": "BULLISH"
       },
       "outcome": null,
-      "last_price": 99.455,
-      "current_return": 2.275
+      "last_price": 98.1401,
+      "current_return": 2.2875
     },
     {
       "ticker": "ABT",
@@ -608,8 +608,8 @@
         "dte": 127
       },
       "outcome": null,
-      "last_price": 91.25,
-      "current_return": -0.0998
+      "last_price": 92.965,
+      "current_return": -0.0829
     },
     {
       "ticker": "META",
@@ -698,8 +698,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 679.985,
-      "current_return": 0.0093
+      "last_price": 675.835,
+      "current_return": 0.0032
     },
     {
       "ticker": "CDNS",
@@ -788,8 +788,8 @@
         "dte": 155
       },
       "outcome": null,
-      "last_price": 331.445,
-      "current_return": 0.0826
+      "last_price": 335.59,
+      "current_return": 0.0961
     },
     {
       "ticker": "AVGO",
@@ -878,8 +878,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 420.635,
-      "current_return": 0.0661
+      "last_price": 415.73,
+      "current_return": 0.0536
     },
     {
       "ticker": "FISV",
@@ -962,8 +962,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 60.375,
-      "current_return": -0.0178
+      "last_price": 61.46,
+      "current_return": -0.0002
     },
     {
       "ticker": "AMZN",
@@ -1052,8 +1052,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 262.605,
-      "current_return": 0.0568
+      "last_price": 260.89,
+      "current_return": 0.0499
     },
     {
       "ticker": "AMD",
@@ -1136,8 +1136,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 348.3698,
-      "current_return": 0.3496
+      "last_price": 333.43,
+      "current_return": 0.2918
     },
     {
       "ticker": "AMAT",
@@ -1226,8 +1226,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 418.59,
-      "current_return": 0.0617
+      "last_price": 401.065,
+      "current_return": 0.0173
     },
     {
       "ticker": "CTVA",
@@ -1316,8 +1316,8 @@
         "dte": 29
       },
       "outcome": null,
-      "last_price": 79.25,
-      "current_return": -0.0255
+      "last_price": 79.9075,
+      "current_return": -0.0174
     },
     {
       "ticker": "ORCL",
@@ -1406,8 +1406,8 @@
         "dte": 21
       },
       "outcome": null,
-      "last_price": 171.0051,
-      "current_return": -0.038
+      "last_price": 171.4001,
+      "current_return": -0.0358
     },
     {
       "ticker": "HOOD",
@@ -1484,8 +1484,8 @@
         "dte": 27
       },
       "outcome": null,
-      "last_price": 84.835,
-      "current_return": -0.0815
+      "last_price": 83.378,
+      "current_return": -0.0972
     },
     {
       "ticker": "SCHW",
@@ -1562,8 +1562,8 @@
         "dte": 27
       },
       "outcome": null,
-      "last_price": 89.44,
-      "current_return": -0.0345
+      "last_price": 90.03,
+      "current_return": -0.0282
     },
     {
       "ticker": "HOOD",
@@ -1639,7 +1639,9 @@
         "annualized_roi": null,
         "dte": 24
       },
-      "outcome": null
+      "outcome": null,
+      "last_price": 83.378,
+      "current_return": -0.073
     },
     {
       "ticker": "ON",
@@ -1715,7 +1717,9 @@
         "annualized_roi": null,
         "dte": 24
       },
-      "outcome": null
+      "outcome": null,
+      "last_price": 98.1401,
+      "current_return": 0.1596
     },
     {
       "ticker": "TSLA",
@@ -1791,7 +1795,9 @@
         "annualized_roi": null,
         "dte": 24
       },
-      "outcome": null
+      "outcome": null,
+      "last_price": 364.8999,
+      "current_return": -0.0692
     },
     {
       "ticker": "AMZN",
@@ -3882,6 +3888,146 @@
         "dte": 237
       },
       "outcome": null
+    },
+    {
+      "ticker": "BKR",
+      "entry_date": "2026-04-27",
+      "features": {
+        "impact": 7,
+        "surprise": 6,
+        "mismatch": 7.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.0251,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "strong",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.85
+      },
+      "strategy": "LONG_CALL",
+      "option": {
+        "expiry": "2026-05-15",
+        "strike": 70.0,
+        "bid": 1.75,
+        "ask": 1.9,
+        "open_interest": 3488,
+        "implied_vol": 0.3813538427734374,
+        "spread_ratio": 0.0789,
+        "dte": 17
+      },
+      "simulation": {
+        "current_price": 68.81,
+        "target_price": 74.32,
+        "hit_rate": 0.85,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.0212,
+        "alpha": 0.00603
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Der Kurs ist bereits um +6,8% in 48 Stunden gestiegen, was stark darauf hindeutet, dass der Markt den Hormuz-Katalysator bereits eingepreist hat. Ein Einstieg nach einem solchen Move birgt erhebliches Mean-Reversion-Risiko, insbesondere wenn die geopolitische Pr\u00e4mie sich als tempor\u00e4r oder \u00fcbertrieben erweist. Optionsk\u00e4ufer zahlen nach einem solchen Spike deutlich erh\u00f6hte Implied Volatility (IV-Crush-Risiko post-Catalyst).",
+          "argument_2": "Die Stra\u00dfe von Hormuz als Investment-Thesis ist strukturell fragil: Geopolitische Krisen deeskalieren h\u00e4ufig schneller als erwartet, und jede Nachricht \u00fcber Verhandlungen oder \u00d6ffnung der Meerenge w\u00fcrde die geopolitische Pr\u00e4mie sofort aufl\u00f6sen. BKR als Oilfield-Services-Unternehmen profitiert prim\u00e4r von Bohraktivit\u00e4t, nicht direkt von \u00d6lpreispr\u00e4mien \u2014 der direkte Transmissionsmechanismus vom Hormuz-Risiko zu BKR-Earnings ist schw\u00e4cher als bei integrierten \u00d6lkonzernen.",
+          "argument_3": "Der CFO-Kommentar zur Hormuz-Blockade bis H2 2026 k\u00f6nnte als Forward Guidance-Signal missverstanden werden. Baker Hughes hat keine operative Kontrolle \u00fcber geopolitische Entwicklungen, und wenn sich diese Aussage als \u00fcbertrieben pessimistisch erweist oder der Markt sie als Risiko-Framing (nicht als Upside-Catalyst) interpretiert, k\u00f6nnte die Aktie korrigieren. Zudem sind 7 Insider-K\u00e4ufe zwar positiv, aber der absolute Dollarwert der Transaktionen ist aus den vorliegenden Daten nicht ersichtlich.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Kein Monte Carlo durchgef\u00fchrt \u2014 0% Hit-Rate ist technisch bedeutungslos und nicht als bearisches Signal zu werten. Die fehlende Statistik erh\u00f6ht die Unsicherheit der quantitativen Absicherung erheblich. Ohne MC-Daten muss die Bewertung st\u00e4rker auf fundamentale und qualitative Signale gest\u00fctzt werden, was die Datenconfidence reduziert.",
+          "concern_level": "medium"
+        },
+        "impact": 7,
+        "surprise": 6,
+        "direction": "BULLISH",
+        "bear_case_severity": 5,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt hat zwar kurzfristig reagiert, untersch\u00e4tzt aber die strukturelle Neubewertung von BKR als Benefiziar prolongierter Middle-East-Disruption im IET-Segment. Record-IET-Orders und starke EBITDA-Entwicklung liefern fundamentale Unterst\u00fctzung jenseits der rein geopolitischen Pr\u00e4mie. Insider-Cluster-K\u00e4ufe signalisieren, dass das Management die aktuelle Bewertung als attraktiv erachtet, was eine nachhaltige Underreaction impliziert.",
+        "catalyst": "CFO-Guidance zur anhaltenden Hormuz-Disruption bis H2 2026 kombiniert mit Record-IET-Orders aus Q1 2026 und 7-facher Insider-Akkumulation als strukturelles Repricing-Signal",
+        "bear_case": "Geopolitische Deeskalation am Persischen Golf w\u00fcrde die Hormuz-Pr\u00e4mie sofort aufl\u00f6sen; nach +6,8% in 48h ist erhebliche IV bereits eingepreist, was Optionsstrategien verteuert und IV-Crush-Risiko bei weiterer Entspannung schafft.",
+        "macro_assessment": "Das expansive Makroumfeld mit steiler Zinskurve (+0,53%) und Fed Funds Rate von 3,64% beg\u00fcnstigt kapitalintensive Industriesektoren wie Oilfield Services. Die 10Y-Rate von 4,25% ist moderat und dr\u00fcckt nicht auf die Bewertung von zyklischen Wachstumswerten. Gesamtbewertung: Makro-R\u00fcckenwind unterst\u00fctzt die bullische These und kompensiert teilweise das Risiko der bereits erfolgten Kursbewegung.",
+        "data_confidence": "medium",
+        "macro_regime": "expansive",
+        "macro_context": {
+          "yield_curve": 0.53,
+          "regime": "expansive"
+        },
+        "direction_conflict": false
+      },
+      "tve": {
+        "roi_per_day_pct": 6.1235,
+        "annualized_roi": null,
+        "dte": 17
+      },
+      "outcome": null
+    },
+    {
+      "ticker": "CMCSA",
+      "entry_date": "2026-04-27",
+      "features": {
+        "impact": 6,
+        "surprise": 5,
+        "mismatch": 6.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.0295,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.644
+      },
+      "strategy": "LONG_PUT",
+      "option": {
+        "expiry": "2026-05-15",
+        "strike": 28.5,
+        "bid": 1.19,
+        "ask": 1.32,
+        "open_interest": 138,
+        "implied_vol": 0.36817038085937503,
+        "spread_ratio": 0.0985,
+        "dte": 17
+      },
+      "simulation": {
+        "current_price": 27.77,
+        "target_price": 29.99,
+        "hit_rate": 0.7392,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.0215,
+        "alpha": 0.00267
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "FCC-Regulierungsdruck ist strukturell und nicht kurzfristig l\u00f6sbar: Die Trump-FCC verfolgt aktiv neue Wege, TV-Networks zu belasten, was Comcasts Kerngesch\u00e4ft (NBCUniversal, Broadcast) direkt trifft. Diese regulatorische Unsicherheit kann die Bewertungsmultiples dauerhaft komprimieren und ist kein einmaliges Event.",
+          "argument_2": "Peacock verliert weiterhin massiv Geld (-432 Mio USD) und skaliert nicht profitabel. In einem Umfeld mit steigendem Streaming-Wettbewerb (Disney+, Netflix, Max) fehlt Peacock die kritische Content-Masse. Ohne klaren Weg zur Profitabilit\u00e4t belastet der Streamingarm die Gesamtmargen nachhaltig.",
+          "argument_3": "Der -12,1% Preisr\u00fcckgang in 48h deutet auf erheblichen fundamentalen Schock hin (vermutlich schlechte Earnings oder Guidance-Cut). Insider-K\u00e4ufe k\u00f6nnen ein Catching-Falling-Knife-Signal sein \u2014 Management glaubt an die Aktie, aber der Markt preist strukturellen Verfall ein. Der EPS-Gap zwischen yfinance (3,84) und SEC EDGAR (5,10) deutet zudem auf Qualit\u00e4tsprobleme bei den Gewinndaten hin.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Die 0% Hit-Rate ist bei einem bereits -12,1% gefallenen Titel ohne MC-Simulation nicht aussagekr\u00e4ftig. Da kein Quick MC durchgef\u00fchrt wurde, fehlt die statistische Basis f\u00fcr eine Wahrscheinlichkeitsaussage. Der fehlende MC erh\u00f6ht die Datelunsicherheit erheblich \u2014 keine Warnung wegen \u00dcberkalibrierung, aber Confidence sinkt.",
+          "concern_level": "high"
+        },
+        "impact": 6,
+        "surprise": 5,
+        "direction": "BEARISH",
+        "bear_case_severity": 7,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt hat den -12,1%-Drop m\u00f6glicherweise als \u00fcberverkauft eingestuft, w\u00e4hrend strukturelle Faktoren (FCC-Druck, Peacock-Verluste, Kabelkundenschwund) dauerhaft wirken. Insider-K\u00e4ufe erzeugen ein bullisches Gegensignal, das kurzfristig stabilisiert, aber die fundamentalen Probleme nicht l\u00f6st. Das Risiko liegt in einer weiteren Neubewertung der Multiples bei anhaltend schwachen Streaming-Metriken im Q2-2026-Ergebnis.",
+        "catalyst": "Q2-2026-Earnings mit Peacock-Verlustentwicklung und FCC-Regulierungsank\u00fcndigungen bis Juli 2026",
+        "bear_case": "Struktureller Kabelkunden-Exodus kombiniert mit Peacock-Verlusten und FCC-Druck kann die FCF-Generation nachhaltig komprimieren, was weitere Multiple-Kontraktion erzwingt \u2014 Insider-K\u00e4ufe reichen nicht aus, um diesen Trend umzukehren.",
+        "macro_assessment": "Das expansive Makro-Umfeld (steile Kurve +0,53%, Fed Funds 3,64%) ist grunds\u00e4tzlich positiv f\u00fcr Leverage-intensive Unternehmen wie Comcast. Allerdings \u00fcberlagern sektorspezifische Strukturrisiken (Regulierung, Streaming-Burn) den makro-tailwind, weshalb das bullische Makro-Signal hier nur begrenzte Unterst\u00fctzung bietet.",
+        "data_confidence": "low",
+        "macro_regime": "expansive",
+        "macro_context": {
+          "yield_curve": 0.53,
+          "regime": "expansive"
+        },
+        "direction_conflict": false
+      },
+      "tve": {
+        "roi_per_day_pct": 1.73,
+        "annualized_roi": null,
+        "dte": 17
+      },
+      "outcome": null
     }
   ],
   "closed_trades": [],
@@ -3995,6 +4141,11 @@
       {
         "date": "2026-04-24",
         "score": -0.0176,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": -0.2582,
         "headline_count": 5
       }
     ],
@@ -4280,6 +4431,11 @@
         "date": "2026-04-24",
         "score": -0.0413,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": -0.4541,
+        "headline_count": 5
       }
     ],
     "FSLR": [
@@ -4339,6 +4495,11 @@
         "date": "2026-04-24",
         "score": -0.0092,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": -0.0569,
+        "headline_count": 5
       }
     ],
     "META": [
@@ -4370,6 +4531,11 @@
       {
         "date": "2026-04-24",
         "score": 0.1542,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": -0.5024,
         "headline_count": 5
       }
     ],
@@ -4499,6 +4665,11 @@
         "date": "2026-04-23",
         "score": -0.2484,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": 0.0838,
+        "headline_count": 5
       }
     ],
     "C": [
@@ -4543,6 +4714,11 @@
         "date": "2026-04-23",
         "score": -0.3611,
         "headline_count": 3
+      },
+      {
+        "date": "2026-04-27",
+        "score": -0.2138,
+        "headline_count": 4
       }
     ],
     "DRI": [
@@ -5206,6 +5382,11 @@
         "date": "2026-04-23",
         "score": -0.0683,
         "headline_count": 4
+      },
+      {
+        "date": "2026-04-27",
+        "score": 0.0184,
+        "headline_count": 5
       }
     ],
     "CSGP": [
@@ -5279,6 +5460,11 @@
         "date": "2026-04-24",
         "score": 0.1231,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": 0.3936,
+        "headline_count": 4
       }
     ],
     "AOS": [
@@ -5313,6 +5499,11 @@
         "date": "2026-04-23",
         "score": -0.128,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": 0.0238,
+        "headline_count": 4
       }
     ],
     "AWK": [
@@ -5376,6 +5567,11 @@
       {
         "date": "2026-04-24",
         "score": 0.3264,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": -0.29,
         "headline_count": 5
       }
     ],
@@ -5441,6 +5637,11 @@
         "date": "2026-04-24",
         "score": 0.1303,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": -0.4541,
+        "headline_count": 5
       }
     ],
     "AVGO": [
@@ -5494,6 +5695,11 @@
       {
         "date": "2026-04-23",
         "score": -0.4136,
+        "headline_count": 4
+      },
+      {
+        "date": "2026-04-27",
+        "score": -0.2403,
         "headline_count": 4
       }
     ],
@@ -6059,6 +6265,11 @@
         "date": "2026-04-24",
         "score": -0.001,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": 0.1282,
+        "headline_count": 5
       }
     ],
     "STZ": [
@@ -6482,6 +6693,11 @@
         "date": "2026-04-24",
         "score": 0.3059,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": 0.055,
+        "headline_count": 5
       }
     ],
     "GOOG": [
@@ -6508,6 +6724,11 @@
       {
         "date": "2026-04-24",
         "score": -0.0418,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": 0.0493,
         "headline_count": 5
       }
     ],
@@ -6585,6 +6806,11 @@
         "date": "2026-04-24",
         "score": 0.008,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": -0.0511,
+        "headline_count": 5
       }
     ],
     "GOOGL": [
@@ -6607,6 +6833,11 @@
         "date": "2026-04-23",
         "score": 0.1531,
         "headline_count": 4
+      },
+      {
+        "date": "2026-04-27",
+        "score": -0.2095,
+        "headline_count": 5
       }
     ],
     "AMGN": [
@@ -6688,6 +6919,11 @@
         "date": "2026-04-24",
         "score": 0.1659,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": -0.3372,
+        "headline_count": 3
       }
     ],
     "ADM": [
@@ -6754,6 +6990,11 @@
         "date": "2026-04-24",
         "score": 0.5275,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": 0.1204,
+        "headline_count": 4
       }
     ],
     "ADSK": [
@@ -6797,6 +7038,11 @@
       {
         "date": "2026-04-23",
         "score": 0.1657,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": 0.0788,
         "headline_count": 5
       }
     ],
@@ -6900,6 +7146,11 @@
       {
         "date": "2026-04-24",
         "score": 0.5937,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": -0.0185,
         "headline_count": 5
       }
     ],
@@ -7378,6 +7629,11 @@
         "date": "2026-04-23",
         "score": -0.1216,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": -0.4541,
+        "headline_count": 5
       }
     ],
     "EOG": [
@@ -7692,6 +7948,11 @@
         "date": "2026-04-24",
         "score": 0.499,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": 0.3797,
+        "headline_count": 5
       }
     ],
     "BMY": [
@@ -7703,6 +7964,11 @@
       {
         "date": "2026-04-22",
         "score": 0.0021,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": 0.3718,
         "headline_count": 5
       }
     ],
@@ -7876,6 +8142,11 @@
         "date": "2026-04-23",
         "score": 0.0798,
         "headline_count": 3
+      },
+      {
+        "date": "2026-04-27",
+        "score": 0.0828,
+        "headline_count": 5
       }
     ],
     "DHR": [
@@ -8066,6 +8337,11 @@
       {
         "date": "2026-04-23",
         "score": 0.2407,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-27",
+        "score": 0.0445,
         "headline_count": 5
       }
     ],
