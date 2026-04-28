@@ -1,6 +1,11 @@
 """
 Tests für den Adaptive Asymmetry-Scanner
 Ausführen: pytest tests/ -v
+
+v8.2: Mismatch-Scorer-Tests aktualisiert:
+  - _compute_48h_move wird gemockt (statt price_move_48h als Feld)
+  - data_validation.eps_cross_check.deviation_pct (statt eps_drift.drift)
+  - sample_analysis Fixture angepasst
 """
 
 import json
@@ -36,7 +41,18 @@ def sample_candidate():
             "recommendationMean": 1.8,
             "sector": "Technology",
         },
-        "eps_drift": {"drift": 0.12, "current_eps": 7.5, "stored_eps": 6.7, "drift_weight": "massive", "rec_mean": 1.8},
+        # v8.2: EPS-Drift jetzt über data_validation (korrekter Pfad)
+        "data_validation": {
+            "eps_cross_check": {
+                "sec_eps": 6.7,
+                "yf_eps": 7.5,
+                "deviation_pct": 0.1067,
+                "consistent": False,
+                "confidence": "low",
+                "source": "SEC_EDGAR",
+                "data_anomaly": False,
+            }
+        },
         "news": ["Apple announces revolutionary AI chip", "iPhone sales beat estimates by 15%"],
         "prescreen_reason": "Technologischer Durchbruch – neue Produktkategorie",
     }
@@ -46,7 +62,7 @@ def sample_candidate():
 def sample_analysis(sample_candidate):
     return {
         **sample_candidate,
-        "price_move_48h": 0.015,
+        # v8.2: price_move_48h entfernt — wird jetzt intern vom Scorer berechnet
         "deep_analysis": {
             "ticker":                  "AAPL",
             "impact":                  8,
@@ -65,51 +81,136 @@ def sample_analysis(sample_candidate):
 
 class TestMismatchScorer:
     def test_high_impact_low_move_gives_high_mismatch(self):
+        """Impact=9, 48h-Move=1% bei σ=2% → Z=0.5 → Mismatch=9-2.5=6.5 (strong)"""
         from modules.mismatch_scorer import MismatchScorer
         scorer = MismatchScorer()
 
-        with patch.object(scorer, "_compute_sigma", return_value=0.02):
-            candidate = {
-                "ticker": "AAPL",
-                "info": {},
-                "eps_drift": {"drift": 0.12},
-                "news": [],
-                "deep_analysis": {"impact": 9, "surprise": 8, "direction": "BULLISH"},
-                "price_move_48h": 0.01,   # Kleine 48h-Bewegung
-            }
+        candidate = {
+            "ticker": "AAPL",
+            "info": {},
+            "data_validation": {
+                "eps_cross_check": {"deviation_pct": 0.12}
+            },
+            "news": [],
+            "deep_analysis": {"impact": 9, "surprise": 8, "direction": "BULLISH"},
+        }
+
+        with patch.object(scorer, "_compute_sigma", return_value=0.02), \
+             patch.object(scorer, "_compute_48h_move", return_value=0.01):
             result = scorer._score(candidate)
 
         assert result is not None
         mismatch = result["features"]["mismatch"]
         assert mismatch > 3, f"Erwartetes hohes Mismatch, aber: {mismatch}"
         assert result["features"]["bin_mismatch"] in ("good", "strong")
+        # v8.2: EPS-Drift wird jetzt korrekt gelesen
+        assert result["features"]["eps_drift"] == 0.12
 
-    def test_low_impact_high_move_gives_low_mismatch(self):
+    def test_low_impact_high_move_gives_negative_mismatch_filtered(self):
+        """Impact=3, 48h-Move=8% bei σ=2% → Z=4.0 → Mismatch=3-20=-17 → gefiltert (None)"""
         from modules.mismatch_scorer import MismatchScorer
         scorer = MismatchScorer()
 
-        with patch.object(scorer, "_compute_sigma", return_value=0.02):
-            candidate = {
-                "ticker": "MSFT",
-                "info": {},
-                "eps_drift": {"drift": 0.01},
-                "news": [],
-                "deep_analysis": {"impact": 3, "surprise": 2, "direction": "BULLISH"},
-                "price_move_48h": 0.08,   # Große 48h-Bewegung → Markt hat reagiert
-            }
+        candidate = {
+            "ticker": "MSFT",
+            "info": {},
+            "data_validation": {
+                "eps_cross_check": {"deviation_pct": 0.01}
+            },
+            "news": [],
+            "deep_analysis": {"impact": 3, "surprise": 2, "direction": "BULLISH"},
+        }
+
+        with patch.object(scorer, "_compute_sigma", return_value=0.02), \
+             patch.object(scorer, "_compute_48h_move", return_value=0.08):
+            result = scorer._score(candidate)
+
+        # v8.2: Negativer Mismatch → H-03 Filter → None
+        assert result is None
+
+    def test_moderate_impact_moderate_move(self):
+        """Impact=5, 48h-Move=2% bei σ=2% → Z=1.0 → Mismatch=5-5=0 → gefiltert"""
+        from modules.mismatch_scorer import MismatchScorer
+        scorer = MismatchScorer()
+
+        candidate = {
+            "ticker": "GOOG",
+            "info": {},
+            "data_validation": {
+                "eps_cross_check": {"deviation_pct": 0.03}
+            },
+            "news": [],
+            "deep_analysis": {"impact": 5, "surprise": 4, "direction": "BULLISH"},
+        }
+
+        with patch.object(scorer, "_compute_sigma", return_value=0.02), \
+             patch.object(scorer, "_compute_48h_move", return_value=0.02):
+            result = scorer._score(candidate)
+
+        # Mismatch=5-(1.0*5)=0 → ≤0 → gefiltert
+        assert result is None
+
+    def test_high_impact_tiny_move_passes(self):
+        """Impact=8, 48h-Move=0.2% bei σ=2% → Z=0.1 → Mismatch=8-0.5=7.5 (strong)"""
+        from modules.mismatch_scorer import MismatchScorer
+        scorer = MismatchScorer()
+
+        candidate = {
+            "ticker": "NVDA",
+            "info": {},
+            "data_validation": {
+                "eps_cross_check": {"deviation_pct": 0.15}
+            },
+            "news": [],
+            "deep_analysis": {"impact": 8, "surprise": 7, "direction": "BULLISH"},
+        }
+
+        with patch.object(scorer, "_compute_sigma", return_value=0.02), \
+             patch.object(scorer, "_compute_48h_move", return_value=0.002):
             result = scorer._score(candidate)
 
         assert result is not None
         mismatch = result["features"]["mismatch"]
-        assert mismatch < 3, f"Erwartetes niedriges Mismatch, aber: {mismatch}"
+        assert mismatch > 6, f"Erwartetes starkes Mismatch, aber: {mismatch}"
+        assert result["features"]["bin_mismatch"] == "strong"
+        assert result["features"]["eps_drift"] == 0.15
 
     def test_zero_sigma_returns_none(self):
         from modules.mismatch_scorer import MismatchScorer
         scorer = MismatchScorer()
 
-        with patch.object(scorer, "_compute_sigma", return_value=0.0):
-            result = scorer._score({"ticker": "X", "deep_analysis": {"impact": 5}, "price_move_48h": 0.0, "eps_drift": {"drift": 0}, "info": {}, "news": []})
+        candidate = {
+            "ticker": "X",
+            "deep_analysis": {"impact": 5},
+            "data_validation": {"eps_cross_check": {"deviation_pct": 0.0}},
+            "info": {},
+            "news": [],
+        }
+
+        with patch.object(scorer, "_compute_sigma", return_value=0.0), \
+             patch.object(scorer, "_compute_48h_move", return_value=0.0):
+            result = scorer._score(candidate)
         assert result is None
+
+    def test_missing_data_validation_defaults_to_zero(self):
+        """Wenn data_validation fehlt, soll eps_drift=0.0 sein (nicht crashen)."""
+        from modules.mismatch_scorer import MismatchScorer
+        scorer = MismatchScorer()
+
+        candidate = {
+            "ticker": "TSLA",
+            "info": {},
+            "news": [],
+            "deep_analysis": {"impact": 7, "surprise": 6, "direction": "BULLISH"},
+            # Kein data_validation Feld → soll graceful 0.0 liefern
+        }
+
+        with patch.object(scorer, "_compute_sigma", return_value=0.02), \
+             patch.object(scorer, "_compute_48h_move", return_value=0.005):
+            result = scorer._score(candidate)
+
+        assert result is not None
+        assert result["features"]["eps_drift"] == 0.0
 
 
 # ── Quasi-ML ─────────────────────────────────────────────────────────────────
@@ -150,13 +251,13 @@ class TestRiskGates:
     def test_vix_below_threshold_passes(self):
         from modules.risk_gates import RiskGates
         gates = RiskGates()
-        with patch.object(gates, "_get_vix", return_value=20.0):
+        with patch.object(gates, "_fetch_vix", return_value=20.0):
             assert gates.global_ok() is True
 
     def test_vix_above_threshold_blocks(self):
         from modules.risk_gates import RiskGates
         gates = RiskGates()
-        with patch.object(gates, "_get_vix", return_value=40.0):
+        with patch.object(gates, "_fetch_vix", return_value=40.0):
             assert gates.global_ok() is False
 
 
