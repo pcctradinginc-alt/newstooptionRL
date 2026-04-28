@@ -1,20 +1,29 @@
 """
-pipeline.py v8.1 – Korrigierte Reihenfolge
+pipeline.py v8.2 – Optimierte Reihenfolge + Korrelations-Check
 
-Fix: Quick MC NACH Mismatch-Score (braucht base_alpha aus Mismatch).
-     Vorher: MC lief ohne Mismatch → 0.0% Hit-Rate für alle Ticker.
+v8.2 Änderungen:
+  - NEU Stufe 3b: Pre-Deep-Analysis MC Gate (1k Pfade, sigma-only)
+    Filtert hoffnungslose Kandidaten VOR dem teuren Sonnet-Call.
+    Spart ~30-50% der Deep-Analysis-Kosten.
+  - NEU Stufe 10b: Korrelations-Check
+    Verhindert Sektor-Konzentration (z.B. 3× Halbleiter am selben Tag).
+    Entfernt das schwächere Signal bei Korrelation > 0.75.
 
-Korrekte Reihenfolge:
-  1. Hard-Filter
-  2. Prescreening (Haiku)
-  3. ROI Pre-Check (Fail Fast — nur Optionsketten-Check, kein MC)
-  4. Deep Analysis (Sonnet + MC-Kontext)
-  5. Mismatch-Score (gibt base_alpha für Simulation)
-  6. Quick MC (3k, 30d) ← JETZT mit echtem Mismatch-Alpha
-  7. Intraday-Delta
-  8. Final MC (10k, adaptive DTE)
-  9. RL-Scoring
- 10. Options Design + ROI-Gate
+Reihenfolge v8.2:
+  1.  Hard-Filter
+  1b. FinBERT + Sentiment-Drift
+  2.  Prescreening (Haiku)
+  2b. Alpha Sources + Data Validation
+  3.  ROI Pre-Check (Fail Fast)
+  3b. Pre-MC Gate (1k Pfade, kein Signal-Alpha — sigma-only)  ← NEU
+  4.  Deep Analysis (Sonnet + Red Team) — jetzt auf weniger Kandidaten
+  5.  Mismatch-Score
+  6.  Quick MC (3k, 30d, mit Mismatch-Alpha)
+  7.  Intraday-Delta
+  8.  Final MC (10k, adaptive DTE)
+  9.  RL-Scoring
+ 10.  Options Design + ROI-Gate
+ 10b. Korrelations-Check                                       ← NEU
 """
 
 import json
@@ -23,6 +32,9 @@ import logging
 import sys
 from datetime import datetime
 from pathlib import Path
+
+import numpy as np
+import yfinance as yf
 
 from modules.data_ingestion      import DataIngestion
 from modules.prescreener         import Prescreener
@@ -57,6 +69,11 @@ REPORTS_DIR  = Path("outputs/daily_reports")
 QUICK_MC_PATHS    = 3_000
 QUICK_MC_DAYS     = 30
 FINAL_MC_PATHS    = 10_000
+
+# v8.2: Pre-MC Gate Einstellungen
+PRE_MC_PATHS      = 1_000
+PRE_MC_DAYS       = 30
+PRE_MC_THRESHOLD  = 0.25   # Sehr niedrig — filtert nur hoffnungslose Kandidaten
 
 
 def get_mc_threshold(vix) -> float:
@@ -137,6 +154,71 @@ def validate_mc_result(result: dict):
     return float(hit_rate)
 
 
+# ── v8.2: Korrelations-Check ────────────────────────────────────────────────
+
+def filter_correlated_proposals(
+    proposals: list[dict],
+    max_corr: float = 0.75,
+) -> list[dict]:
+    """
+    Entfernt das schwächere Signal wenn zwei Proposals > max_corr korreliert sind.
+
+    Problem: Am 15. April wurden AVGO, AMD und AMAT gleichzeitig empfohlen —
+    alles Halbleiter. Das ist keine Diversifikation, sondern ein
+    konzentriertes Sektor-Bet.
+
+    Methode: 30-Tage Return-Korrelation via yfinance (kostenlos).
+    Bei Korrelation > 0.75 wird der Trade mit dem niedrigeren trade_score entfernt.
+    """
+    if len(proposals) <= 1:
+        return proposals
+
+    tickers = [p["ticker"] for p in proposals]
+
+    try:
+        data = yf.download(tickers, period="35d", progress=False, auto_adjust=True)
+        if data.empty:
+            return proposals
+
+        close = data["Close"]
+        if hasattr(close, "columns") and len(close.columns) < 2:
+            return proposals
+
+        returns     = close.pct_change().dropna()
+        corr_matrix = returns.corr()
+
+        to_remove = set()
+        for i in range(len(tickers)):
+            if i in to_remove:
+                continue
+            for j in range(i + 1, len(tickers)):
+                if j in to_remove:
+                    continue
+                try:
+                    corr = float(corr_matrix.loc[tickers[i], tickers[j]])
+                except (KeyError, TypeError):
+                    continue
+
+                if corr > max_corr:
+                    score_i = proposals[i].get("trade_score", {}).get("total", 0)
+                    score_j = proposals[j].get("trade_score", {}).get("total", 0)
+                    weaker  = j if score_i >= score_j else i
+                    to_remove.add(weaker)
+                    log.info(
+                        f"  KORRELATION: {tickers[i]}↔{tickers[j]} = {corr:.2f} "
+                        f"→ {tickers[weaker]} entfernt (Score {proposals[weaker].get('trade_score',{}).get('total',0)})"
+                    )
+
+        if to_remove:
+            log.info(f"  Korrelations-Check: {len(to_remove)} redundante(r) Trade(s) entfernt")
+
+        return [p for idx, p in enumerate(proposals) if idx not in to_remove]
+
+    except Exception as e:
+        log.debug(f"Korrelations-Check Fehler: {e} → alle behalten")
+        return proposals
+
+
 def load_history() -> dict:
     if HISTORY_PATH.exists():
         try:
@@ -162,7 +244,7 @@ def save_history(history: dict) -> None:
 
 
 def main() -> None:
-    log.info("=== Adaptive Asymmetry-Scanner v8.1 gestartet ===")
+    log.info("=== Adaptive Asymmetry-Scanner v8.2 gestartet ===")
     today   = datetime.utcnow().strftime("%Y-%m-%d")
     history = load_history()
 
@@ -171,7 +253,7 @@ def main() -> None:
 
     stats = {
         "vix": None, "candidates": 0, "prescreened": 0,
-        "roi_precheck": 0, "analyzed": 0, "mismatch_ok": 0,
+        "pre_mc": 0, "roi_precheck": 0, "analyzed": 0, "mismatch_ok": 0,
         "quick_mc": 0, "intraday_ok": 0, "final_mc": 0,
         "rl_scored": 0, "roi_ok": 0, "trades": 0, "stop_reason": "",
     }
@@ -296,9 +378,44 @@ def main() -> None:
         stats["stop_reason"] = "Alle Optionsketten hoffnungslos (ROI Pre-Check)."
         send_email(); return
 
+    # ── STUFE 3b: Pre-MC Gate (sigma-only, vor Deep Analysis) ────────────────
+    # v8.2 NEU: Leichtgewichtiger MC-Check OHNE Signal-Alpha.
+    # Prüft: "Hat diese Aktie genug Volatilität, damit sich Options lohnen?"
+    # Spart Sonnet-Calls für Low-Vol-Aktien die selbst mit Signal nie das
+    # Target erreichen würden.
+    log.info(f"Stufe 3b: Pre-MC Gate ({PRE_MC_PATHS} Pfade, {PRE_MC_DAYS}d, sigma-only)")
+    pre_mc_sim = MirofishSimulation()
+    pre_mc_viable = []
+    for c in roi_viable:
+        ticker = c["ticker"]
+        # Minimales deep_analysis-Dict: default Impact/Surprise
+        # → MirofishSimulation nutzt impact=5, surprise=5 als Default
+        c_temp = {**c, "deep_analysis": {"impact": 5, "surprise": 5,
+                  "time_to_materialization": "2-3 Monate"}}
+        result = pre_mc_sim.run_for_dte(c_temp, days_to_expiry=PRE_MC_DAYS)
+        if result and result.get("simulation", {}).get("hit_rate", 0) >= PRE_MC_THRESHOLD:
+            pre_mc_viable.append(c)
+            log.info(
+                f"  [{ticker}] Pre-MC: {result['simulation']['hit_rate']:.1%} "
+                f"≥ {PRE_MC_THRESHOLD:.0%} ✅"
+            )
+        else:
+            hr = result["simulation"]["hit_rate"] if result and "simulation" in result else 0
+            reject("pre_mc_sigma_too_low", ticker)
+            log.info(
+                f"  [{ticker}] Pre-MC: {hr:.1%} < {PRE_MC_THRESHOLD:.0%} "
+                f"→ zu wenig Vola für Options"
+            )
+
+    stats["pre_mc"] = len(pre_mc_viable)
+    log.info(f"  → {len(pre_mc_viable)} nach Pre-MC Gate (eingespart: {len(roi_viable)-len(pre_mc_viable)} Sonnet-Calls)")
+    if not pre_mc_viable:
+        stats["stop_reason"] = "Alle unter Pre-MC-Schwelle (zu wenig Volatilität)."
+        save_history(history); send_email(); return
+
     # ── STUFE 4: Deep Analysis (Sonnet) ──────────────────────────────────────
     log.info("Stufe 4: Deep Analysis (Claude Sonnet + Red Team)")
-    analyses = DeepAnalysis().run(roi_viable)
+    analyses = DeepAnalysis().run(pre_mc_viable)
     stats["analyzed"] = len(analyses)
     log.info(f"  → {len(analyses)} nach Deep Analysis")
     if not analyses:
@@ -365,9 +482,6 @@ def main() -> None:
     # ── STUFE 7: Intraday-Delta ───────────────────────────────────────────────
     log.info("Stufe 7: Intraday-Delta-Filter")
     # Dynamischer Intraday-Filter: Limit steigt mit Mismatch-Score
-    # Mismatch ≥ 7 → 12% (starkes Signal rechtfertigt Momentum)
-    # Mismatch ≥ 5 → 9%
-    # Mismatch < 5 → 7% (Standard)
     base_move = getattr(getattr(cfg, "pipeline", None), "max_intraday_move", 0.07)
 
     before_intraday = {s["ticker"]: s for s in mc_viable}
@@ -419,9 +533,6 @@ def main() -> None:
     final_sims = []
     for s in mc_viable:
         ticker = s["ticker"]
-        # Final MC mit realistischem Horizont:
-        # Short-Term-Signale (Quick MC mit 30d) → Final MC mit 45d
-        # Alle anderen → 120d
         quick_mc_days = s.get("quick_mc", {}).get("n_days", 30)
         final_dte = 45 if quick_mc_days <= 30 else 120
         result   = sim_final.run_for_dte(s, days_to_expiry=final_dte)
@@ -484,6 +595,19 @@ def main() -> None:
                            if p.get("trade_score", {}).get("total", 0) >= 45]
         if len(trade_proposals) < before:
             log.info(f"  {before - len(trade_proposals)} AVOID-Trade(s) herausgefiltert (Score < 45)")
+
+        # ── STUFE 10b: Korrelations-Check ────────────────────────────────────
+        # v8.2 NEU: Verhindert Sektor-Konzentration
+        if len(trade_proposals) > 1:
+            log.info("Stufe 10b: Korrelations-Check")
+            before_corr      = len(trade_proposals)
+            trade_proposals   = filter_correlated_proposals(trade_proposals)
+            if len(trade_proposals) < before_corr:
+                log.info(
+                    f"  Korrelations-Check: {before_corr} → {len(trade_proposals)} "
+                    f"({before_corr - len(trade_proposals)} korrelierte entfernt)"
+                )
+
         log.info(f"Trade-Ranking:")
         for p in trade_proposals:
             ts = p.get("trade_score", {})
@@ -530,7 +654,7 @@ def main() -> None:
             log.info(f"  {reason}: {data['count']}x → [{tickers}]")
     stats["rejects"] = {k: v["count"] for k, v in reject_stats.items()}
 
-    log.info(f"=== Pipeline v8.1 beendet. {len(trade_proposals)} Trade-Vorschläge. ===")
+    log.info(f"=== Pipeline v8.2 beendet. {len(trade_proposals)} Trade-Vorschläge. ===")
 
 
 if __name__ == "__main__":
