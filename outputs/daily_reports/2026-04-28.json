@@ -1,0 +1,279 @@
+{
+  "date": "2026-04-28",
+  "proposals": [
+    {
+      "ticker": "BKR",
+      "strategy": "LONG_CALL",
+      "iv_rank": 43.4,
+      "iv_gate_applied": false,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-05-15",
+        "strike": 70.0,
+        "bid": 1.6,
+        "ask": 1.75,
+        "open_interest": 3504,
+        "implied_vol": 0.3706117626953125,
+        "spread_ratio": 0.0857,
+        "dte": 16
+      },
+      "roi_analysis": {
+        "roi_gross": 1.3606,
+        "roi_net": 1.1292,
+        "spread_pct": 0.0857,
+        "vega_loss": 0.06,
+        "delta": 0.4321,
+        "iv_drop_assumed": 0.05,
+        "cost_basis": 1.75,
+        "is_spread": false,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.15,
+        "dte": 16
+      },
+      "dte_tier": "Short-Term",
+      "annualized_roi": 30721182.0992,
+      "all_tiers_tried": [
+        {
+          "tier": "Short-Term",
+          "dte": 16,
+          "option": {
+            "expiry": "2026-05-15",
+            "strike": 70.0,
+            "bid": 1.6,
+            "ask": 1.75,
+            "open_interest": 3504,
+            "implied_vol": 0.3706117626953125,
+            "spread_ratio": 0.0857,
+            "dte": 16
+          },
+          "roi": {
+            "roi_gross": 1.3606,
+            "roi_net": 1.1292,
+            "spread_pct": 0.0857,
+            "vega_loss": 0.06,
+            "delta": 0.4321,
+            "iv_drop_assumed": 0.05,
+            "cost_basis": 1.75,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.15,
+            "dte": 16
+          },
+          "annualized_roi": 30721182.0992,
+          "strategy": "LONG_CALL"
+        }
+      ],
+      "features": {
+        "impact": 6,
+        "surprise": 5,
+        "mismatch": 6.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.025,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.8364
+      },
+      "simulation": {
+        "current_price": 68.87,
+        "target_price": 74.38,
+        "hit_rate": 0.85,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.0211,
+        "alpha": 0.00541
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Baker Hughes notiert laut News auf dem h\u00f6chsten Stand seit 2014 \u2014 das Signal ist m\u00f6glicherweise bereits vollst\u00e4ndig eingepreist. Ein Kurs auf 12-Jahres-High impliziert, dass Marktakteure die Qatar-Expansion und die ESG-Story bereits antizipiert haben; das Upside-Potenzial f\u00fcr weitere 2-6 Monate ist entsprechend komprimiert, w\u00e4hrend das Downside-Risiko asymmetrisch zunimmt.",
+          "argument_2": "Der Energiesektor steht 2026 unter erheblichem strukturellem Gegenwind durch beschleunigte Energiewende-Regulierung und potenzielle LNG-Preisschw\u00e4che. Die Meldung selbst erw\u00e4hnt 'LNG disruptions' im Qatar-Kontext \u2014 falls die Expansion verz\u00f6gert wird oder globale LNG-Nachfrage durch milde Winter bzw. Rezession in Europa entt\u00e4uscht, bricht der Capex-Shift-Thesis die Grundlage weg.",
+          "argument_3": "Der EPS-Wert zwischen yfinance (2.787) und SEC EDGAR (3.13) zeigt eine nennenswerte Diskrepanz von ~12%, die bei 0% ausgewiesen wird \u2014 das ist statistisch nicht korrekt und deutet auf Datenqualit\u00e4tsprobleme hin. Diese Unsicherheit in den Gewinnzahlen erschwert eine zuverl\u00e4ssige Bewertung des Fair Values erheblich.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Kein MC durchgef\u00fchrt \u2014 0 Pfade bedeuten keine statistische Absicherung. Bei einem Titel mit -0.2% 48h-Bewegung und Energy-Sektor-Volatilit\u00e4t (typisch 25-35% annualisiert) w\u00e4re eine Hit-Rate von 55-65% f\u00fcr ein moderates Bullish-Szenario realistisch. Die fehlende MC-Simulation ist ein Datenl\u00fccken-Warnsignal, das die Konfidenz reduziert.",
+          "concern_level": "medium"
+        },
+        "impact": 6,
+        "surprise": 5,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt preist die GHG-Reduktion als PR-Event ein, nicht als strukturellen Capex-Shift-Indikator f\u00fcr zuk\u00fcnftige Margenverbesserung. Das Qatar-North-Field-Signal ist wegen LNG-Disruptions kurzfristig negativ gelesen worden, obwohl der langfristige Auftragsbestand steigt. Sieben Insider-K\u00e4ufe innerhalb von 14 Tagen zeigen ungew\u00f6hnliches Conviction-Level trotz 12-Jahres-Hoch.",
+        "catalyst": "Qatar North Field Expansion: offizielle Capex-Vergabe-Ank\u00fcndigung und Q2 2026 Earnings mit erh\u00f6htem Auftragseingang als konkrete Best\u00e4tigung des Capex-Shift-Thesis",
+        "bear_case": "BKR auf 12-Jahres-Hoch \u2014 Katalysatoren sind m\u00f6glicherweise bereits vollst\u00e4ndig eingepreist; jede Entt\u00e4uschung beim LNG-Auftragsvolumen oder bei den Q2-Margen kann zu einer scharfen Korrektur f\u00fchren.",
+        "macro_assessment": "Die steile Zinskurve (+0.57%) und Fed Funds Rate von 3.64% schaffen ein expansives Umfeld, das Capex-intensive Industriewerte wie BKR beg\u00fcnstigt. Moderate Zinsen reduzieren den Diskontierungsdruck auf langfristige Projektcashflows. Das Makro-Regime ist konsistent mit einer BULLISH-Einsch\u00e4tzung, allerdings d\u00e4mpft die bereits hohe Bewertung (12-Jahres-Hoch) das erwartete Alpha.",
+        "data_confidence": "medium",
+        "macro_regime": "expansive",
+        "macro_context": {
+          "yield_curve": 0.57,
+          "regime": "expansive"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLE",
+        "rel_strength": 0.1107
+      },
+      "final_score": 0.1304,
+      "time_value_efficiency": {
+        "roi_per_day_pct": 7.0575,
+        "annualized_roi": null,
+        "dte": 16
+      },
+      "trade_score": {
+        "total": 74,
+        "grade": "BUY \ud83d\udfe1",
+        "grade_short": "BUY",
+        "components": {
+          "signal_quality": 21.9,
+          "options_quality": 27.0,
+          "risk_deductions": 0.0,
+          "context_bonus": 25.0
+        },
+        "reasoning": "St\u00e4rken: solides Signal (Impact=6/Surprise=5), guter ROI (113%), positive Sektor-Relative-St\u00e4rke",
+        "best_argument_for": "Der Markt preist die GHG-Reduktion als PR-Event ein, nicht als strukturellen Capex-Shift-Indikator f\u00fcr zuk\u00fcnftige Margenverbesserung. Das Qatar-North-Field-Signal ist wegen LNG-Disruptions kurzfristig negativ gelesen worden, obwohl der langfristige Auftragsbestand steigt. Sieben Insider-K\u00e4ufe innerhalb von 14 Tagen zeigen ungew\u00f6hnliches Conviction-Level trotz 12-Jahres-Hoch.",
+        "best_argument_against": "Baker Hughes notiert laut News auf dem h\u00f6chsten Stand seit 2014 \u2014 das Signal ist m\u00f6glicherweise bereits vollst\u00e4ndig eingepreist. Ein Kurs auf 12-Jahres-High impliziert, dass Marktakteure die Qatar-Expansion und die ESG-Story bereits antizipiert haben; das Upside-Potenzial f\u00fcr weitere 2-6 Monate ist entsprechend komprimiert, w\u00e4hrend das Downside-Risiko asymmetrisch zunimmt."
+      },
+      "trade_rank": 1
+    },
+    {
+      "ticker": "AVGO",
+      "strategy": "LONG_PUT",
+      "iv_rank": 43.3,
+      "iv_gate_applied": false,
+      "direction": "BEARISH",
+      "option": {
+        "expiry": "2026-05-15",
+        "strike": 390.0,
+        "bid": 12.6,
+        "ask": 12.9,
+        "open_interest": 3081,
+        "implied_vol": 0.44690494506835937,
+        "spread_ratio": 0.0233,
+        "dte": 16
+      },
+      "roi_analysis": {
+        "roi_gross": 1.4433,
+        "roi_net": 1.3408,
+        "spread_pct": 0.0233,
+        "vega_loss": 0.056,
+        "delta": 0.5871,
+        "iv_drop_assumed": 0.05,
+        "cost_basis": 12.9,
+        "is_spread": false,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.15,
+        "dte": 16
+      },
+      "dte_tier": "Short-Term",
+      "annualized_roi": 266761587.0087,
+      "all_tiers_tried": [
+        {
+          "tier": "Short-Term",
+          "dte": 16,
+          "option": {
+            "expiry": "2026-05-15",
+            "strike": 390.0,
+            "bid": 12.6,
+            "ask": 12.9,
+            "open_interest": 3081,
+            "implied_vol": 0.44690494506835937,
+            "spread_ratio": 0.0233,
+            "dte": 16
+          },
+          "roi": {
+            "roi_gross": 1.4433,
+            "roi_net": 1.3408,
+            "spread_pct": 0.0233,
+            "vega_loss": 0.056,
+            "delta": 0.5871,
+            "iv_drop_assumed": 0.05,
+            "cost_basis": 12.9,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.15,
+            "dte": 16
+          },
+          "annualized_roi": 266761587.0087,
+          "strategy": "LONG_PUT"
+        }
+      ],
+      "features": {
+        "impact": 6,
+        "surprise": 5,
+        "mismatch": 6.0,
+        "z_score": 0.0,
+        "sigma_30d": 0.0284,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.6978
+      },
+      "simulation": {
+        "current_price": 396.38,
+        "target_price": 428.09,
+        "hit_rate": 0.7818,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.029,
+        "alpha": 0.00313
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Das OpenAI-Stumble-Signal ist ein klassischer sektorweiter Narrative-Schock: Wenn der wichtigste AI-Endkunde schw\u00e4chelt, leidet AVGO als Key Supplier direkt. Die 48h-Bewegung von -6.4% zeigt, dass der Markt bereits aggressiv repriced \u2014 ein weiterer R\u00fcckgang auf 2-6 Monate ist wahrscheinlich, wenn sich die OpenAI-Kapex-Verlangsamung konkretisiert und in AVGO-Guidance sichtbar wird.",
+          "argument_2": "Die EPS-Diskrepanz zwischen yfinance (18.12) und SEC EDGAR (5.12) ist alarmierend. Ein Faktor-3.5-Unterschied deutet entweder auf GAAP/Non-GAAP-Verw\u00e4sserung oder Datenfehler hin. Falls der echte EPS-Wert n\u00e4her an 5.12 liegt, ist AVGO bei $396 mit einem KGV von ~77x massiv \u00fcberbewertet \u2014 jeder AI-Narrative-Crack macht diese Bewertung unhaltbar.",
+          "argument_3": "Die 7 Insider-K\u00e4ufe innerhalb 14 Tagen klingen bullish, k\u00f6nnen aber auch strategisches Window-Dressing vor einem schw\u00e4cheren Quartal sein. Insider kaufen oft kurz vor Earnings um Confidence zu signalisieren \u2014 ohne Gew\u00e4hr f\u00fcr tats\u00e4chliche operative St\u00e4rke. Das Signal allein reicht nicht, um den fundamentalen Gegenwind aus dem OpenAI-\u00d6kosystem zu kompensieren.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "0% Hit-Rate bedeutet kein MC wurde durchgef\u00fchrt \u2014 keine statistische Basis. Ohne MC-Daten bei einem Titel mit aktuell erh\u00f6hter Volatilit\u00e4t (AI-Narrative-Shock, -6.4% in 48h) ist jede Richtungsaussage auf reiner Fundamentalanalyse basierend. Die implizite Volatilit\u00e4t d\u00fcrfte nach dem Sell-off erh\u00f6ht sein, was Optionsk\u00e4ufe teurer macht und die potenzielle Asymmetrie reduziert.",
+          "concern_level": "medium"
+        },
+        "impact": 6,
+        "surprise": 5,
+        "direction": "BEARISH",
+        "bear_case_severity": 7,
+        "time_to_materialization": "4-8 Wochen",
+        "asymmetry_reasoning": "Der Markt hat den initialen Schock (-6.4%) eingepreist, aber noch nicht die fundamentale Revision des AI-Capex-Zyklus auf Quartalsbasis. Insider-K\u00e4ufe schaffen kurzfristige Bodenbildung, die den eigentlichen Rerating-Druck verz\u00f6gert. Erst beim n\u00e4chsten Earnings-Call wird sichtbar, ob AVGO-Guidance die OpenAI-Verlangsamung reflektiert.",
+        "catalyst": "AVGO Earnings-Guidance Q3/2026 \u2014 explizite Kommentare zu Custom-AI-Chip-Nachfrage und OpenAI-Kundenpipeline als Sentiment-Trigger",
+        "bear_case": "Expansives Makro-Umfeld und 7 Insider-K\u00e4ufe k\u00f6nnten kurzfristig Boden bilden; falls OpenAI-Bericht \u00fcbertrieben war, schnelle V-Erholung m\u00f6glich",
+        "macro_assessment": "Steile Zinskurve (+0.57%) und Fed Funds bei 3.64% sind grunds\u00e4tzlich supportiv f\u00fcr Growth/Tech. Jedoch: AVGO-spezifisches Revisionsrisiko \u00fcberlagert das Makro-Tailwind kurz- bis mittelfristig. Das expansive Umfeld mildert den B\u00e4r-Case, sch\u00fctzt aber nicht vor sektorspezifischem AI-Narrative-Repricing.",
+        "data_confidence": "low",
+        "macro_regime": "expansive",
+        "macro_context": {
+          "yield_curve": 0.57,
+          "regime": "expansive"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLK",
+        "rel_strength": 0.036
+      },
+      "final_score": 0.1304,
+      "time_value_efficiency": {
+        "roi_per_day_pct": 8.38,
+        "annualized_roi": null,
+        "dte": 16
+      },
+      "trade_score": {
+        "total": 67,
+        "grade": "BUY \ud83d\udfe1",
+        "grade_short": "BUY",
+        "components": {
+          "signal_quality": 21.9,
+          "options_quality": 30.0,
+          "risk_deductions": -10.0,
+          "context_bonus": 25.0
+        },
+        "reasoning": "St\u00e4rken: solides Signal (Impact=6/Surprise=5), guter ROI (134%), positive Sektor-Relative-St\u00e4rke | Risiken: hohes Bear-Risiko (7/10)",
+        "best_argument_for": "Der Markt hat den initialen Schock (-6.4%) eingepreist, aber noch nicht die fundamentale Revision des AI-Capex-Zyklus auf Quartalsbasis. Insider-K\u00e4ufe schaffen kurzfristige Bodenbildung, die den eigentlichen Rerating-Druck verz\u00f6gert. Erst beim n\u00e4chsten Earnings-Call wird sichtbar, ob AVGO-Guidance die OpenAI-Verlangsamung reflektiert.",
+        "best_argument_against": "Das OpenAI-Stumble-Signal ist ein klassischer sektorweiter Narrative-Schock: Wenn der wichtigste AI-Endkunde schw\u00e4chelt, leidet AVGO als Key Supplier direkt. Die 48h-Bewegung von -6.4% zeigt, dass der Markt bereits aggressiv repriced \u2014 ein weiterer R\u00fcckgang auf 2-6 Monate ist wahrscheinlich, wenn sich die OpenAI-Kapex-Verlangsamung konkretisiert und in AVGO-Guidance sichtbar wird."
+      },
+      "trade_rank": 2
+    }
+  ]
+}
