@@ -2,36 +2,36 @@
   "feature_stats": {
     "impact": {
       "low": {
-        "count": 176,
-        "avg_return": 0.336744
+        "count": 184,
+        "avg_return": 0.339705
       },
       "mid": {
-        "count": 281,
-        "avg_return": 0.122987
+        "count": 316,
+        "avg_return": 0.115168
       },
       "high": {
-        "count": 47,
-        "avg_return": -0.278775
+        "count": 49,
+        "avg_return": -0.291126
       }
     },
     "mismatch": {
       "weak": {
-        "count": 270,
-        "avg_return": 0.228882
+        "count": 282,
+        "avg_return": 0.22966
       },
       "good": {
-        "count": 230,
-        "avg_return": 0.08371
+        "count": 262,
+        "avg_return": 0.077872
       },
       "strong": {
-        "count": 4,
-        "avg_return": -0.082335
+        "count": 5,
+        "avg_return": -0.107118
       }
     },
     "eps_drift": {
       "noise": {
-        "count": 504,
-        "avg_return": 0.160163
+        "count": 549,
+        "avg_return": 0.154156
       },
       "relevant": {
         "count": 0,
@@ -71,8 +71,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 872.45,
-      "current_return": -0.5328
+      "last_price": 855.6,
+      "current_return": -0.5814
     },
     {
       "ticker": "META",
@@ -101,8 +101,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 670.25,
-      "current_return": 0.4745
+      "last_price": 671.35,
+      "current_return": 0.4835
     },
     {
       "ticker": "MRK",
@@ -131,8 +131,8 @@
         "dte": 159
       },
       "outcome": null,
-      "last_price": 109.8301,
-      "current_return": -0.5959
+      "last_price": 110.235,
+      "current_return": -0.6198
     },
     {
       "ticker": "AAPL",
@@ -161,8 +161,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 270.24,
-      "current_return": 0.3474
+      "last_price": 268.78,
+      "current_return": 0.2921
     },
     {
       "ticker": "UNH",
@@ -191,8 +191,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 367.92,
-      "current_return": 1.5853
+      "last_price": 366.99,
+      "current_return": 1.6269
     },
     {
       "ticker": "LLY",
@@ -221,8 +221,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 872.45,
-      "current_return": -0.5328
+      "last_price": 855.4939,
+      "current_return": -0.5814
     },
     {
       "ticker": "UNH",
@@ -251,8 +251,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 367.92,
-      "current_return": 2.412
+      "last_price": 366.99,
+      "current_return": 2.392
     },
     {
       "ticker": "META",
@@ -281,8 +281,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 670.25,
-      "current_return": 0.4745
+      "last_price": 671.12,
+      "current_return": 0.4835
     },
     {
       "ticker": "MRK",
@@ -311,8 +311,8 @@
         "dte": 159
       },
       "outcome": null,
-      "last_price": 109.8301,
-      "current_return": -0.5959
+      "last_price": 110.2479,
+      "current_return": -0.6198
     },
     {
       "ticker": "AAPL",
@@ -341,8 +341,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 270.24,
-      "current_return": 0.3474
+      "last_price": 268.76,
+      "current_return": 0.2921
     },
     {
       "ticker": "TSLA",
@@ -371,8 +371,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 377.275,
-      "current_return": 0.4507
+      "last_price": 373.81,
+      "current_return": 0.3291
     },
     {
       "ticker": "LLY",
@@ -401,8 +401,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 872.45,
-      "current_return": -0.5328
+      "last_price": 855.4939,
+      "current_return": -0.5814
     },
     {
       "ticker": "LLY",
@@ -431,8 +431,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 872.45,
-      "current_return": -0.5328
+      "last_price": 855.4939,
+      "current_return": -0.5814
     },
     {
       "ticker": "LLY",
@@ -461,8 +461,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 872.45,
-      "current_return": -0.5328
+      "last_price": 855.4939,
+      "current_return": -0.5814
     },
     {
       "ticker": "ON",
@@ -518,8 +518,8 @@
         "direction": "BULLISH"
       },
       "outcome": null,
-      "last_price": 93.465,
-      "current_return": 1.82
+      "last_price": 98.37,
+      "current_return": 2.4425
     },
     {
       "ticker": "ABT",
@@ -608,8 +608,8 @@
         "dte": 127
       },
       "outcome": null,
-      "last_price": 93.455,
-      "current_return": -0.0781
+      "last_price": 92.37,
+      "current_return": -0.0888
     },
     {
       "ticker": "META",
@@ -698,8 +698,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 670.31,
-      "current_return": -0.005
+      "last_price": 670.97,
+      "current_return": -0.0041
     },
     {
       "ticker": "CDNS",
@@ -788,8 +788,8 @@
         "dte": 155
       },
       "outcome": null,
-      "last_price": 322.695,
-      "current_return": 0.054
+      "last_price": 319.31,
+      "current_return": 0.0429
     },
     {
       "ticker": "AVGO",
@@ -878,8 +878,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 400.7001,
-      "current_return": 0.0155
+      "last_price": 401.46,
+      "current_return": 0.0175
     },
     {
       "ticker": "FISV",
@@ -962,8 +962,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 61.68,
-      "current_return": 0.0034
+      "last_price": 61.5,
+      "current_return": 0.0005
     },
     {
       "ticker": "AMZN",
@@ -1052,8 +1052,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 259.645,
-      "current_return": 0.0448
+      "last_price": 264.37,
+      "current_return": 0.0639
     },
     {
       "ticker": "AMD",
@@ -1136,8 +1136,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 324.92,
-      "current_return": 0.2588
+      "last_price": 327.5001,
+      "current_return": 0.2688
     },
     {
       "ticker": "AMAT",
@@ -1226,8 +1226,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 384.255,
-      "current_return": -0.0254
+      "last_price": 382.05,
+      "current_return": -0.031
     },
     {
       "ticker": "CTVA",
@@ -1316,8 +1316,8 @@
         "dte": 29
       },
       "outcome": null,
-      "last_price": 78.71,
-      "current_return": -0.0321
+      "last_price": 79.56,
+      "current_return": -0.0216
     },
     {
       "ticker": "ORCL",
@@ -1406,8 +1406,8 @@
         "dte": 21
       },
       "outcome": null,
-      "last_price": 166.71,
-      "current_return": -0.0622
+      "last_price": 163.607,
+      "current_return": -0.0796
     },
     {
       "ticker": "HOOD",
@@ -1484,8 +1484,8 @@
         "dte": 27
       },
       "outcome": null,
-      "last_price": 82.4748,
-      "current_return": -0.107
+      "last_price": 71.39,
+      "current_return": -0.227
     },
     {
       "ticker": "SCHW",
@@ -1562,8 +1562,8 @@
         "dte": 27
       },
       "outcome": null,
-      "last_price": 90.82,
-      "current_return": -0.0196
+      "last_price": 90.73,
+      "current_return": -0.0206
     },
     {
       "ticker": "HOOD",
@@ -1640,8 +1640,8 @@
         "dte": 24
       },
       "outcome": null,
-      "last_price": 82.4748,
-      "current_return": -0.083
+      "last_price": 71.39,
+      "current_return": -0.2062
     },
     {
       "ticker": "ON",
@@ -1718,8 +1718,8 @@
         "dte": 24
       },
       "outcome": null,
-      "last_price": 93.48,
-      "current_return": 0.1046
+      "last_price": 98.35,
+      "current_return": 0.1621
     },
     {
       "ticker": "TSLA",
@@ -1796,8 +1796,8 @@
         "dte": 24
       },
       "outcome": null,
-      "last_price": 377.31,
-      "current_return": -0.0375
+      "last_price": 373.885,
+      "current_return": -0.0463
     },
     {
       "ticker": "AMZN",
@@ -1874,8 +1874,8 @@
         "dte": 23
       },
       "outcome": null,
-      "last_price": 259.645,
-      "current_return": 0.028
+      "last_price": 264.44,
+      "current_return": 0.047
     },
     {
       "ticker": "AMAT",
@@ -1952,8 +1952,8 @@
         "dte": 23
       },
       "outcome": null,
-      "last_price": 384.255,
-      "current_return": -0.0274
+      "last_price": 382.05,
+      "current_return": -0.033
     },
     {
       "ticker": "AAPL",
@@ -2030,8 +2030,8 @@
         "dte": 23
       },
       "outcome": null,
-      "last_price": 270.2,
-      "current_return": 0.0145
+      "last_price": 268.775,
+      "current_return": 0.0092
     },
     {
       "ticker": "ALB",
@@ -2108,8 +2108,8 @@
         "dte": 23
       },
       "outcome": null,
-      "last_price": 188.32,
-      "current_return": -0.0418
+      "last_price": 190.7,
+      "current_return": -0.0297
     },
     {
       "ticker": "BAC",
@@ -2186,8 +2186,8 @@
         "dte": 86
       },
       "outcome": null,
-      "last_price": 52.645,
-      "current_return": -0.0169
+      "last_price": 52.44,
+      "current_return": -0.0207
     },
     {
       "ticker": "BIIB",
@@ -2264,8 +2264,8 @@
         "dte": 86
       },
       "outcome": null,
-      "last_price": 181.97,
-      "current_return": -0.0257
+      "last_price": 193.2,
+      "current_return": 0.0344
     },
     {
       "ticker": "BBWI",
@@ -2342,8 +2342,8 @@
         "dte": 23
       },
       "outcome": null,
-      "last_price": 19.21,
-      "current_return": -0.0661
+      "last_price": 18.765,
+      "current_return": -0.0877
     },
     {
       "ticker": "AEP",
@@ -2420,8 +2420,8 @@
         "dte": 23
       },
       "outcome": null,
-      "last_price": 135.265,
-      "current_return": 0.0175
+      "last_price": 135.2,
+      "current_return": 0.017
     },
     {
       "ticker": "ABNB",
@@ -2497,7 +2497,9 @@
         "annualized_roi": null,
         "dte": 22
       },
-      "outcome": null
+      "outcome": null,
+      "last_price": 138.5775,
+      "current_return": -0.0415
     },
     {
       "ticker": "BBWI",
@@ -2573,7 +2575,9 @@
         "annualized_roi": null,
         "dte": 22
       },
-      "outcome": null
+      "outcome": null,
+      "last_price": 18.765,
+      "current_return": -0.077
     },
     {
       "ticker": "AMD",
@@ -2643,7 +2647,9 @@
         "annualized_roi": null,
         "dte": 15
       },
-      "outcome": null
+      "outcome": null,
+      "last_price": 327.675,
+      "current_return": 0.0883
     },
     {
       "ticker": "APA",
@@ -2713,7 +2719,9 @@
         "annualized_roi": 2.179,
         "dte": 85
       },
-      "outcome": null
+      "outcome": null,
+      "last_price": 39.61,
+      "current_return": 0.038
     },
     {
       "ticker": "AVGO",
@@ -2783,7 +2791,9 @@
         "annualized_roi": null,
         "dte": 15
       },
-      "outcome": null
+      "outcome": null,
+      "last_price": 401.275,
+      "current_return": -0.0413
     },
     {
       "ticker": "ADI",
@@ -2853,7 +2863,9 @@
         "annualized_roi": 0.7083,
         "dte": 148
       },
-      "outcome": null
+      "outcome": null,
+      "last_price": 389.515,
+      "current_return": 0.0239
     },
     {
       "ticker": "AMAT",
@@ -2923,7 +2935,9 @@
         "annualized_roi": null,
         "dte": 15
       },
-      "outcome": null
+      "outcome": null,
+      "last_price": 382.05,
+      "current_return": -0.043
     },
     {
       "ticker": "AVGO",
@@ -4521,6 +4535,11 @@
         "date": "2026-04-28",
         "score": 0.071,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": -0.2355,
+        "headline_count": 5
       }
     ],
     "AXON": [
@@ -4553,6 +4572,11 @@
         "date": "2026-04-28",
         "score": 0.1048,
         "headline_count": 4
+      },
+      {
+        "date": "2026-04-29",
+        "score": -0.1898,
+        "headline_count": 5
       }
     ],
     "KMX": [
@@ -4931,6 +4955,11 @@
         "date": "2026-04-28",
         "score": -0.0572,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": -0.2315,
+        "headline_count": 5
       }
     ],
     "APA": [
@@ -4999,6 +5028,11 @@
       {
         "date": "2026-04-23",
         "score": 0.2256,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": 0.3588,
         "headline_count": 5
       }
     ],
@@ -5766,6 +5800,11 @@
       {
         "date": "2026-04-28",
         "score": 0.3456,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": -0.0104,
         "headline_count": 5
       }
     ],
@@ -6851,6 +6890,11 @@
         "date": "2026-04-28",
         "score": -0.2005,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": -0.1383,
+        "headline_count": 5
       }
     ],
     "APTV": [
@@ -7272,6 +7316,11 @@
         "date": "2026-04-28",
         "score": -0.545,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": -0.03,
+        "headline_count": 5
       }
     ],
     "GOOG": [
@@ -7308,6 +7357,11 @@
       {
         "date": "2026-04-28",
         "score": -0.1402,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": 0.0492,
         "headline_count": 5
       }
     ],
@@ -7404,6 +7458,11 @@
       {
         "date": "2026-04-28",
         "score": 0.5131,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": 0.4662,
         "headline_count": 5
       }
     ],
@@ -7560,6 +7619,11 @@
         "date": "2026-04-28",
         "score": 0.1385,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": 0.1385,
+        "headline_count": 5
       }
     ],
     "ACGL": [
@@ -7586,6 +7650,11 @@
       {
         "date": "2026-04-28",
         "score": 0.1693,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": 0.5024,
         "headline_count": 5
       }
     ],
@@ -7747,6 +7816,11 @@
         "date": "2026-04-28",
         "score": -0.06,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": 0.3379,
+        "headline_count": 5
       }
     ],
     "CPT": [
@@ -7898,6 +7972,11 @@
       {
         "date": "2026-04-28",
         "score": -0.2377,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": -0.5889,
         "headline_count": 5
       }
     ],
@@ -9000,6 +9079,11 @@
         "date": "2026-04-28",
         "score": 0.112,
         "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": 0.1269,
+        "headline_count": 5
       }
     ],
     "APH": [
@@ -9016,6 +9100,11 @@
       {
         "date": "2026-04-28",
         "score": 0.0894,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": 0.5012,
         "headline_count": 5
       }
     ],
@@ -9067,6 +9156,11 @@
       {
         "date": "2026-04-28",
         "score": 0.3419,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-04-29",
+        "score": 0.1809,
         "headline_count": 5
       }
     ],
@@ -9260,6 +9354,11 @@
     "BAX": [
       {
         "date": "2026-04-28",
+        "score": -0.3401,
+        "headline_count": 3
+      },
+      {
+        "date": "2026-04-29",
         "score": -0.3401,
         "headline_count": 3
       }
