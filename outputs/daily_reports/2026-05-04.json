@@ -1,0 +1,155 @@
+{
+  "date": "2026-05-04",
+  "proposals": [
+    {
+      "ticker": "AMAT",
+      "strategy": "LONG_CALL",
+      "iv_rank": 50.1,
+      "iv_gate_applied": false,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-07-17",
+        "strike": 380.0,
+        "bid": 47.7,
+        "ask": 49.85,
+        "open_interest": 803,
+        "implied_vol": 0.6332739309692383,
+        "spread_ratio": 0.0431,
+        "dte": 73
+      },
+      "roi_analysis": {
+        "roi_gross": 0.4823,
+        "roi_net": 0.3358,
+        "spread_pct": 0.0431,
+        "vega_loss": 0.0602,
+        "delta": 0.5931,
+        "iv_drop_assumed": 0.07,
+        "cost_basis": 49.85,
+        "is_spread": false,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.12,
+        "dte": 73
+      },
+      "dte_tier": "Mid-Term",
+      "annualized_roi": 3.2531,
+      "all_tiers_tried": [
+        {
+          "tier": "Mid-Term",
+          "dte": 73,
+          "option": {
+            "expiry": "2026-07-17",
+            "strike": 380.0,
+            "bid": 47.7,
+            "ask": 49.85,
+            "open_interest": 803,
+            "implied_vol": 0.6332739309692383,
+            "spread_ratio": 0.0431,
+            "dte": 73
+          },
+          "roi": {
+            "roi_gross": 0.4823,
+            "roi_net": 0.3358,
+            "spread_pct": 0.0431,
+            "vega_loss": 0.0602,
+            "delta": 0.5931,
+            "iv_drop_assumed": 0.07,
+            "cost_basis": 49.85,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.12,
+            "dte": 73
+          },
+          "annualized_roi": 3.2531,
+          "strategy": "LONG_CALL"
+        }
+      ],
+      "features": {
+        "impact": 6,
+        "surprise": 5,
+        "mismatch": 3.244,
+        "z_score": 0.551,
+        "sigma_30d": 0.0308,
+        "price_move_48h": 0.017,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.75
+      },
+      "simulation": {
+        "current_price": 390.23,
+        "target_price": 430.77,
+        "hit_rate": 0.75,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.031,
+        "alpha": 0.00535
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "China-Risiko ist strukturell und akut: Chinesische Semiconductor-Equipment-Anbieter gewinnen trotz US-Sanktionen Marktanteile, was AMAT's wichtigen China-Umsatzanteil (historisch ~25-30% der Revenues) mittel- bis langfristig erodiert. Weitere Exportrestriktionen durch das US-Handelsministerium k\u00f6nnten 2026 versch\u00e4rft werden und direkten Umsatzdruck erzeugen, bevor die NEXX-Akquisition ihre Ertr\u00e4ge entfaltet.",
+          "argument_2": "Die NEXX-Akquisition tr\u00e4gt das klassische M&A-Integrationsrisiko: Advanced Packaging ist ein kompetitives Feld mit Lam Research und ASML als starke Konkurrenten. Integrationskosten, Margin-Dilution in den ersten 2-3 Quartalen und die Unsicherheit \u00fcber Synergien k\u00f6nnten den strukturellen Aufw\u00e4rtstrend zeitlich verz\u00f6gern und kurzfristig als Entt\u00e4uschungskatalysator wirken.",
+          "argument_3": "Der EPS-Datenwiderspruch ist auff\u00e4llig: yfinance meldet 14.07 vs. SEC EDGAR 9.77 \u2014 eine Differenz von ca. 44%, die auf Bereinigungen (Non-GAAP vs. GAAP) hindeutet. Bewertet der Markt AMAT auf Basis zu optimistischer Non-GAAP-Zahlen, ist ein Re-Rating-Risiko nach unten m\u00f6glich, sobald GAAP-Belastungen durch Akquisitions-Amortisierungen in Q3/Q4 2026 sichtbar werden.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "MC wurde nicht durchgef\u00fchrt (0 Pfade). Eine 0%-Hit-Rate aus einem echten MC-Run w\u00e4re bei AMAT mit ~30% implizierter Volatilit\u00e4t unrealistisch. Da kein Lauf stattfand, ist diese Metrik schlicht nicht verf\u00fcgbar und kann weder positiv noch negativ gewertet werden. Das Fehlen des MC erh\u00f6ht die Daten-Unsicherheit.",
+          "concern_level": "medium"
+        },
+        "impact": 6,
+        "surprise": 5,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt bewertet die NEXX-Akquisition prim\u00e4r als kurzfristigen Kostenfaktor, untersch\u00e4tzt jedoch den strategischen Wert im wachsenden Advanced-Packaging-Segment f\u00fcr AI-Chips. Insider-Cluster-K\u00e4ufe signalisieren Informationsasymmetrie zugunsten des Managements bez\u00fcglich der Integrations-Timeline. Das expansive Makro-Umfeld mit steiler Kurve und 3.64% Fed Rate beg\u00fcnstigt Capex-intensive Halbleiter-Equipment-Nachfrage strukturell.",
+        "catalyst": "Q3 2026 Earnings-Call mit ersten quantifizierten NEXX-Synergien und Advanced-Packaging-Orderbook-Update",
+        "bear_case": "Weitere US-Exportrestriktionen gegen China k\u00f6nnten 2026 einen Umsatzschock von 15-20% im China-Segment erzeugen und die NEXX-Upside vollst\u00e4ndig neutralisieren.",
+        "macro_assessment": "Das expansive Umfeld (Kurve +51bp, Fed Rate 3.64%) ist grunds\u00e4tzlich positiv f\u00fcr Capex-Zyklen und Halbleiter-Equipment. Die moderate Zinslast erlaubt Kunden wie TSMC und Samsung erh\u00f6hte Investitionsbudgets. Das Makro liefert keinen Gegenwind, st\u00fctzt aber keine aggressive Positionsgr\u00f6\u00dfe angesichts geopolitischer Bin\u00e4rereignisse.",
+        "data_confidence": "medium",
+        "macro_regime": "expansive",
+        "macro_context": {
+          "yield_curve": 0.51,
+          "regime": "expansive"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLK",
+        "rel_strength": -0.0406
+      },
+      "final_score": 0.0915,
+      "time_value_efficiency": {
+        "roi_per_day_pct": 0.46,
+        "annualized_roi": 3.2531,
+        "dte": 73
+      },
+      "trade_score": {
+        "total": 65,
+        "grade": "BUY \ud83d\udfe1",
+        "grade_short": "BUY",
+        "components": {
+          "signal_quality": 21.9,
+          "options_quality": 28.0,
+          "risk_deductions": 0.0,
+          "context_bonus": 15.0
+        },
+        "reasoning": "St\u00e4rken: solides Signal (Impact=6/Surprise=5), guter ROI (34%), expansives Makro-Umfeld | Risiken: Sektor underperformt Markt",
+        "best_argument_for": "Der Markt bewertet die NEXX-Akquisition prim\u00e4r als kurzfristigen Kostenfaktor, untersch\u00e4tzt jedoch den strategischen Wert im wachsenden Advanced-Packaging-Segment f\u00fcr AI-Chips. Insider-Cluster-K\u00e4ufe signalisieren Informationsasymmetrie zugunsten des Managements bez\u00fcglich der Integrations-Timeline. Das expansive Makro-Umfeld mit steiler Kurve und 3.64% Fed Rate beg\u00fcnstigt Capex-intensive Halbleiter-Equipment-Nachfrage strukturell.",
+        "best_argument_against": "China-Risiko ist strukturell und akut: Chinesische Semiconductor-Equipment-Anbieter gewinnen trotz US-Sanktionen Marktanteile, was AMAT's wichtigen China-Umsatzanteil (historisch ~25-30% der Revenues) mittel- bis langfristig erodiert. Weitere Exportrestriktionen durch das US-Handelsministerium k\u00f6nnten 2026 versch\u00e4rft werden und direkten Umsatzdruck erzeugen, bevor die NEXX-Akquisition ihre Ertr\u00e4ge entfaltet."
+      },
+      "trade_rank": 1,
+      "exit_rules": {
+        "entry_cost": 49.85,
+        "take_profit_pct": 50,
+        "take_profit_price": 74.78,
+        "full_profit_pct": 100,
+        "full_profit_price": 99.7,
+        "stop_loss_pct": -40,
+        "stop_loss_price": 29.91,
+        "time_exit_dte_remaining": 36,
+        "time_exit_date": "2026-06-11",
+        "time_exit_min_profit_pct": 20
+      }
+    }
+  ]
+}
