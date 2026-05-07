@@ -1,0 +1,155 @@
+{
+  "date": "2026-05-07",
+  "proposals": [
+    {
+      "ticker": "ALB",
+      "strategy": "LONG_CALL",
+      "iv_rank": 81.6,
+      "iv_gate_applied": false,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-12-18",
+        "strike": 200.0,
+        "bid": 44.5,
+        "ask": 47.85,
+        "open_interest": 264,
+        "implied_vol": 0.6726717303466798,
+        "spread_ratio": 0.07,
+        "dte": 224
+      },
+      "roi_analysis": {
+        "roi_gross": 0.3654,
+        "roi_net": 0.1562,
+        "spread_pct": 0.07,
+        "vega_loss": 0.0692,
+        "delta": 0.6377,
+        "iv_drop_assumed": 0.08,
+        "cost_basis": 47.85,
+        "is_spread": false,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.1,
+        "dte": 224
+      },
+      "dte_tier": "Long-Term",
+      "annualized_roi": 0.2668,
+      "all_tiers_tried": [
+        {
+          "tier": "Long-Term",
+          "dte": 224,
+          "option": {
+            "expiry": "2026-12-18",
+            "strike": 200.0,
+            "bid": 44.5,
+            "ask": 47.85,
+            "open_interest": 264,
+            "implied_vol": 0.6726717303466798,
+            "spread_ratio": 0.07,
+            "dte": 224
+          },
+          "roi": {
+            "roi_gross": 0.3654,
+            "roi_net": 0.1562,
+            "spread_pct": 0.07,
+            "vega_loss": 0.0692,
+            "delta": 0.6377,
+            "iv_drop_assumed": 0.08,
+            "cost_basis": 47.85,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.1,
+            "dte": 224
+          },
+          "annualized_roi": 0.2668,
+          "strategy": "LONG_CALL"
+        }
+      ],
+      "features": {
+        "impact": 5,
+        "surprise": 6,
+        "mismatch": 3.886,
+        "z_score": 0.223,
+        "sigma_30d": 0.0452,
+        "price_move_48h": 0.0101,
+        "eps_drift": 0.6822,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "massive",
+        "quick_mc_hit_rate": 0.5472
+      },
+      "simulation": {
+        "current_price": 209.58,
+        "target_price": 237.0,
+        "hit_rate": 0.5684,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.039,
+        "alpha": 0.00055
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Die EPS-Daten weichen um 68,2% zwischen yfinance ($9.03) und SEC EDGAR (-$5.77) ab \u2014 das ist eine massive Diskrepanz, die fundamentale Zweifel an der Qualit\u00e4t der Earnings-Zahlen aufwirft. Es ist m\u00f6glich, dass yfinance adjustierte/Non-GAAP-Zahlen zeigt, w\u00e4hrend SEC EDGAR GAAP-Verluste reflektiert. Ein 'Blowout-Earnings' auf Basis von Non-GAAP-Zahlen bei tats\u00e4chlichem GAAP-Verlust ist ein klassisches rotes Flag f\u00fcr Earnings-Qualit\u00e4t und k\u00f6nnte den Markt bei n\u00e4herer Analyse entt\u00e4uschen.",
+          "argument_2": "Der Lithium-Sektor bleibt strukturell unter Druck: \u00dcberkapazit\u00e4ten aus chinesischer Produktion, anhaltend niedrige Lithiumpreise seit dem Peak 2022/2023 und schw\u00e4chere EV-Nachfrage in Europa und den USA dr\u00fccken die Margen. Ein einzelnes Quartal mit besseren Zahlen rechtfertigt noch keine nachhaltige Markt-Reoberung \u2014 der Katalysator k\u00f6nnte bereits vollst\u00e4ndig im +1,0%-Move und im Pre-Market-Anstieg eingepreist sein, sodass kein weiteres Aufw\u00e4rtspotenzial f\u00fcr eine 2-6-Monats-Optionsstrategie verbleibt.",
+          "argument_3": "Cluster-Insider-K\u00e4ufe klingen positiv, k\u00f6nnen aber auch taktisches Signaling sein oder auf Antizipation interner Restrukturierungsma\u00dfnahmen hinweisen, die kurzfristig nicht wertsch\u00f6pfend sind. Zudem fehlt ein Quick Monte Carlo (0 Pfade), was bedeutet, dass keine statistisch fundierte Wahrscheinlichkeitsverteilung f\u00fcr das 30-Tage-Kursziel existiert \u2014 eine mittelfristige Optionsstrategie ohne MC-Basis ist wesentlich riskanter, da IV-Crush nach dem Earnings-Event sofort Optionspr\u00e4mien vernichtet.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Quick MC wurde nicht durchgef\u00fchrt (0 Pfade) \u2014 eine Hit-Rate von 0% ist in diesem Fall nicht als Marktprognose interpretierbar, sondern zeigt einen technischen Ausfall des Vorfilters. Dies erh\u00f6ht die Unsicherheit erheblich, da keine statistische Absicherung der Richtungsprognose vorliegt. Concern ist hoch, da eine Optionsstrategie ohne probabilistische Grundlage rein auf Sentiment und fraglichen Earnings-Zahlen basiert.",
+          "concern_level": "high"
+        },
+        "impact": 5,
+        "surprise": 6,
+        "direction": "BULLISH",
+        "bear_case_severity": 7,
+        "time_to_materialization": "4-8 Wochen",
+        "asymmetry_reasoning": "Der Markt reagiert nur mit +1,0% trotz positiver Earnings-\u00dcberraschung, m\u00f6glicherweise weil die EPS-Diskrepanz (GAAP vs. Non-GAAP) Skepsis erzeugt. Insider-Cluster-K\u00e4ufe sind noch nicht vollst\u00e4ndig in institutionellen Flows eingepreist. Falls die Guidance-Phase in 45 Tagen GAAP-Profitabilit\u00e4t best\u00e4tigt, k\u00f6nnte eine zweite Repricing-Welle einsetzen.",
+        "catalyst": "Q2 2026 Guidance-Update in ~45 Tagen mit potenzieller Best\u00e4tigung von GAAP-Profitabilit\u00e4t und Lithiumpreis-Erholung",
+        "bear_case": "GAAP-Verlust laut SEC EDGAR bei -$5.77 EPS signalisiert, dass die 'Blowout-Earnings' prim\u00e4r auf Non-GAAP-Adjustierungen beruhen \u2014 bei anhaltend niedrigen Lithiumpreisen und \u00dcberkapazit\u00e4ten droht eine Entt\u00e4uschung in der n\u00e4chsten Guidance-Phase.",
+        "macro_assessment": "Neutrale Makrolage (flache Kurve, Fed Funds bei 3.64%) bietet weder signifikanten R\u00fccken- noch Gegenwind f\u00fcr ALB. Das Zinsumfeld ist f\u00fcr einen kapitalintensiven Rohstoff-Player wie Albemarle moderat belastend, aber nicht akut bedrohlich. Sektor-spezifische Risiken (Lithiumpreise, China-Konkurrenz) dominieren gegen\u00fcber dem Makro-Signal.",
+        "data_confidence": "low",
+        "macro_regime": "neutral",
+        "macro_context": {
+          "yield_curve": 0.49,
+          "regime": "neutral"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLB",
+        "rel_strength": 0.1761
+      },
+      "final_score": 0.0738,
+      "time_value_efficiency": {
+        "roi_per_day_pct": 0.0697,
+        "annualized_roi": 0.2668,
+        "dte": 224
+      },
+      "trade_score": {
+        "total": 46,
+        "grade": "WATCH \ud83d\udfe0",
+        "grade_short": "WATCH",
+        "components": {
+          "signal_quality": 21.9,
+          "options_quality": 16.3,
+          "risk_deductions": -12.0,
+          "context_bonus": 20.0
+        },
+        "reasoning": "St\u00e4rken: solides Signal (Impact=5/Surprise=6), positive Sektor-Relative-St\u00e4rke | Risiken: hohes Bear-Risiko (7/10)",
+        "best_argument_for": "Der Markt reagiert nur mit +1,0% trotz positiver Earnings-\u00dcberraschung, m\u00f6glicherweise weil die EPS-Diskrepanz (GAAP vs. Non-GAAP) Skepsis erzeugt. Insider-Cluster-K\u00e4ufe sind noch nicht vollst\u00e4ndig in institutionellen Flows eingepreist. Falls die Guidance-Phase in 45 Tagen GAAP-Profitabilit\u00e4t best\u00e4tigt, k\u00f6nnte eine zweite Repricing-Welle einsetzen.",
+        "best_argument_against": "Die EPS-Daten weichen um 68,2% zwischen yfinance ($9.03) und SEC EDGAR (-$5.77) ab \u2014 das ist eine massive Diskrepanz, die fundamentale Zweifel an der Qualit\u00e4t der Earnings-Zahlen aufwirft. Es ist m\u00f6glich, dass yfinance adjustierte/Non-GAAP-Zahlen zeigt, w\u00e4hrend SEC EDGAR GAAP-Verluste reflektiert. Ein 'Blowout-Earnings' auf Basis von Non-GAAP-Zahlen bei tats\u00e4chlichem GAAP-Verlust ist ein klassisches rotes Flag f\u00fcr Earnings-Qualit\u00e4t und k\u00f6nnte den Markt bei n\u00e4herer Analyse entt\u00e4uschen."
+      },
+      "trade_rank": 1,
+      "exit_rules": {
+        "entry_cost": 47.85,
+        "take_profit_pct": 50,
+        "take_profit_price": 71.78,
+        "full_profit_pct": 100,
+        "full_profit_price": 95.7,
+        "stop_loss_pct": -40,
+        "stop_loss_price": 28.71,
+        "time_exit_dte_remaining": 112,
+        "time_exit_date": "2026-08-28",
+        "time_exit_min_profit_pct": 20
+      }
+    }
+  ]
+}
