@@ -1,0 +1,155 @@
+{
+  "date": "2026-05-08",
+  "proposals": [
+    {
+      "ticker": "ABNB",
+      "strategy": "LONG_CALL",
+      "iv_rank": 24.2,
+      "iv_gate_applied": false,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-07-17",
+        "strike": 140.0,
+        "bid": 13.55,
+        "ask": 14.3,
+        "open_interest": 793,
+        "implied_vol": 0.45691461059570315,
+        "spread_ratio": 0.0524,
+        "dte": 69
+      },
+      "roi_analysis": {
+        "roi_gross": 0.504,
+        "roi_net": 0.3837,
+        "spread_pct": 0.0524,
+        "vega_loss": 0.0154,
+        "delta": 0.6181,
+        "iv_drop_assumed": 0.02,
+        "cost_basis": 14.3,
+        "is_spread": false,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.12,
+        "dte": 69
+      },
+      "dte_tier": "Mid-Term",
+      "annualized_roi": 4.573,
+      "all_tiers_tried": [
+        {
+          "tier": "Mid-Term",
+          "dte": 69,
+          "option": {
+            "expiry": "2026-07-17",
+            "strike": 140.0,
+            "bid": 13.55,
+            "ask": 14.3,
+            "open_interest": 793,
+            "implied_vol": 0.45691461059570315,
+            "spread_ratio": 0.0524,
+            "dte": 69
+          },
+          "roi": {
+            "roi_gross": 0.504,
+            "roi_net": 0.3837,
+            "spread_pct": 0.0524,
+            "vega_loss": 0.0154,
+            "delta": 0.6181,
+            "iv_drop_assumed": 0.02,
+            "cost_basis": 14.3,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.12,
+            "dte": 69
+          },
+          "annualized_roi": 4.573,
+          "strategy": "LONG_CALL"
+        }
+      ],
+      "features": {
+        "impact": 5,
+        "surprise": 4,
+        "mismatch": 3.726,
+        "z_score": 0.255,
+        "sigma_30d": 0.0205,
+        "price_move_48h": 0.0052,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.5792
+      },
+      "simulation": {
+        "current_price": 145.71,
+        "target_price": 157.37,
+        "hit_rate": 0.6902,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.0203,
+        "alpha": 0.00221
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Der KI-Code-Anteil von 60% ist prim\u00e4r ein Effizienz-Narrativ, das bereits weitgehend eingepreist sein d\u00fcrfte. Der Travel-Sektor handelt ABNB mit einem signifikanten Premium gegen\u00fcber Peers \u2014 ein KV von ~25x auf Forward-EPS l\u00e4sst wenig Raum f\u00fcr Entt\u00e4uschungen, und Margin-Expansion durch KI ist bereits Konsens-Erwartung, kein Alpha-generierendes \u00dcberraschungselement mehr.",
+          "argument_2": "Der Reise-Sektor steht unter strukturellem Gegenwind durch Konsumvorsicht: Bei Fed Funds Rate von 3.64% und Kerninflation, die den Verbraucher belastet, zeigen Leisure-Travel-Daten zunehmend Normalisierungstendenzen post-COVID-Boom. Expedia Q1 Earnings Highlights k\u00f6nnten auf Preisdruck und sinkende Buchungsintensit\u00e4t hindeuten, was direkt auf ABNBs Pricing-Power dr\u00fcckt.",
+          "argument_3": "Die EPS-Divergenz zwischen yfinance (5.78) und SEC EDGAR (4.05) ist signifikant \u2014 eine Abweichung von ~43% zwischen den Quellen signalisiert entweder au\u00dferordentliche Ertr\u00e4ge oder Accounting-Qualit\u00e4tsprobleme. Kein echtes Signal ohne gekl\u00e4rte Datengrundlage. Der Insider-Cluster-Kauf k\u00f6nnte zudem Pflicht-Akquisitionen im Rahmen von Kompensationspaketen sein, nicht organisches Conviction-Signal.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Kein MC durchgef\u00fchrt \u2014 0% Hit-Rate ist technisches Artefakt, keine statistisch valide Aussage. Ohne Simulationsdaten fehlt jede quantitative Grundlage zur Pfad-Wahrscheinlichkeit. Concern bleibt medium, da fehlende MC-Daten keine Optimismus-Kontrolle erm\u00f6glichen.",
+          "concern_level": "medium"
+        },
+        "impact": 5,
+        "surprise": 4,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt untersch\u00e4tzt die operative Hebelwirkung, wenn KI-gest\u00fctzte Entwicklung die R&D-Kostenbasis strukturell senkt und Produktiterationszyklen beschleunigt. Insider-Cluster-K\u00e4ufe \u00fcber 14 Tage bei f\u00fcnf Beteiligten erh\u00f6hen die Signalqualit\u00e4t gegen\u00fcber Einzel-Transaktionen erheblich. Die Kombination aus Margin-Expansion und Summer-Travel-Katalysator 2026 ist im aktuellen Konsens noch nicht vollst\u00e4ndig modelliert.",
+        "catalyst": "Q2 2026 Earnings Release mit KI-bedingter Margin-Expansion und Summer-Travel-Buchungsvolumen als operative Best\u00e4tigung",
+        "bear_case": "EPS-Datendivergenz zwischen Quellen untergr\u00e4bt die Bewertungsgrundlage; bei bereits hohem Bewertungsmultiple gen\u00fcgt eine moderate Guidance-Verfehlung f\u00fcr einen scharfen Kursr\u00fcckgang von 15-20%.",
+        "macro_assessment": "Neutrales Makro-Umfeld mit flacher Kurve (0.49%) bietet weder strukturellen R\u00fcckenwind noch aktiven Gegenwind. Fed Funds bei 3.64% belastet Consumer Cyclicals moderat \u2014 kein Veto, aber Upside-Potenzial ist ged\u00e4mpft. Keine Rezessionssignale, aber auch kein expansiver Tailwind.",
+        "data_confidence": "low",
+        "macro_regime": "neutral",
+        "macro_context": {
+          "yield_curve": 0.49,
+          "regime": "neutral"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLY",
+        "rel_strength": 0.0079
+      },
+      "final_score": 0.0794,
+      "time_value_efficiency": {
+        "roi_per_day_pct": 0.5561,
+        "annualized_roi": 4.573,
+        "dte": 69
+      },
+      "trade_score": {
+        "total": 58,
+        "grade": "WATCH \ud83d\udfe0",
+        "grade_short": "WATCH",
+        "components": {
+          "signal_quality": 17.9,
+          "options_quality": 25.0,
+          "risk_deductions": 0.0,
+          "context_bonus": 15.0
+        },
+        "reasoning": "St\u00e4rken: solides Signal (Impact=5/Surprise=4), guter ROI (38%), g\u00fcnstige IV (24%)",
+        "best_argument_for": "Der Markt untersch\u00e4tzt die operative Hebelwirkung, wenn KI-gest\u00fctzte Entwicklung die R&D-Kostenbasis strukturell senkt und Produktiterationszyklen beschleunigt. Insider-Cluster-K\u00e4ufe \u00fcber 14 Tage bei f\u00fcnf Beteiligten erh\u00f6hen die Signalqualit\u00e4t gegen\u00fcber Einzel-Transaktionen erheblich. Die Kombination aus Margin-Expansion und Summer-Travel-Katalysator 2026 ist im aktuellen Konsens noch nicht vollst\u00e4ndig modelliert.",
+        "best_argument_against": "Der KI-Code-Anteil von 60% ist prim\u00e4r ein Effizienz-Narrativ, das bereits weitgehend eingepreist sein d\u00fcrfte. Der Travel-Sektor handelt ABNB mit einem signifikanten Premium gegen\u00fcber Peers \u2014 ein KV von ~25x auf Forward-EPS l\u00e4sst wenig Raum f\u00fcr Entt\u00e4uschungen, und Margin-Expansion durch KI ist bereits Konsens-Erwartung, kein Alpha-generierendes \u00dcberraschungselement mehr."
+      },
+      "trade_rank": 1,
+      "exit_rules": {
+        "entry_cost": 14.3,
+        "take_profit_pct": 50,
+        "take_profit_price": 21.45,
+        "full_profit_pct": 100,
+        "full_profit_price": 28.6,
+        "stop_loss_pct": -40,
+        "stop_loss_price": 8.58,
+        "time_exit_dte_remaining": 34,
+        "time_exit_date": "2026-06-13",
+        "time_exit_min_profit_pct": 20
+      }
+    }
+  ]
+}
