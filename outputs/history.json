@@ -2,44 +2,44 @@
   "feature_stats": {
     "impact": {
       "low": {
-        "count": 264,
-        "avg_return": 0.488109
+        "count": 272,
+        "avg_return": 0.508926
       },
       "mid": {
-        "count": 850,
-        "avg_return": 0.060262
+        "count": 914,
+        "avg_return": 0.058843
       },
       "high": {
-        "count": 69,
-        "avg_return": -0.246952
+        "count": 71,
+        "avg_return": -0.239806
       }
     },
     "mismatch": {
       "weak": {
-        "count": 412,
-        "avg_return": 0.275254
+        "count": 427,
+        "avg_return": 0.283354
       },
       "good": {
-        "count": 731,
-        "avg_return": 0.070808
+        "count": 786,
+        "avg_return": 0.071955
       },
       "strong": {
-        "count": 40,
-        "avg_return": -0.053172
+        "count": 44,
+        "avg_return": -0.053921
       }
     },
     "eps_drift": {
       "noise": {
-        "count": 1180,
-        "avg_return": 0.138027
+        "count": 1252,
+        "avg_return": 0.139599
       },
       "relevant": {
-        "count": 0,
-        "avg_return": 0.0
+        "count": 1,
+        "avg_return": 0.211518
       },
       "massive": {
-        "count": 3,
-        "avg_return": 0.054964
+        "count": 4,
+        "avg_return": 0.045885
       }
     }
   },
@@ -71,8 +71,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 974.42,
-      "current_return": -0.0395
+      "last_price": 994.2,
+      "current_return": 0.0067
     },
     {
       "ticker": "META",
@@ -101,8 +101,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 603.465,
-      "current_return": -0.5
+      "last_price": 597.68,
+      "current_return": -0.506
     },
     {
       "ticker": "MRK",
@@ -131,8 +131,8 @@
         "dte": 159
       },
       "outcome": null,
-      "last_price": 112.25,
-      "current_return": -0.5818
+      "last_price": 113.47,
+      "current_return": -0.5645
     },
     {
       "ticker": "AAPL",
@@ -161,8 +161,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 292.32,
-      "current_return": 1.6684
+      "last_price": 294.28,
+      "current_return": 1.7474
     },
     {
       "ticker": "UNH",
@@ -191,8 +191,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 379.7099,
-      "current_return": 1.9545
+      "last_price": 393.37,
+      "current_return": 2.2917
     },
     {
       "ticker": "LLY",
@@ -221,8 +221,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 974.48,
-      "current_return": -0.0395
+      "last_price": 994.2,
+      "current_return": 0.0067
     },
     {
       "ticker": "UNH",
@@ -251,8 +251,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 379.7099,
-      "current_return": 2.9684
+      "last_price": 393.37,
+      "current_return": 3.4751
     },
     {
       "ticker": "META",
@@ -281,8 +281,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 603.465,
-      "current_return": -0.5
+      "last_price": 597.68,
+      "current_return": -0.506
     },
     {
       "ticker": "MRK",
@@ -311,8 +311,8 @@
         "dte": 159
       },
       "outcome": null,
-      "last_price": 112.25,
-      "current_return": -0.5818
+      "last_price": 113.47,
+      "current_return": -0.5645
     },
     {
       "ticker": "AAPL",
@@ -341,8 +341,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 292.32,
-      "current_return": 1.6684
+      "last_price": 294.3,
+      "current_return": 1.7474
     },
     {
       "ticker": "TSLA",
@@ -371,8 +371,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 439.0,
-      "current_return": 1.8083
+      "last_price": 425.6399,
+      "current_return": 1.3957
     },
     {
       "ticker": "LLY",
@@ -401,8 +401,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 974.48,
-      "current_return": -0.0395
+      "last_price": 994.2,
+      "current_return": 0.0067
     },
     {
       "ticker": "LLY",
@@ -431,8 +431,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 974.48,
-      "current_return": -0.0395
+      "last_price": 994.2,
+      "current_return": 0.0067
     },
     {
       "ticker": "LLY",
@@ -461,8 +461,8 @@
         "dte": 131
       },
       "outcome": null,
-      "last_price": 974.48,
-      "current_return": -0.0395
+      "last_price": 994.2,
+      "current_return": 0.0067
     },
     {
       "ticker": "ON",
@@ -518,8 +518,8 @@
         "direction": "BULLISH"
       },
       "outcome": null,
-      "last_price": 105.475,
-      "current_return": 2.8025
+      "last_price": 100.53,
+      "current_return": 2.365
     },
     {
       "ticker": "ABT",
@@ -608,8 +608,8 @@
         "dte": 127
       },
       "outcome": null,
-      "last_price": 82.41,
-      "current_return": -0.187
+      "last_price": 84.46,
+      "current_return": -0.1668
     },
     {
       "ticker": "META",
@@ -698,8 +698,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 603.465,
-      "current_return": -0.1043
+      "last_price": 597.62,
+      "current_return": -0.1129
     },
     {
       "ticker": "CDNS",
@@ -788,8 +788,8 @@
         "dte": 155
       },
       "outcome": null,
-      "last_price": 362.6,
-      "current_return": 0.1843
+      "last_price": 355.79,
+      "current_return": 0.1621
     },
     {
       "ticker": "AVGO",
@@ -878,8 +878,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 429.43,
-      "current_return": 0.0883
+      "last_price": 410.735,
+      "current_return": 0.041
     },
     {
       "ticker": "FISV",
@@ -962,8 +962,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 54.65,
-      "current_return": -0.1109
+      "last_price": 54.95,
+      "current_return": -0.1061
     },
     {
       "ticker": "AMZN",
@@ -1052,8 +1052,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 272.1399,
-      "current_return": 0.0951
+      "last_price": 263.3,
+      "current_return": 0.0596
     },
     {
       "ticker": "AMD",
@@ -1136,8 +1136,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 463.58,
-      "current_return": 0.796
+      "last_price": 434.45,
+      "current_return": 0.6831
     },
     {
       "ticker": "AMAT",
@@ -1226,8 +1226,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 446.17,
-      "current_return": 0.1317
+      "last_price": 420.95,
+      "current_return": 0.0677
     },
     {
       "ticker": "CTVA",
@@ -1316,8 +1316,8 @@
         "dte": 29
       },
       "outcome": null,
-      "last_price": 82.73,
-      "current_return": 0.0173
+      "last_price": 82.67,
+      "current_return": 0.0166
     },
     {
       "ticker": "ORCL",
@@ -1406,8 +1406,8 @@
         "dte": 21
       },
       "outcome": null,
-      "last_price": 194.7744,
-      "current_return": 0.0957
+      "last_price": 182.3301,
+      "current_return": 0.0257
     },
     {
       "ticker": "HOOD",
@@ -1484,8 +1484,8 @@
         "dte": 27
       },
       "outcome": null,
-      "last_price": 79.84,
-      "current_return": -0.1356
+      "last_price": 77.1001,
+      "current_return": -0.1652
     },
     {
       "ticker": "SCHW",
@@ -1562,8 +1562,8 @@
         "dte": 27
       },
       "outcome": null,
-      "last_price": 87.89,
-      "current_return": -0.0513
+      "last_price": 89.78,
+      "current_return": -0.0309
     },
     {
       "ticker": "HOOD",
@@ -1640,8 +1640,8 @@
         "dte": 24
       },
       "outcome": null,
-      "last_price": 79.84,
-      "current_return": -0.1123
+      "last_price": 77.1001,
+      "current_return": -0.1428
     },
     {
       "ticker": "ON",
@@ -1718,8 +1718,8 @@
         "dte": 24
       },
       "outcome": null,
-      "last_price": 105.475,
-      "current_return": 0.2463
+      "last_price": 100.51,
+      "current_return": 0.1876
     },
     {
       "ticker": "TSLA",
@@ -1796,8 +1796,8 @@
         "dte": 24
       },
       "outcome": null,
-      "last_price": 439.03,
-      "current_return": 0.1199
+      "last_price": 425.72,
+      "current_return": 0.086
     },
     {
       "ticker": "AMZN",
@@ -1874,8 +1874,8 @@
         "dte": 23
       },
       "outcome": null,
-      "last_price": 272.1399,
-      "current_return": 0.0775
+      "last_price": 263.3,
+      "current_return": 0.0425
     },
     {
       "ticker": "AMAT",
@@ -1952,8 +1952,8 @@
         "dte": 23
       },
       "outcome": null,
-      "last_price": 446.17,
-      "current_return": 0.1293
+      "last_price": 420.95,
+      "current_return": 0.0655
     },
     {
       "ticker": "AAPL",
@@ -2030,8 +2030,8 @@
         "dte": 23
       },
       "outcome": null,
-      "last_price": 292.32,
-      "current_return": 0.0976
+      "last_price": 294.29,
+      "current_return": 0.105
     },
     {
       "ticker": "ALB",
@@ -2108,8 +2108,8 @@
         "dte": 23
       },
       "outcome": null,
-      "last_price": 215.565,
-      "current_return": 0.0969
+      "last_price": 203.44,
+      "current_return": 0.0352
     },
     {
       "ticker": "BAC",
@@ -2186,8 +2186,8 @@
         "dte": 86
       },
       "outcome": null,
-      "last_price": 50.415,
-      "current_return": -0.0585
+      "last_price": 50.99,
+      "current_return": -0.0478
     },
     {
       "ticker": "BIIB",
@@ -2264,8 +2264,8 @@
         "dte": 86
       },
       "outcome": null,
-      "last_price": 197.85,
-      "current_return": 0.0593
+      "last_price": 200.77,
+      "current_return": 0.075
     },
     {
       "ticker": "BBWI",
@@ -2342,8 +2342,8 @@
         "dte": 23
       },
       "outcome": null,
-      "last_price": 19.125,
-      "current_return": -0.0702
+      "last_price": 19.06,
+      "current_return": -0.0734
     },
     {
       "ticker": "AEP",
@@ -2420,8 +2420,8 @@
         "dte": 23
       },
       "outcome": null,
-      "last_price": 131.05,
-      "current_return": -0.0142
+      "last_price": 131.79,
+      "current_return": -0.0087
     },
     {
       "ticker": "ABNB",
@@ -2498,8 +2498,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 140.58,
-      "current_return": -0.0277
+      "last_price": 135.0,
+      "current_return": -0.0663
     },
     {
       "ticker": "BBWI",
@@ -2576,8 +2576,8 @@
         "dte": 22
       },
       "outcome": null,
-      "last_price": 19.125,
-      "current_return": -0.0593
+      "last_price": 19.06,
+      "current_return": -0.0625
     },
     {
       "ticker": "AMD",
@@ -2648,8 +2648,8 @@
         "dte": 15
       },
       "outcome": null,
-      "last_price": 463.66,
-      "current_return": 0.5399
+      "last_price": 434.48,
+      "current_return": 0.443
     },
     {
       "ticker": "APA",
@@ -2720,8 +2720,8 @@
         "dte": 85
       },
       "outcome": null,
-      "last_price": 36.875,
-      "current_return": -0.0337
+      "last_price": 37.11,
+      "current_return": -0.0275
     },
     {
       "ticker": "AVGO",
@@ -2792,8 +2792,8 @@
         "dte": 15
       },
       "outcome": null,
-      "last_price": 429.39,
-      "current_return": 0.0259
+      "last_price": 410.74,
+      "current_return": -0.0187
     },
     {
       "ticker": "ADI",
@@ -2864,8 +2864,8 @@
         "dte": 148
       },
       "outcome": null,
-      "last_price": 416.78,
-      "current_return": 0.0955
+      "last_price": 411.765,
+      "current_return": 0.0824
     },
     {
       "ticker": "AMAT",
@@ -2936,8 +2936,8 @@
         "dte": 15
       },
       "outcome": null,
-      "last_price": 446.17,
-      "current_return": 0.1176
+      "last_price": 420.91,
+      "current_return": 0.0544
     },
     {
       "ticker": "AVGO",
@@ -3008,8 +3008,8 @@
         "dte": 14
       },
       "outcome": null,
-      "last_price": 429.39,
-      "current_return": 0.0016
+      "last_price": 410.74,
+      "current_return": -0.0419
     },
     {
       "ticker": "BKR",
@@ -3080,8 +3080,8 @@
         "dte": 21
       },
       "outcome": null,
-      "last_price": 64.41,
-      "current_return": 0.0012
+      "last_price": 64.465,
+      "current_return": 0.0021
     },
     {
       "ticker": "BA",
@@ -3152,8 +3152,8 @@
         "dte": 14
       },
       "outcome": null,
-      "last_price": 240.46,
-      "current_return": 0.0275
+      "last_price": 233.225,
+      "current_return": -0.0034
     },
     {
       "ticker": "AXP",
@@ -3224,8 +3224,8 @@
         "dte": 84
       },
       "outcome": null,
-      "last_price": 312.65,
-      "current_return": -0.0338
+      "last_price": 314.2575,
+      "current_return": -0.0289
     },
     {
       "ticker": "ANET",
@@ -3296,8 +3296,8 @@
         "dte": 84
       },
       "outcome": null,
-      "last_price": 137.625,
-      "current_return": -0.2163
+      "last_price": 138.655,
+      "current_return": -0.2105
     },
     {
       "ticker": "BX",
@@ -3368,8 +3368,8 @@
         "dte": 84
       },
       "outcome": null,
-      "last_price": 122.98,
-      "current_return": 0.0052
+      "last_price": 122.11,
+      "current_return": -0.0019
     },
     {
       "ticker": "DVA",
@@ -3440,8 +3440,8 @@
         "dte": 84
       },
       "outcome": null,
-      "last_price": 197.92,
-      "current_return": 0.269
+      "last_price": 201.33,
+      "current_return": 0.2909
     },
     {
       "ticker": "T",
@@ -3512,8 +3512,8 @@
         "dte": 14
       },
       "outcome": null,
-      "last_price": 24.8133,
-      "current_return": -0.07
+      "last_price": 25.35,
+      "current_return": -0.0499
     },
     {
       "ticker": "EQT",
@@ -3584,8 +3584,8 @@
         "dte": 14
       },
       "outcome": null,
-      "last_price": 56.485,
-      "current_return": -0.0484
+      "last_price": 56.03,
+      "current_return": -0.0561
     },
     {
       "ticker": "AMAT",
@@ -3656,8 +3656,8 @@
         "dte": 20
       },
       "outcome": null,
-      "last_price": 446.17,
-      "current_return": 0.0653
+      "last_price": 420.91,
+      "current_return": 0.005
     },
     {
       "ticker": "ANET",
@@ -3728,8 +3728,8 @@
         "dte": 20
       },
       "outcome": null,
-      "last_price": 137.625,
-      "current_return": -0.2325
+      "last_price": 138.655,
+      "current_return": -0.2267
     },
     {
       "ticker": "BX",
@@ -3800,8 +3800,8 @@
         "dte": 20
       },
       "outcome": null,
-      "last_price": 122.98,
-      "current_return": 0.007
+      "last_price": 122.11,
+      "current_return": -0.0001
     },
     {
       "ticker": "AMD",
@@ -3872,8 +3872,8 @@
         "dte": 20
       },
       "outcome": null,
-      "last_price": 463.62,
-      "current_return": 0.3319
+      "last_price": 434.52,
+      "current_return": 0.2483
     },
     {
       "ticker": "ALB",
@@ -3944,8 +3944,8 @@
         "dte": 237
       },
       "outcome": null,
-      "last_price": 215.565,
-      "current_return": 0.1531
+      "last_price": 203.44,
+      "current_return": 0.0883
     },
     {
       "ticker": "BKR",
@@ -4016,8 +4016,8 @@
         "dte": 17
       },
       "outcome": null,
-      "last_price": 64.41,
-      "current_return": -0.0639
+      "last_price": 64.465,
+      "current_return": -0.0631
     },
     {
       "ticker": "CMCSA",
@@ -4088,8 +4088,8 @@
         "dte": 17
       },
       "outcome": null,
-      "last_price": 24.975,
-      "current_return": -0.1006
+      "last_price": 24.994,
+      "current_return": -0.1
     },
     {
       "ticker": "BKR",
@@ -4160,8 +4160,8 @@
         "dte": 16
       },
       "outcome": null,
-      "last_price": 64.41,
-      "current_return": -0.0648
+      "last_price": 64.465,
+      "current_return": -0.064
     },
     {
       "ticker": "AVGO",
@@ -4232,8 +4232,8 @@
         "dte": 16
       },
       "outcome": null,
-      "last_price": 429.39,
-      "current_return": 0.0833
+      "last_price": 410.745,
+      "current_return": 0.0362
     },
     {
       "ticker": "BA",
@@ -4305,8 +4305,8 @@
         "dte": 16
       },
       "outcome": null,
-      "last_price": 240.5,
-      "current_return": 0.0451
+      "last_price": 233.225,
+      "current_return": 0.0134
     },
     {
       "ticker": "CCL",
@@ -4378,8 +4378,8 @@
         "dte": 16
       },
       "outcome": null,
-      "last_price": 25.26,
-      "current_return": -0.0392
+      "last_price": 24.975,
+      "current_return": -0.05
     },
     {
       "ticker": "AMAT",
@@ -4451,8 +4451,8 @@
         "dte": 16
       },
       "outcome": null,
-      "last_price": 446.17,
-      "current_return": 0.1595
+      "last_price": 420.91,
+      "current_return": 0.0938
     },
     {
       "ticker": "BKR",
@@ -4524,8 +4524,8 @@
         "dte": 15
       },
       "outcome": null,
-      "last_price": 64.41,
-      "current_return": -0.0639
+      "last_price": 64.465,
+      "current_return": -0.0631
     },
     {
       "ticker": "APD",
@@ -4597,8 +4597,8 @@
         "dte": 141
       },
       "outcome": null,
-      "last_price": 304.21,
-      "current_return": 0.0011
+      "last_price": 302.22,
+      "current_return": -0.0054
     },
     {
       "ticker": "BA",
@@ -4670,8 +4670,8 @@
         "dte": 15
       },
       "outcome": null,
-      "last_price": 240.5,
-      "current_return": 0.0811
+      "last_price": 233.225,
+      "current_return": 0.0484
     },
     {
       "ticker": "AMZN",
@@ -4743,8 +4743,8 @@
         "dte": 14
       },
       "outcome": null,
-      "last_price": 272.1201,
-      "current_return": 0.0527
+      "last_price": 263.32,
+      "current_return": 0.0186
     },
     {
       "ticker": "APH",
@@ -4816,8 +4816,8 @@
         "dte": 14
       },
       "outcome": null,
-      "last_price": 124.54,
-      "current_return": -0.1444
+      "last_price": 125.485,
+      "current_return": -0.1379
     },
     {
       "ticker": "AMAT",
@@ -4889,8 +4889,8 @@
         "dte": 73
       },
       "outcome": null,
-      "last_price": 446.285,
-      "current_return": 0.1436
+      "last_price": 420.91,
+      "current_return": 0.0786
     },
     {
       "ticker": "META",
@@ -4961,7 +4961,9 @@
         "annualized_roi": null,
         "dte": 16
       },
-      "outcome": null
+      "outcome": null,
+      "last_price": 597.56,
+      "current_return": -0.0107
     },
     {
       "ticker": "AMD",
@@ -5032,7 +5034,9 @@
         "annualized_roi": null,
         "dte": 16
       },
-      "outcome": null
+      "outcome": null,
+      "last_price": 434.62,
+      "current_return": 0.2115
     },
     {
       "ticker": "GOOG",
@@ -5388,6 +5392,219 @@
         "dte": 17
       },
       "outcome": null
+    },
+    {
+      "ticker": "GOOG",
+      "entry_date": "2026-05-12",
+      "features": {
+        "impact": 5,
+        "surprise": 4,
+        "mismatch": 0.516,
+        "z_score": 0.897,
+        "sigma_30d": 0.0241,
+        "price_move_48h": 0.0216,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "weak",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.6302
+      },
+      "strategy": "LONG_CALL",
+      "option": {
+        "expiry": "2026-07-17",
+        "strike": 400.0,
+        "bid": 13.5,
+        "ask": 13.7,
+        "open_interest": 4373,
+        "implied_vol": 0.3355779333496094,
+        "spread_ratio": 0.0146,
+        "dte": 65
+      },
+      "simulation": {
+        "current_price": 380.66,
+        "target_price": 411.11,
+        "hit_rate": 0.7384,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.0191,
+        "alpha": 0.00292
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Die Isomorphic-Finanzierung von $2.1B ist ein Moonshot-Investment in einem hochspekulativen Bereich. AI-Drug-Discovery hat bislang kaum kommerziell skalierbare Ergebnisse geliefert, und der Zeitrahmen bis zur Monetarisierung liegt weit jenseits eines 2-6-Monats-Optionshorizonts. Der Markt hat dieses Kapital bereits teilweise eingepreist \u2014 der Kurs steht bereits nahe 52-Wochen-Hoch, was das Upside-Potential f\u00fcr Optionsk\u00e4ufer drastisch einschr\u00e4nkt.",
+          "argument_2": "GOOG ist in den letzten 48 Stunden bereits um -2,2% gefallen, obwohl die Isomorphic-Meldung positiv war. Dies deutet darauf hin, dass der Markt den Katalysator bereits absorbiert hat oder ihn negativ interpretiert (Kapitalallokation weg vom Core-Business). Ein 52-Wochen-Hoch kombiniert mit negativer Kursreaktion auf positive News ist ein klassisches 'Sell-the-News'-Muster und warnt vor weiterem Abw\u00e4rtsdruck.",
+          "argument_3": "Der Makro-Kontext ist unklar (FRED nicht erreichbar), was strukturelle Risiken wie ein rezessives Umfeld oder restriktive Zinspolitik nicht ausschlie\u00dft. Communication Services als Sektor ist besonders zinssensitiv, und Alphabet ist eines der drei Unternehmen, die laut News 70% der S&P-500-Wachstumserwartungen 2026 tragen \u2014 ein hochkonzentriertes Exposure, das bei Makro-Entt\u00e4uschung zu \u00fcberproportionalen Kursverlusten f\u00fchren kann.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Kein MC wurde durchgef\u00fchrt, 0% Hit-Rate ist daher nicht aussagekr\u00e4ftig und kein statistisches Signal. Die fehlende Simulation ist ein Datenl\u00fccken-Problem, kein inhaltliches. Bei historischer GOOG-Volatilit\u00e4t (annualisiert ca. 25-30%) w\u00e4re eine 30-Tage-Aufw\u00e4rtsbewegung mit konservativer Target-Definition realistisch bei 40-55% Hit-Rate \u2014 der Abwesenheit von MC-Daten ist mit erh\u00f6hter Skepsis zu begegnen.",
+          "concern_level": "medium"
+        },
+        "impact": 5,
+        "surprise": 4,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Isomorphic-Deal wird prim\u00e4r als Kostenfaktor wahrgenommen, nicht als Plattformstrategie, die Googles AI-Kompetenz in Life Sciences verankert. Insider-Cluster-K\u00e4ufe unmittelbar nach der Meldung signalisieren, dass das Management den Kursr\u00fcckgang als ungerechtfertigte \u00dcberreaktion einsch\u00e4tzt. Der Markt fokussiert auf kurzfristige Kapitalallokation, ignoriert aber den strukturellen Optionswert eines Portfolios aus AI-Moonshots.",
+        "catalyst": "Q2 2026 Earnings (voraussichtlich Juli 2026) mit Guidance zu Isomorphic-Integration und Cloud-AI-Umsatzwachstum als Validierungspunkt f\u00fcr die strukturelle AI-Plattformthese.",
+        "bear_case": "GOOG handelt nahe 52-Wochen-Hoch mit negativer Kursreaktion auf positive Nachrichten \u2014 klassisches Ersch\u00f6pfungsmuster. Jede Makro-Verschlechterung oder Entt\u00e4uschung bei Core-Werbeums\u00e4tzen w\u00fcrde den Isomorphic-Optionswert sofort diskontieren.",
+        "macro_assessment": "Makro-Daten nicht verf\u00fcgbar (FRED offline). Ohne Zinsdaten und Kurvenstruktur ist eine pr\u00e4zise Einsch\u00e4tzung nicht m\u00f6glich. Vorsicht geboten: Communication Services sind zinssensitiv, und GOOGs Stellung als S&P-Wachstumstreiber erh\u00f6ht das systemische Risiko bei einem Makro-Schock. Neutral-bis-skeptisch.",
+        "data_confidence": "low",
+        "macro_regime": "recessionary",
+        "macro_context": {
+          "yield_curve": null,
+          "regime": "recessionary"
+        },
+        "direction_conflict": false
+      },
+      "tve": {
+        "roi_per_day_pct": 0.9405,
+        "annualized_roi": null,
+        "dte": 65
+      },
+      "outcome": null
+    },
+    {
+      "ticker": "BMY",
+      "entry_date": "2026-05-12",
+      "features": {
+        "impact": 6,
+        "surprise": 5,
+        "mismatch": 3.17,
+        "z_score": 0.566,
+        "sigma_30d": 0.0182,
+        "price_move_48h": 0.0103,
+        "eps_drift": 0.0084,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.5554
+      },
+      "strategy": "LONG_CALL",
+      "option": {
+        "expiry": "2026-07-17",
+        "strike": 57.5,
+        "bid": 2.19,
+        "ask": 2.28,
+        "open_interest": 920,
+        "implied_vol": 0.26099371826171874,
+        "spread_ratio": 0.0395,
+        "dte": 65
+      },
+      "simulation": {
+        "current_price": 56.95,
+        "target_price": 61.51,
+        "hit_rate": 0.6598,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.0171,
+        "alpha": 0.00208
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Der $15.2B Hengrui-Deal ist gr\u00f6\u00dftenteils milestone-basiert und kein sofortiger Cash-Zufluss. Der Gro\u00dfteil der Zahlungen h\u00e4ngt von klinischen Entwicklungserfolgen ab, die \u00fcber 5-10 Jahre verteilt sind. Early-Stage-Pipeline bedeutet hohes Scheitern-Risiko (historisch >90% Ausfallrate in Phase I/II), und der Markt k\u00f6nnte die tats\u00e4chliche Wahrscheinlichkeitsgewichtung bereits korrekt vorgenommen haben.",
+          "argument_2": "BMY tr\u00e4gt eine erhebliche Schuldenlast aus fr\u00fcheren Akquisitionen (Celgene, MyoKardia) und steht vor patent-bedingten Umsatzausf\u00e4llen bei Schl\u00fcsselprodukten wie Revlimid und Opdivo in den kommenden Jahren 2026-2028. Der Hengrui-Deal adressiert dieses strukturelle Problem kurzfristig nicht, und der operative Cash-Flow-Druck k\u00f6nnte dominanter sein als die Pipeline-Neuigkeit.",
+          "argument_3": "Die EPS-Abweichung zwischen yfinance ($6.15) und SEC EDGAR ($3.54) betr\u00e4gt faktisch ~73% (nicht 0.8% wie angegeben) \u2014 ein massives Warnsignal f\u00fcr Datenqualit\u00e4t. Dieser Widerspruch k\u00f6nnte auf au\u00dferordentliche Posten, Goodwill-Abschreibungen oder adjustierte vs. GAAP-Zahlen hindeuten und macht eine fundamentale Bewertung erheblich unsicherer.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Hit-Rate 0% ist hier schlicht das Resultat eines nicht durchgef\u00fchrten Monte-Carlo-Laufs (0 Pfade), nicht eines negativen Signals. Die Zahl ist bedeutungslos und kann weder als bullish noch bearish interpretiert werden. F\u00fcr BMY mit typischer Healthcare-Volatilit\u00e4t (IV ~25-35%) w\u00e4ren bei einem 30-Tage-Horizont realistische Hit-Raten je nach Strike-Wahl zwischen 40-70% zu erwarten.",
+          "concern_level": "medium"
+        },
+        "impact": 6,
+        "surprise": 5,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt fokussiert sich auf kurzfristige Patent-Cliff-Risiken und Schuldenlasten, w\u00e4hrend der strukturelle Pipeline-Aufbau durch Hengrui erst in 12-24 Monaten in Analystenmodellen auftaucht. Sechs Insider-K\u00e4ufe im Cluster deuten auf informierten Optimismus hin, der \u00fcber den \u00f6ffentlichen Deal hinausgeht. Die Kombination aus chinesischer Produktionsskalierung und BMS-Vertrieb schafft eine Asymmetrie, die kurzfristige Modelle strukturell untersch\u00e4tzen.",
+        "catalyst": "Erste klinische Datenpunkte zu Hengrui-Partnerschafts-Assets in H2 2026 sowie potenziell positive Phase-III-Readouts bei bestehenden BMY-Pipeline-Kandidaten (z.B. milvexian), die das Repricing beschleunigen k\u00f6nnten.",
+        "bear_case": "Patent-Erosion bei Revlimid/Opdivo trifft den freien Cashflow 2026-2028 strukturell, und der Hengrui-Deal liefert keine kurzfristige Kompensation \u2014 milestone-abh\u00e4ngige Zahlungsstruktur bedeutet, dass der $15.2B-Headline realistisch mit 10-15% Wahrscheinlichkeitsgewichtung bewertet werden muss.",
+        "macro_assessment": "FRED-Daten nicht verf\u00fcgbar, was die Zinseinsch\u00e4tzung erschwert. Healthcare gilt in unsicheren Makro-Umfeldern als defensiver Sektor, was BMY bei einer m\u00f6glichen wirtschaftlichen Verlangsamung 2026 relative St\u00e4rke verleihen k\u00f6nnte. Allerdings sind h\u00f6here Kapitalkosten f\u00fcr pharmazeutische M&A und Lizenz-Deals generell belastend \u2014 die Hengrui-Dealstruktur k\u00f6nnte unter h\u00f6herem Zinsdruck weniger attraktiv sein als bei Niedrigzins.",
+        "data_confidence": "low",
+        "macro_regime": "recessionary",
+        "macro_context": {
+          "yield_curve": null,
+          "regime": "recessionary"
+        },
+        "direction_conflict": false
+      },
+      "tve": {
+        "roi_per_day_pct": 1.2594,
+        "annualized_roi": null,
+        "dte": 65
+      },
+      "outcome": null
+    },
+    {
+      "ticker": "CVX",
+      "entry_date": "2026-05-12",
+      "features": {
+        "impact": 5,
+        "surprise": 4,
+        "mismatch": 1.513,
+        "z_score": 0.697,
+        "sigma_30d": 0.0176,
+        "price_move_48h": 0.0123,
+        "eps_drift": 0.0157,
+        "bin_impact": "mid",
+        "bin_mismatch": "weak",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.51
+      },
+      "strategy": "LONG_CALL",
+      "option": {
+        "expiry": "2026-05-29",
+        "strike": 190.0,
+        "bid": 2.35,
+        "ask": 2.54,
+        "open_interest": 989,
+        "implied_vol": 0.2386550744628906,
+        "spread_ratio": 0.0748,
+        "dte": 16
+      },
+      "simulation": {
+        "current_price": 186.58,
+        "target_price": 201.51,
+        "hit_rate": 0.6128,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.0153,
+        "alpha": 0.00232
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Der \u00d6lpreis ist bereits durch Iran-Spannungen gestiegen, was bedeutet, dass ein erheblicher Teil des geopolitischen Risikoaufschlags bereits eingepreist sein d\u00fcrfte. CVX notiert bei $186.58 nach einem +1.2% Move in 48h \u2014 der Markt hat das Katalysator-Szenario bereits teilweise absorbiert. Ein De-Eskalationssignal (Verhandlungen, Sanktionslockerung) k\u00f6nnte den \u00d6lpreis schnell 5-8% korrigieren lassen und CVX \u00fcberproportional belasten.",
+          "argument_2": "Die EPS-Abweichung zwischen yfinance ($12.09) und SEC EDGAR ($5.84) betr\u00e4gt faktisch \u00fcber 100% \u2014 nicht die gemeldeten 1.6% \u2014 was auf ernsthafte Datenqualit\u00e4tsprobleme hinweist. Eine derartige Divergenz deutet auf unterschiedliche Berechnungsgrundlagen (z.B. verw\u00e4ssertes vs. adjustiertes EPS) hin und macht die Bewertungsgrundlage f\u00fcr den Trade \u00e4u\u00dferst fragw\u00fcrdig. Trades auf Basis korrumpierter Fundamentaldaten tragen ein inh\u00e4rentes Modellrisiko.",
+          "argument_3": "Der Energiesektor leidet 2026 unter strukturellem Gegenwind durch beschleunigte Energiewende-Politik und m\u00f6gliche Nachfrageschw\u00e4che bei globaler Wachstumsverlangsamung. Gleichzeitig deuten Inflations\u00e4ngste laut News auf ein Zinsumfeld hin, das Risk-Assets allgemein unter Druck setzt \u2014 steigende Kapitalkosten belasten kapitalintensive Energieunternehmen wie CVX strukturell. Die 6 Insider-K\u00e4ufe k\u00f6nnten auch opportunistisches Dip-Buying nach einem bereits schwachen Q1 2026 sein, kein Forward-Signal.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Der Quick MC wurde nicht durchgef\u00fchrt (0 Pfade), was bedeutet keinerlei statistische Validierung des Trades existiert. Bei einer fehlenden Hit-Rate-Berechnung ist das Concern-Level automatisch hoch, da keine probabilistische Absicherung der Bullish-These vorliegt. Die Abwesenheit von MC-Daten ist kein neutrales Signal \u2014 sie ist ein Warnsignal f\u00fcr Datenqualit\u00e4t oder Systemfehler.",
+          "concern_level": "high"
+        },
+        "impact": 5,
+        "surprise": 4,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "4-8 Wochen",
+        "asymmetry_reasoning": "Der Markt untersch\u00e4tzt m\u00f6glicherweise die Nachhaltigkeit des Iran-Risikoaufschlags, da geopolitische Krisen 2026 l\u00e4nger eskaliert bleiben als historisch \u00fcblich. Sechs simultane Insider-K\u00e4ufe innerhalb von 14 Tagen sind ein seltenes Cluster-Signal mit statistisch positiver Vorhersagekraft. Die AI-Datencenter-Nachfrage nach Energie schafft einen neuen strukturellen Nachfragetreiber, der im Konsensmodell noch nicht vollst\u00e4ndig ber\u00fccksichtigt ist.",
+        "catalyst": "Eskalation Iran-Spannungen treibt Brent Crude \u00fcber $90/bbl + AI-Datencenter-Energienachfrage-Ank\u00fcndigungen Q2 2026",
+        "bear_case": "Geopolitische De-Eskalation oder OPEC+-Angebotsausweitung kollabiert \u00d6lpreis, EPS-Datenbasis ist unzuverl\u00e4ssig, globale Wachstumsverlangsamung dr\u00fcckt Energienachfrage.",
+        "macro_assessment": "FRED-Daten nicht verf\u00fcgbar, was die Makroeinsch\u00e4tzung erheblich einschr\u00e4nkt. Aus den News ergibt sich ein Bild von Inflations\u00e4ngsten kombiniert mit geopolitischen Risiken \u2014 ein stagflation\u00e4res Umfeld, das Energie-Commodities kurzfristig st\u00fctzt, aber Real-Asset-Bewertungen langfristig belastet. Die Zinsunsicherheit 2026 mahnt zur Vorsicht bei kapitalintensiven Sektoren.",
+        "data_confidence": "low",
+        "macro_regime": "recessionary",
+        "macro_context": {
+          "yield_curve": null,
+          "regime": "recessionary"
+        },
+        "direction_conflict": false
+      },
+      "tve": {
+        "roi_per_day_pct": 11.5281,
+        "annualized_roi": null,
+        "dte": 16
+      },
+      "outcome": null
     }
   ],
   "closed_trades": [],
@@ -5525,6 +5742,11 @@
         "date": "2026-05-11",
         "score": 0.0674,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.2342,
+        "headline_count": 5
       }
     ],
     "AMZN": [
@@ -5606,6 +5828,11 @@
       {
         "date": "2026-05-11",
         "score": 0.391,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1475,
         "headline_count": 5
       }
     ],
@@ -5956,6 +6183,11 @@
         "date": "2026-04-29",
         "score": -0.1352,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1036,
+        "headline_count": 5
       }
     ],
     "FSLR": [
@@ -6132,6 +6364,11 @@
         "date": "2026-05-11",
         "score": 0.19,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.4935,
+        "headline_count": 5
       }
     ],
     "APA": [
@@ -6231,6 +6468,11 @@
         "date": "2026-04-29",
         "score": 0.292,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.4988,
+        "headline_count": 4
       }
     ],
     "BX": [
@@ -6360,6 +6602,11 @@
         "date": "2026-05-11",
         "score": -0.0854,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.0662,
+        "headline_count": 5
       }
     ],
     "C": [
@@ -6396,6 +6643,11 @@
       {
         "date": "2026-05-11",
         "score": -0.3201,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.0323,
         "headline_count": 5
       }
     ],
@@ -6449,6 +6701,11 @@
         "date": "2026-05-07",
         "score": -0.0367,
         "headline_count": 4
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.0413,
+        "headline_count": 3
       }
     ],
     "DRI": [
@@ -6466,6 +6723,11 @@
         "date": "2026-04-23",
         "score": -0.1132,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.0899,
+        "headline_count": 3
       }
     ],
     "FANG": [
@@ -6591,6 +6853,11 @@
       {
         "date": "2026-05-11",
         "score": 0.0306,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.2035,
         "headline_count": 5
       }
     ],
@@ -7101,6 +7368,11 @@
         "date": "2026-05-11",
         "score": 0.3687,
         "headline_count": 4
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1336,
+        "headline_count": 5
       }
     ],
     "BDX": [
@@ -7168,6 +7440,11 @@
         "date": "2026-05-11",
         "score": 0.3081,
         "headline_count": 3
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.4617,
+        "headline_count": 4
       }
     ],
     "CE": [
@@ -7214,6 +7491,11 @@
       {
         "date": "2026-05-11",
         "score": 0.0461,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1045,
         "headline_count": 5
       }
     ],
@@ -7298,6 +7580,11 @@
       {
         "date": "2026-05-11",
         "score": -0.3279,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1019,
         "headline_count": 5
       }
     ],
@@ -7395,6 +7682,11 @@
         "date": "2026-05-11",
         "score": -0.3927,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1003,
+        "headline_count": 5
       }
     ],
     "AOS": [
@@ -7442,6 +7734,11 @@
         "date": "2026-05-11",
         "score": -0.1853,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1312,
+        "headline_count": 3
       }
     ],
     "AIG": [
@@ -7551,6 +7848,11 @@
         "date": "2026-05-05",
         "score": 0.212,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1141,
+        "headline_count": 5
       }
     ],
     "AAPL": [
@@ -7638,6 +7940,11 @@
         "date": "2026-05-11",
         "score": 0.16,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.0036,
+        "headline_count": 5
       }
     ],
     "BAC": [
@@ -7684,6 +7991,11 @@
       {
         "date": "2026-05-05",
         "score": -0.1231,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1491,
         "headline_count": 5
       }
     ],
@@ -7757,6 +8069,11 @@
         "date": "2026-05-11",
         "score": -0.1227,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1513,
+        "headline_count": 5
       }
     ],
     "AVGO": [
@@ -7818,6 +8135,11 @@
       {
         "date": "2026-05-11",
         "score": 0.1156,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1249,
         "headline_count": 5
       }
     ],
@@ -7890,6 +8212,11 @@
       {
         "date": "2026-05-11",
         "score": 0.0888,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1653,
         "headline_count": 5
       }
     ],
@@ -7985,6 +8312,11 @@
         "date": "2026-05-11",
         "score": 0.4299,
         "headline_count": 4
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.0225,
+        "headline_count": 5
       }
     ],
     "BF-B": [
@@ -8023,6 +8355,11 @@
       {
         "date": "2026-05-05",
         "score": -0.0243,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.0464,
         "headline_count": 5
       }
     ],
@@ -8377,6 +8714,11 @@
         "date": "2026-05-11",
         "score": 0.1868,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.0119,
+        "headline_count": 5
       }
     ],
     "CVS": [
@@ -8429,6 +8771,11 @@
         "date": "2026-05-11",
         "score": -0.2379,
         "headline_count": 4
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.2572,
+        "headline_count": 5
       }
     ],
     "DXCM": [
@@ -8461,6 +8808,11 @@
         "date": "2026-05-07",
         "score": -0.3174,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.4343,
+        "headline_count": 5
       }
     ],
     "D": [
@@ -8492,6 +8844,11 @@
       {
         "date": "2026-05-11",
         "score": 0.1536,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.0439,
         "headline_count": 5
       }
     ],
@@ -8531,6 +8888,11 @@
       {
         "date": "2026-04-29",
         "score": -0.3812,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.3308,
         "headline_count": 5
       }
     ],
@@ -8717,6 +9079,11 @@
         "date": "2026-05-11",
         "score": 0.222,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1936,
+        "headline_count": 5
       }
     ],
     "DE": [
@@ -8733,6 +9100,11 @@
       {
         "date": "2026-04-30",
         "score": 0.243,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1096,
         "headline_count": 5
       }
     ],
@@ -8849,6 +9221,11 @@
         "date": "2026-05-08",
         "score": 0.4214,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1562,
+        "headline_count": 5
       }
     ],
     "BALL": [
@@ -8948,6 +9325,11 @@
         "date": "2026-05-07",
         "score": -0.0726,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1286,
+        "headline_count": 5
       }
     ],
     "BG": [
@@ -9017,6 +9399,11 @@
         "date": "2026-05-07",
         "score": 0.0388,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1036,
+        "headline_count": 5
       }
     ],
     "CTAS": [
@@ -9038,6 +9425,11 @@
       {
         "date": "2026-05-11",
         "score": 0.182,
+        "headline_count": 4
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1293,
         "headline_count": 4
       }
     ],
@@ -9075,6 +9467,11 @@
       {
         "date": "2026-05-11",
         "score": -0.1436,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1443,
         "headline_count": 5
       }
     ],
@@ -9117,6 +9514,11 @@
       {
         "date": "2026-05-11",
         "score": -0.1314,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1157,
         "headline_count": 5
       }
     ],
@@ -9192,6 +9594,11 @@
         "date": "2026-05-07",
         "score": 0.2297,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1036,
+        "headline_count": 5
       }
     ],
     "GLW": [
@@ -9254,6 +9661,11 @@
         "date": "2026-05-11",
         "score": 0.0123,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.2678,
+        "headline_count": 5
       }
     ],
     "COST": [
@@ -9285,6 +9697,11 @@
       {
         "date": "2026-05-11",
         "score": -0.0691,
+        "headline_count": 4
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.09,
         "headline_count": 4
       }
     ],
@@ -9345,6 +9762,11 @@
         "date": "2026-05-11",
         "score": -0.0397,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.0881,
+        "headline_count": 5
       }
     ],
     "ETN": [
@@ -9377,6 +9799,11 @@
         "date": "2026-05-11",
         "score": -0.0067,
         "headline_count": 4
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.0132,
+        "headline_count": 5
       }
     ],
     "EXR": [
@@ -9503,6 +9930,11 @@
         "date": "2026-05-11",
         "score": 0.1595,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.4162,
+        "headline_count": 5
       }
     ],
     "GOOG": [
@@ -9579,6 +10011,11 @@
       {
         "date": "2026-05-11",
         "score": 0.4193,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.2661,
         "headline_count": 5
       }
     ],
@@ -9706,6 +10143,11 @@
         "date": "2026-05-05",
         "score": 0.3052,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.4438,
+        "headline_count": 5
       }
     ],
     "GOOGL": [
@@ -9778,6 +10220,11 @@
         "date": "2026-05-11",
         "score": 0.3251,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.2661,
+        "headline_count": 5
       }
     ],
     "AMGN": [
@@ -9829,6 +10276,11 @@
       {
         "date": "2026-05-05",
         "score": 0.2916,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1625,
         "headline_count": 5
       }
     ],
@@ -9882,6 +10334,11 @@
         "date": "2026-05-11",
         "score": 0.0784,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1319,
+        "headline_count": 4
       }
     ],
     "AMAT": [
@@ -9944,6 +10401,11 @@
         "date": "2026-05-11",
         "score": 0.1771,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.4579,
+        "headline_count": 5
       }
     ],
     "ADM": [
@@ -9986,6 +10448,11 @@
         "date": "2026-05-07",
         "score": 0.1511,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.4258,
+        "headline_count": 4
       }
     ],
     "ACGL": [
@@ -10110,6 +10577,11 @@
         "date": "2026-05-11",
         "score": 0.1097,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.241,
+        "headline_count": 5
       }
     ],
     "ADSK": [
@@ -10141,6 +10613,11 @@
       {
         "date": "2026-05-07",
         "score": 0.2642,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.2084,
         "headline_count": 5
       }
     ],
@@ -10298,6 +10775,11 @@
         "date": "2026-05-11",
         "score": -0.1227,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1513,
+        "headline_count": 5
       }
     ],
     "CPT": [
@@ -10397,6 +10879,11 @@
         "date": "2026-05-11",
         "score": 0.341,
         "headline_count": 3
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.341,
+        "headline_count": 3
       }
     ],
     "CL": [
@@ -10428,6 +10915,11 @@
       {
         "date": "2026-05-07",
         "score": -0.0094,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.044,
         "headline_count": 5
       }
     ],
@@ -10465,6 +10957,11 @@
       {
         "date": "2026-05-06",
         "score": -0.3756,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.0163,
         "headline_count": 5
       }
     ],
@@ -10555,6 +11052,11 @@
         "date": "2026-05-11",
         "score": -0.278,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.3533,
+        "headline_count": 5
       }
     ],
     "CTSH": [
@@ -10606,6 +11108,11 @@
       {
         "date": "2026-05-11",
         "score": -0.264,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1163,
         "headline_count": 5
       }
     ],
@@ -10681,6 +11188,11 @@
         "date": "2026-05-11",
         "score": 0.0234,
         "headline_count": 2
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1346,
+        "headline_count": 5
       }
     ],
     "GE": [
@@ -10858,6 +11370,11 @@
         "date": "2026-05-07",
         "score": 0.2297,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1036,
+        "headline_count": 5
       }
     ],
     "DG": [
@@ -10899,6 +11416,11 @@
       {
         "date": "2026-05-11",
         "score": -0.0397,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.0881,
         "headline_count": 5
       }
     ],
@@ -11000,6 +11522,11 @@
         "date": "2026-05-07",
         "score": -0.1311,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.0008,
+        "headline_count": 5
       }
     ],
     "DVN": [
@@ -11061,6 +11588,11 @@
       {
         "date": "2026-05-11",
         "score": 0.0981,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1783,
         "headline_count": 5
       }
     ],
@@ -11131,6 +11663,11 @@
       {
         "date": "2026-05-05",
         "score": 0.0221,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.0429,
         "headline_count": 5
       }
     ],
@@ -11204,6 +11741,11 @@
         "date": "2026-05-11",
         "score": -0.1227,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1036,
+        "headline_count": 5
       }
     ],
     "EOG": [
@@ -11232,6 +11774,11 @@
       {
         "date": "2026-04-29",
         "score": 0.3102,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1181,
         "headline_count": 5
       }
     ],
@@ -11606,6 +12153,11 @@
         "date": "2026-05-07",
         "score": 0.1695,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.101,
+        "headline_count": 5
       }
     ],
     "AXP": [
@@ -11663,6 +12215,11 @@
         "date": "2026-05-11",
         "score": -0.0115,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.0357,
+        "headline_count": 4
       }
     ],
     "BMY": [
@@ -11704,6 +12261,11 @@
       {
         "date": "2026-05-05",
         "score": 0.2716,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.8183,
         "headline_count": 5
       }
     ],
@@ -11779,6 +12341,11 @@
         "date": "2026-05-07",
         "score": 0.6491,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1199,
+        "headline_count": 5
       }
     ],
     "CBRE": [
@@ -11843,6 +12410,11 @@
         "date": "2026-05-11",
         "score": -0.5342,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.3176,
+        "headline_count": 5
       }
     ],
     "COR": [
@@ -11884,6 +12456,11 @@
       {
         "date": "2026-05-11",
         "score": 0.0185,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1134,
         "headline_count": 5
       }
     ],
@@ -11942,6 +12519,11 @@
         "date": "2026-05-11",
         "score": 0.0683,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1177,
+        "headline_count": 5
       }
     ],
     "CHD": [
@@ -11973,6 +12555,11 @@
       {
         "date": "2026-05-05",
         "score": 0.166,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1874,
         "headline_count": 5
       }
     ],
@@ -12011,6 +12598,11 @@
         "date": "2026-05-11",
         "score": -0.1227,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1036,
+        "headline_count": 5
       }
     ],
     "CSCO": [
@@ -12042,6 +12634,11 @@
       {
         "date": "2026-05-11",
         "score": -0.0067,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1099,
         "headline_count": 5
       }
     ],
@@ -12080,6 +12677,11 @@
         "date": "2026-05-11",
         "score": 0.222,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1936,
+        "headline_count": 5
       }
     ],
     "CMCSA": [
@@ -12116,6 +12718,11 @@
       {
         "date": "2026-05-11",
         "score": -0.1262,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1915,
         "headline_count": 5
       }
     ],
@@ -12154,6 +12761,11 @@
         "date": "2026-05-11",
         "score": 0.9092,
         "headline_count": 1
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.199,
+        "headline_count": 3
       }
     ],
     "DOV": [
@@ -12183,6 +12795,11 @@
         "date": "2026-05-05",
         "score": -0.1773,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.0751,
+        "headline_count": 5
       }
     ],
     "EBAY": [
@@ -12204,6 +12821,11 @@
       {
         "date": "2026-05-05",
         "score": 0.0854,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1629,
         "headline_count": 5
       }
     ],
@@ -12227,6 +12849,11 @@
         "date": "2026-05-11",
         "score": 0.0518,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.0996,
+        "headline_count": 5
       }
     ],
     "EIX": [
@@ -12243,6 +12870,11 @@
       {
         "date": "2026-04-29",
         "score": 0.3479,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.2028,
         "headline_count": 5
       }
     ],
@@ -12328,6 +12960,11 @@
         "date": "2026-05-11",
         "score": 0.3744,
         "headline_count": 2
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.0767,
+        "headline_count": 5
       }
     ],
     "AEE": [
@@ -12349,6 +12986,11 @@
       {
         "date": "2026-05-06",
         "score": 0.1233,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.2378,
         "headline_count": 5
       }
     ],
@@ -12382,6 +13024,11 @@
         "date": "2026-05-06",
         "score": 0.2876,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.9309,
+        "headline_count": 3
       }
     ],
     "AVB": [
@@ -12446,6 +13093,11 @@
         "date": "2026-05-11",
         "score": 0.0205,
         "headline_count": 2
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1359,
+        "headline_count": 5
       }
     ],
     "CCI": [
@@ -12462,6 +13114,11 @@
       {
         "date": "2026-05-11",
         "score": 0.1626,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1128,
         "headline_count": 5
       }
     ],
@@ -12491,6 +13148,11 @@
       {
         "date": "2026-05-07",
         "score": 0.238,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1013,
         "headline_count": 5
       }
     ],
@@ -12558,6 +13220,11 @@
         "date": "2026-05-11",
         "score": -0.0982,
         "headline_count": 3
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.2586,
+        "headline_count": 5
       }
     ],
     "CNX": [
@@ -12592,6 +13259,11 @@
         "date": "2026-05-08",
         "score": 0.2051,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.2495,
+        "headline_count": 4
       }
     ],
     "DECK": [
@@ -12629,6 +13301,11 @@
         "date": "2026-05-11",
         "score": 0.282,
         "headline_count": 4
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1372,
+        "headline_count": 5
       }
     ],
     "ECL": [
@@ -12651,12 +13328,22 @@
         "date": "2026-05-08",
         "score": 0.3888,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.2437,
+        "headline_count": 5
       }
     ],
     "EA": [
       {
         "date": "2026-04-23",
         "score": -0.0569,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1953,
         "headline_count": 5
       }
     ],
@@ -12675,6 +13362,11 @@
         "date": "2026-05-11",
         "score": 0.0611,
         "headline_count": 3
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.0605,
+        "headline_count": 4
       }
     ],
     "EMR": [
@@ -12696,6 +13388,11 @@
       {
         "date": "2026-05-11",
         "score": 0.073,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.1427,
         "headline_count": 5
       }
     ],
@@ -12731,6 +13428,11 @@
         "date": "2026-04-29",
         "score": -0.061,
         "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1246,
+        "headline_count": 4
       }
     ],
     "EXPE": [
@@ -12747,6 +13449,11 @@
       {
         "date": "2026-05-11",
         "score": 0.0865,
+        "headline_count": 5
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.2433,
         "headline_count": 5
       }
     ],
@@ -12775,6 +13482,11 @@
         "date": "2026-05-05",
         "score": -0.0315,
         "headline_count": 3
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.2825,
+        "headline_count": 5
       }
     ],
     "DPZ": [
@@ -12802,6 +13514,11 @@
         "date": "2026-05-11",
         "score": 0.0332,
         "headline_count": 4
+      },
+      {
+        "date": "2026-05-12",
+        "score": -0.1085,
+        "headline_count": 5
       }
     ],
     "AON": [
@@ -12814,6 +13531,11 @@
         "date": "2026-05-07",
         "score": 0.04,
         "headline_count": 3
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.3047,
+        "headline_count": 5
       }
     ],
     "AJG": [
@@ -12830,6 +13552,11 @@
       {
         "date": "2026-05-07",
         "score": 0.3178,
+        "headline_count": 3
+      },
+      {
+        "date": "2026-05-12",
+        "score": 0.0256,
         "headline_count": 3
       }
     ],
@@ -12874,6 +13601,13 @@
         "date": "2026-05-08",
         "score": 0.2856,
         "headline_count": 5
+      }
+    ],
+    "ALLE": [
+      {
+        "date": "2026-05-12",
+        "score": -0.0355,
+        "headline_count": 3
       }
     ]
   }

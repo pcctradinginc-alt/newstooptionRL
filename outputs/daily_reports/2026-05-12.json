@@ -1,0 +1,484 @@
+{
+  "date": "2026-05-12",
+  "proposals": [
+    {
+      "ticker": "GOOG",
+      "strategy": "LONG_CALL",
+      "iv_rank": 82.7,
+      "iv_gate_applied": false,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-07-17",
+        "strike": 400.0,
+        "bid": 13.5,
+        "ask": 13.7,
+        "open_interest": 4373,
+        "implied_vol": 0.3355779333496094,
+        "spread_ratio": 0.0146,
+        "dte": 65
+      },
+      "roi_analysis": {
+        "roi_gross": 0.867,
+        "roi_net": 0.6113,
+        "spread_pct": 0.0146,
+        "vega_loss": 0.2265,
+        "delta": 0.3901,
+        "iv_drop_assumed": 0.15,
+        "cost_basis": 13.7,
+        "is_spread": false,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.12,
+        "dte": 65
+      },
+      "dte_tier": "Mid-Term",
+      "annualized_roi": 13.5672,
+      "all_tiers_tried": [
+        {
+          "tier": "Short-Term",
+          "dte": 16,
+          "option": {
+            "expiry": "2026-05-29",
+            "strike": 390.0,
+            "bid": 7.0,
+            "ask": 7.3,
+            "open_interest": 2441,
+            "implied_vol": 0.3424748370361328,
+            "spread_ratio": 0.0411,
+            "dte": 16
+          },
+          "roi": {
+            "roi_gross": 1.5903,
+            "roi_net": 1.1518,
+            "spread_pct": 0.0411,
+            "vega_loss": 0.3563,
+            "delta": 0.3812,
+            "iv_drop_assumed": 0.25,
+            "cost_basis": 7.3,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.15,
+            "dte": 16
+          },
+          "annualized_roi": 39087995.9955,
+          "strategy": "LONG_CALL"
+        },
+        {
+          "tier": "Mid-Term",
+          "dte": 65,
+          "option": {
+            "expiry": "2026-07-17",
+            "strike": 400.0,
+            "bid": 13.5,
+            "ask": 13.7,
+            "open_interest": 4373,
+            "implied_vol": 0.3355779333496094,
+            "spread_ratio": 0.0146,
+            "dte": 65
+          },
+          "roi": {
+            "roi_gross": 0.867,
+            "roi_net": 0.6113,
+            "spread_pct": 0.0146,
+            "vega_loss": 0.2265,
+            "delta": 0.3901,
+            "iv_drop_assumed": 0.15,
+            "cost_basis": 13.7,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.12,
+            "dte": 65
+          },
+          "annualized_roi": 13.5672,
+          "strategy": "LONG_CALL"
+        }
+      ],
+      "features": {
+        "impact": 5,
+        "surprise": 4,
+        "mismatch": 0.516,
+        "z_score": 0.897,
+        "sigma_30d": 0.0241,
+        "price_move_48h": 0.0216,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "weak",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.6302
+      },
+      "simulation": {
+        "current_price": 380.66,
+        "target_price": 411.11,
+        "hit_rate": 0.7384,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.0191,
+        "alpha": 0.00292
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Die Isomorphic-Finanzierung von $2.1B ist ein Moonshot-Investment in einem hochspekulativen Bereich. AI-Drug-Discovery hat bislang kaum kommerziell skalierbare Ergebnisse geliefert, und der Zeitrahmen bis zur Monetarisierung liegt weit jenseits eines 2-6-Monats-Optionshorizonts. Der Markt hat dieses Kapital bereits teilweise eingepreist \u2014 der Kurs steht bereits nahe 52-Wochen-Hoch, was das Upside-Potential f\u00fcr Optionsk\u00e4ufer drastisch einschr\u00e4nkt.",
+          "argument_2": "GOOG ist in den letzten 48 Stunden bereits um -2,2% gefallen, obwohl die Isomorphic-Meldung positiv war. Dies deutet darauf hin, dass der Markt den Katalysator bereits absorbiert hat oder ihn negativ interpretiert (Kapitalallokation weg vom Core-Business). Ein 52-Wochen-Hoch kombiniert mit negativer Kursreaktion auf positive News ist ein klassisches 'Sell-the-News'-Muster und warnt vor weiterem Abw\u00e4rtsdruck.",
+          "argument_3": "Der Makro-Kontext ist unklar (FRED nicht erreichbar), was strukturelle Risiken wie ein rezessives Umfeld oder restriktive Zinspolitik nicht ausschlie\u00dft. Communication Services als Sektor ist besonders zinssensitiv, und Alphabet ist eines der drei Unternehmen, die laut News 70% der S&P-500-Wachstumserwartungen 2026 tragen \u2014 ein hochkonzentriertes Exposure, das bei Makro-Entt\u00e4uschung zu \u00fcberproportionalen Kursverlusten f\u00fchren kann.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Kein MC wurde durchgef\u00fchrt, 0% Hit-Rate ist daher nicht aussagekr\u00e4ftig und kein statistisches Signal. Die fehlende Simulation ist ein Datenl\u00fccken-Problem, kein inhaltliches. Bei historischer GOOG-Volatilit\u00e4t (annualisiert ca. 25-30%) w\u00e4re eine 30-Tage-Aufw\u00e4rtsbewegung mit konservativer Target-Definition realistisch bei 40-55% Hit-Rate \u2014 der Abwesenheit von MC-Daten ist mit erh\u00f6hter Skepsis zu begegnen.",
+          "concern_level": "medium"
+        },
+        "impact": 5,
+        "surprise": 4,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Isomorphic-Deal wird prim\u00e4r als Kostenfaktor wahrgenommen, nicht als Plattformstrategie, die Googles AI-Kompetenz in Life Sciences verankert. Insider-Cluster-K\u00e4ufe unmittelbar nach der Meldung signalisieren, dass das Management den Kursr\u00fcckgang als ungerechtfertigte \u00dcberreaktion einsch\u00e4tzt. Der Markt fokussiert auf kurzfristige Kapitalallokation, ignoriert aber den strukturellen Optionswert eines Portfolios aus AI-Moonshots.",
+        "catalyst": "Q2 2026 Earnings (voraussichtlich Juli 2026) mit Guidance zu Isomorphic-Integration und Cloud-AI-Umsatzwachstum als Validierungspunkt f\u00fcr die strukturelle AI-Plattformthese.",
+        "bear_case": "GOOG handelt nahe 52-Wochen-Hoch mit negativer Kursreaktion auf positive Nachrichten \u2014 klassisches Ersch\u00f6pfungsmuster. Jede Makro-Verschlechterung oder Entt\u00e4uschung bei Core-Werbeums\u00e4tzen w\u00fcrde den Isomorphic-Optionswert sofort diskontieren.",
+        "macro_assessment": "Makro-Daten nicht verf\u00fcgbar (FRED offline). Ohne Zinsdaten und Kurvenstruktur ist eine pr\u00e4zise Einsch\u00e4tzung nicht m\u00f6glich. Vorsicht geboten: Communication Services sind zinssensitiv, und GOOGs Stellung als S&P-Wachstumstreiber erh\u00f6ht das systemische Risiko bei einem Makro-Schock. Neutral-bis-skeptisch.",
+        "data_confidence": "low",
+        "macro_regime": "recessionary",
+        "macro_context": {
+          "yield_curve": null,
+          "regime": "recessionary"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLC",
+        "rel_strength": 0.2737
+      },
+      "final_score": 0.1726,
+      "time_value_efficiency": {
+        "roi_per_day_pct": 0.9405,
+        "annualized_roi": null,
+        "dte": 65
+      },
+      "trade_score": {
+        "total": 61,
+        "grade": "BUY \ud83d\udfe1",
+        "grade_short": "BUY",
+        "components": {
+          "signal_quality": 17.9,
+          "options_quality": 30.0,
+          "risk_deductions": -2.0,
+          "context_bonus": 15.0
+        },
+        "reasoning": "St\u00e4rken: solides Signal (Impact=5/Surprise=4), guter ROI (61%), positive Sektor-Relative-St\u00e4rke",
+        "best_argument_for": "Der Isomorphic-Deal wird prim\u00e4r als Kostenfaktor wahrgenommen, nicht als Plattformstrategie, die Googles AI-Kompetenz in Life Sciences verankert. Insider-Cluster-K\u00e4ufe unmittelbar nach der Meldung signalisieren, dass das Management den Kursr\u00fcckgang als ungerechtfertigte \u00dcberreaktion einsch\u00e4tzt. Der Markt fokussiert auf kurzfristige Kapitalallokation, ignoriert aber den strukturellen Optionswert eines Portfolios aus AI-Moonshots.",
+        "best_argument_against": "Die Isomorphic-Finanzierung von $2.1B ist ein Moonshot-Investment in einem hochspekulativen Bereich. AI-Drug-Discovery hat bislang kaum kommerziell skalierbare Ergebnisse geliefert, und der Zeitrahmen bis zur Monetarisierung liegt weit jenseits eines 2-6-Monats-Optionshorizonts. Der Markt hat dieses Kapital bereits teilweise eingepreist \u2014 der Kurs steht bereits nahe 52-Wochen-Hoch, was das Upside-Potential f\u00fcr Optionsk\u00e4ufer drastisch einschr\u00e4nkt."
+      },
+      "trade_rank": 1,
+      "exit_rules": {
+        "entry_cost": 13.7,
+        "take_profit_pct": 50,
+        "take_profit_price": 20.55,
+        "full_profit_pct": 100,
+        "full_profit_price": 27.4,
+        "stop_loss_pct": -40,
+        "stop_loss_price": 8.22,
+        "time_exit_dte_remaining": 32,
+        "time_exit_date": "2026-06-15",
+        "time_exit_min_profit_pct": 20
+      }
+    },
+    {
+      "ticker": "BMY",
+      "strategy": "LONG_CALL",
+      "iv_rank": 55.8,
+      "iv_gate_applied": false,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-07-17",
+        "strike": 57.5,
+        "bid": 2.19,
+        "ask": 2.28,
+        "open_interest": 920,
+        "implied_vol": 0.26099371826171874,
+        "spread_ratio": 0.0395,
+        "dte": 65
+      },
+      "roi_analysis": {
+        "roi_gross": 0.9743,
+        "roi_net": 0.8186,
+        "spread_pct": 0.0395,
+        "vega_loss": 0.0768,
+        "delta": 0.4872,
+        "iv_drop_assumed": 0.07,
+        "cost_basis": 2.28,
+        "is_spread": false,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.12,
+        "dte": 65
+      },
+      "dte_tier": "Mid-Term",
+      "annualized_roi": 27.7425,
+      "all_tiers_tried": [
+        {
+          "tier": "Mid-Term",
+          "dte": 65,
+          "option": {
+            "expiry": "2026-07-17",
+            "strike": 57.5,
+            "bid": 2.19,
+            "ask": 2.28,
+            "open_interest": 920,
+            "implied_vol": 0.26099371826171874,
+            "spread_ratio": 0.0395,
+            "dte": 65
+          },
+          "roi": {
+            "roi_gross": 0.9743,
+            "roi_net": 0.8186,
+            "spread_pct": 0.0395,
+            "vega_loss": 0.0768,
+            "delta": 0.4872,
+            "iv_drop_assumed": 0.07,
+            "cost_basis": 2.28,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.12,
+            "dte": 65
+          },
+          "annualized_roi": 27.7425,
+          "strategy": "LONG_CALL"
+        }
+      ],
+      "features": {
+        "impact": 6,
+        "surprise": 5,
+        "mismatch": 3.17,
+        "z_score": 0.566,
+        "sigma_30d": 0.0182,
+        "price_move_48h": 0.0103,
+        "eps_drift": 0.0084,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.5554
+      },
+      "simulation": {
+        "current_price": 56.95,
+        "target_price": 61.51,
+        "hit_rate": 0.6598,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.0171,
+        "alpha": 0.00208
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Der $15.2B Hengrui-Deal ist gr\u00f6\u00dftenteils milestone-basiert und kein sofortiger Cash-Zufluss. Der Gro\u00dfteil der Zahlungen h\u00e4ngt von klinischen Entwicklungserfolgen ab, die \u00fcber 5-10 Jahre verteilt sind. Early-Stage-Pipeline bedeutet hohes Scheitern-Risiko (historisch >90% Ausfallrate in Phase I/II), und der Markt k\u00f6nnte die tats\u00e4chliche Wahrscheinlichkeitsgewichtung bereits korrekt vorgenommen haben.",
+          "argument_2": "BMY tr\u00e4gt eine erhebliche Schuldenlast aus fr\u00fcheren Akquisitionen (Celgene, MyoKardia) und steht vor patent-bedingten Umsatzausf\u00e4llen bei Schl\u00fcsselprodukten wie Revlimid und Opdivo in den kommenden Jahren 2026-2028. Der Hengrui-Deal adressiert dieses strukturelle Problem kurzfristig nicht, und der operative Cash-Flow-Druck k\u00f6nnte dominanter sein als die Pipeline-Neuigkeit.",
+          "argument_3": "Die EPS-Abweichung zwischen yfinance ($6.15) und SEC EDGAR ($3.54) betr\u00e4gt faktisch ~73% (nicht 0.8% wie angegeben) \u2014 ein massives Warnsignal f\u00fcr Datenqualit\u00e4t. Dieser Widerspruch k\u00f6nnte auf au\u00dferordentliche Posten, Goodwill-Abschreibungen oder adjustierte vs. GAAP-Zahlen hindeuten und macht eine fundamentale Bewertung erheblich unsicherer.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Hit-Rate 0% ist hier schlicht das Resultat eines nicht durchgef\u00fchrten Monte-Carlo-Laufs (0 Pfade), nicht eines negativen Signals. Die Zahl ist bedeutungslos und kann weder als bullish noch bearish interpretiert werden. F\u00fcr BMY mit typischer Healthcare-Volatilit\u00e4t (IV ~25-35%) w\u00e4ren bei einem 30-Tage-Horizont realistische Hit-Raten je nach Strike-Wahl zwischen 40-70% zu erwarten.",
+          "concern_level": "medium"
+        },
+        "impact": 6,
+        "surprise": 5,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt fokussiert sich auf kurzfristige Patent-Cliff-Risiken und Schuldenlasten, w\u00e4hrend der strukturelle Pipeline-Aufbau durch Hengrui erst in 12-24 Monaten in Analystenmodellen auftaucht. Sechs Insider-K\u00e4ufe im Cluster deuten auf informierten Optimismus hin, der \u00fcber den \u00f6ffentlichen Deal hinausgeht. Die Kombination aus chinesischer Produktionsskalierung und BMS-Vertrieb schafft eine Asymmetrie, die kurzfristige Modelle strukturell untersch\u00e4tzen.",
+        "catalyst": "Erste klinische Datenpunkte zu Hengrui-Partnerschafts-Assets in H2 2026 sowie potenziell positive Phase-III-Readouts bei bestehenden BMY-Pipeline-Kandidaten (z.B. milvexian), die das Repricing beschleunigen k\u00f6nnten.",
+        "bear_case": "Patent-Erosion bei Revlimid/Opdivo trifft den freien Cashflow 2026-2028 strukturell, und der Hengrui-Deal liefert keine kurzfristige Kompensation \u2014 milestone-abh\u00e4ngige Zahlungsstruktur bedeutet, dass der $15.2B-Headline realistisch mit 10-15% Wahrscheinlichkeitsgewichtung bewertet werden muss.",
+        "macro_assessment": "FRED-Daten nicht verf\u00fcgbar, was die Zinseinsch\u00e4tzung erschwert. Healthcare gilt in unsicheren Makro-Umfeldern als defensiver Sektor, was BMY bei einer m\u00f6glichen wirtschaftlichen Verlangsamung 2026 relative St\u00e4rke verleihen k\u00f6nnte. Allerdings sind h\u00f6here Kapitalkosten f\u00fcr pharmazeutische M&A und Lizenz-Deals generell belastend \u2014 die Hengrui-Dealstruktur k\u00f6nnte unter h\u00f6herem Zinsdruck weniger attraktiv sein als bei Niedrigzins.",
+        "data_confidence": "low",
+        "macro_regime": "recessionary",
+        "macro_context": {
+          "yield_curve": null,
+          "regime": "recessionary"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLV",
+        "rel_strength": -0.0088
+      },
+      "final_score": 0.0806,
+      "time_value_efficiency": {
+        "roi_per_day_pct": 1.2594,
+        "annualized_roi": null,
+        "dte": 65
+      },
+      "trade_score": {
+        "total": 55,
+        "grade": "WATCH \ud83d\udfe0",
+        "grade_short": "WATCH",
+        "components": {
+          "signal_quality": 21.9,
+          "options_quality": 28.0,
+          "risk_deductions": 0.0,
+          "context_bonus": 5.0
+        },
+        "reasoning": "St\u00e4rken: solides Signal (Impact=6/Surprise=5), guter ROI (82%)",
+        "best_argument_for": "Der Markt fokussiert sich auf kurzfristige Patent-Cliff-Risiken und Schuldenlasten, w\u00e4hrend der strukturelle Pipeline-Aufbau durch Hengrui erst in 12-24 Monaten in Analystenmodellen auftaucht. Sechs Insider-K\u00e4ufe im Cluster deuten auf informierten Optimismus hin, der \u00fcber den \u00f6ffentlichen Deal hinausgeht. Die Kombination aus chinesischer Produktionsskalierung und BMS-Vertrieb schafft eine Asymmetrie, die kurzfristige Modelle strukturell untersch\u00e4tzen.",
+        "best_argument_against": "Der $15.2B Hengrui-Deal ist gr\u00f6\u00dftenteils milestone-basiert und kein sofortiger Cash-Zufluss. Der Gro\u00dfteil der Zahlungen h\u00e4ngt von klinischen Entwicklungserfolgen ab, die \u00fcber 5-10 Jahre verteilt sind. Early-Stage-Pipeline bedeutet hohes Scheitern-Risiko (historisch >90% Ausfallrate in Phase I/II), und der Markt k\u00f6nnte die tats\u00e4chliche Wahrscheinlichkeitsgewichtung bereits korrekt vorgenommen haben."
+      },
+      "trade_rank": 3,
+      "exit_rules": {
+        "entry_cost": 2.28,
+        "take_profit_pct": 50,
+        "take_profit_price": 3.42,
+        "full_profit_pct": 100,
+        "full_profit_price": 4.56,
+        "stop_loss_pct": -40,
+        "stop_loss_price": 1.37,
+        "time_exit_dte_remaining": 32,
+        "time_exit_date": "2026-06-15",
+        "time_exit_min_profit_pct": 20
+      }
+    },
+    {
+      "ticker": "CVX",
+      "strategy": "LONG_CALL",
+      "iv_rank": 56.4,
+      "iv_gate_applied": false,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-05-29",
+        "strike": 190.0,
+        "bid": 2.35,
+        "ask": 2.54,
+        "open_interest": 989,
+        "implied_vol": 0.2386550744628906,
+        "spread_ratio": 0.0748,
+        "dte": 16
+      },
+      "roi_analysis": {
+        "roi_gross": 2.16,
+        "roi_net": 1.8445,
+        "spread_pct": 0.0748,
+        "vega_loss": 0.1659,
+        "delta": 0.3675,
+        "iv_drop_assumed": 0.12,
+        "cost_basis": 2.54,
+        "is_spread": false,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.15,
+        "dte": 16
+      },
+      "dte_tier": "Short-Term",
+      "annualized_roi": 22751522428.2279,
+      "all_tiers_tried": [
+        {
+          "tier": "Short-Term",
+          "dte": 16,
+          "option": {
+            "expiry": "2026-05-29",
+            "strike": 190.0,
+            "bid": 2.35,
+            "ask": 2.54,
+            "open_interest": 989,
+            "implied_vol": 0.2386550744628906,
+            "spread_ratio": 0.0748,
+            "dte": 16
+          },
+          "roi": {
+            "roi_gross": 2.16,
+            "roi_net": 1.8445,
+            "spread_pct": 0.0748,
+            "vega_loss": 0.1659,
+            "delta": 0.3675,
+            "iv_drop_assumed": 0.12,
+            "cost_basis": 2.54,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.15,
+            "dte": 16
+          },
+          "annualized_roi": 22751522428.2279,
+          "strategy": "LONG_CALL"
+        }
+      ],
+      "features": {
+        "impact": 5,
+        "surprise": 4,
+        "mismatch": 1.513,
+        "z_score": 0.697,
+        "sigma_30d": 0.0176,
+        "price_move_48h": 0.0123,
+        "eps_drift": 0.0157,
+        "bin_impact": "mid",
+        "bin_mismatch": "weak",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.51
+      },
+      "simulation": {
+        "current_price": 186.58,
+        "target_price": 201.51,
+        "hit_rate": 0.6128,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.0153,
+        "alpha": 0.00232
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Der \u00d6lpreis ist bereits durch Iran-Spannungen gestiegen, was bedeutet, dass ein erheblicher Teil des geopolitischen Risikoaufschlags bereits eingepreist sein d\u00fcrfte. CVX notiert bei $186.58 nach einem +1.2% Move in 48h \u2014 der Markt hat das Katalysator-Szenario bereits teilweise absorbiert. Ein De-Eskalationssignal (Verhandlungen, Sanktionslockerung) k\u00f6nnte den \u00d6lpreis schnell 5-8% korrigieren lassen und CVX \u00fcberproportional belasten.",
+          "argument_2": "Die EPS-Abweichung zwischen yfinance ($12.09) und SEC EDGAR ($5.84) betr\u00e4gt faktisch \u00fcber 100% \u2014 nicht die gemeldeten 1.6% \u2014 was auf ernsthafte Datenqualit\u00e4tsprobleme hinweist. Eine derartige Divergenz deutet auf unterschiedliche Berechnungsgrundlagen (z.B. verw\u00e4ssertes vs. adjustiertes EPS) hin und macht die Bewertungsgrundlage f\u00fcr den Trade \u00e4u\u00dferst fragw\u00fcrdig. Trades auf Basis korrumpierter Fundamentaldaten tragen ein inh\u00e4rentes Modellrisiko.",
+          "argument_3": "Der Energiesektor leidet 2026 unter strukturellem Gegenwind durch beschleunigte Energiewende-Politik und m\u00f6gliche Nachfrageschw\u00e4che bei globaler Wachstumsverlangsamung. Gleichzeitig deuten Inflations\u00e4ngste laut News auf ein Zinsumfeld hin, das Risk-Assets allgemein unter Druck setzt \u2014 steigende Kapitalkosten belasten kapitalintensive Energieunternehmen wie CVX strukturell. Die 6 Insider-K\u00e4ufe k\u00f6nnten auch opportunistisches Dip-Buying nach einem bereits schwachen Q1 2026 sein, kein Forward-Signal.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Der Quick MC wurde nicht durchgef\u00fchrt (0 Pfade), was bedeutet keinerlei statistische Validierung des Trades existiert. Bei einer fehlenden Hit-Rate-Berechnung ist das Concern-Level automatisch hoch, da keine probabilistische Absicherung der Bullish-These vorliegt. Die Abwesenheit von MC-Daten ist kein neutrales Signal \u2014 sie ist ein Warnsignal f\u00fcr Datenqualit\u00e4t oder Systemfehler.",
+          "concern_level": "high"
+        },
+        "impact": 5,
+        "surprise": 4,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "4-8 Wochen",
+        "asymmetry_reasoning": "Der Markt untersch\u00e4tzt m\u00f6glicherweise die Nachhaltigkeit des Iran-Risikoaufschlags, da geopolitische Krisen 2026 l\u00e4nger eskaliert bleiben als historisch \u00fcblich. Sechs simultane Insider-K\u00e4ufe innerhalb von 14 Tagen sind ein seltenes Cluster-Signal mit statistisch positiver Vorhersagekraft. Die AI-Datencenter-Nachfrage nach Energie schafft einen neuen strukturellen Nachfragetreiber, der im Konsensmodell noch nicht vollst\u00e4ndig ber\u00fccksichtigt ist.",
+        "catalyst": "Eskalation Iran-Spannungen treibt Brent Crude \u00fcber $90/bbl + AI-Datencenter-Energienachfrage-Ank\u00fcndigungen Q2 2026",
+        "bear_case": "Geopolitische De-Eskalation oder OPEC+-Angebotsausweitung kollabiert \u00d6lpreis, EPS-Datenbasis ist unzuverl\u00e4ssig, globale Wachstumsverlangsamung dr\u00fcckt Energienachfrage.",
+        "macro_assessment": "FRED-Daten nicht verf\u00fcgbar, was die Makroeinsch\u00e4tzung erheblich einschr\u00e4nkt. Aus den News ergibt sich ein Bild von Inflations\u00e4ngsten kombiniert mit geopolitischen Risiken \u2014 ein stagflation\u00e4res Umfeld, das Energie-Commodities kurzfristig st\u00fctzt, aber Real-Asset-Bewertungen langfristig belastet. Die Zinsunsicherheit 2026 mahnt zur Vorsicht bei kapitalintensiven Sektoren.",
+        "data_confidence": "low",
+        "macro_regime": "recessionary",
+        "macro_context": {
+          "yield_curve": null,
+          "regime": "recessionary"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLE",
+        "rel_strength": -0.0465
+      },
+      "final_score": 0.1726,
+      "time_value_efficiency": {
+        "roi_per_day_pct": 11.5281,
+        "annualized_roi": null,
+        "dte": 16
+      },
+      "trade_score": {
+        "total": 48,
+        "grade": "WATCH \ud83d\udfe0",
+        "grade_short": "WATCH",
+        "components": {
+          "signal_quality": 17.9,
+          "options_quality": 25.0,
+          "risk_deductions": 0.0,
+          "context_bonus": 5.0
+        },
+        "reasoning": "St\u00e4rken: solides Signal (Impact=5/Surprise=4), guter ROI (184%) | Risiken: Sektor underperformt Markt",
+        "best_argument_for": "Der Markt untersch\u00e4tzt m\u00f6glicherweise die Nachhaltigkeit des Iran-Risikoaufschlags, da geopolitische Krisen 2026 l\u00e4nger eskaliert bleiben als historisch \u00fcblich. Sechs simultane Insider-K\u00e4ufe innerhalb von 14 Tagen sind ein seltenes Cluster-Signal mit statistisch positiver Vorhersagekraft. Die AI-Datencenter-Nachfrage nach Energie schafft einen neuen strukturellen Nachfragetreiber, der im Konsensmodell noch nicht vollst\u00e4ndig ber\u00fccksichtigt ist.",
+        "best_argument_against": "Der \u00d6lpreis ist bereits durch Iran-Spannungen gestiegen, was bedeutet, dass ein erheblicher Teil des geopolitischen Risikoaufschlags bereits eingepreist sein d\u00fcrfte. CVX notiert bei $186.58 nach einem +1.2% Move in 48h \u2014 der Markt hat das Katalysator-Szenario bereits teilweise absorbiert. Ein De-Eskalationssignal (Verhandlungen, Sanktionslockerung) k\u00f6nnte den \u00d6lpreis schnell 5-8% korrigieren lassen und CVX \u00fcberproportional belasten."
+      },
+      "trade_rank": 4,
+      "exit_rules": {
+        "entry_cost": 2.54,
+        "take_profit_pct": 50,
+        "take_profit_price": 3.81,
+        "full_profit_pct": 100,
+        "full_profit_price": 5.08,
+        "stop_loss_pct": -40,
+        "stop_loss_price": 1.52,
+        "time_exit_dte_remaining": 8,
+        "time_exit_date": "2026-05-21",
+        "time_exit_min_profit_pct": 20
+      }
+    }
+  ]
+}
