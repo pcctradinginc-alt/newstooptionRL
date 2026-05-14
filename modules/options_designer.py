@@ -264,6 +264,7 @@ class OptionsDesigner:
                 dte_safe       = max(int(option.get("dte") or 1), 1)
                 roi_net_safe   = float(roi["roi_net"].real if isinstance(roi["roi_net"], complex) else roi["roi_net"])
                 annualized_roi = float((1 + roi_net_safe) ** (365 / dte_safe) - 1)
+                annualized_roi = min(annualized_roi, 9.99)  # Cap: >999% p.a. = nicht aussagekräftig
             except Exception:
                 annualized_roi = 0.0
 
