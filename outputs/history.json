@@ -2,44 +2,44 @@
   "feature_stats": {
     "impact": {
       "low": {
-        "count": 296,
-        "avg_return": 0.545236
+        "count": 304,
+        "avg_return": 0.554092
       },
       "mid": {
-        "count": 1114,
-        "avg_return": 0.057424
+        "count": 1181,
+        "avg_return": 0.05784
       },
       "high": {
-        "count": 77,
-        "avg_return": -0.214101
+        "count": 79,
+        "avg_return": -0.203871
       }
     },
     "mismatch": {
       "weak": {
-        "count": 472,
-        "avg_return": 0.298121
+        "count": 487,
+        "avg_return": 0.300117
       },
       "good": {
-        "count": 959,
-        "avg_return": 0.074208
+        "count": 1017,
+        "avg_return": 0.076407
       },
       "strong": {
-        "count": 56,
-        "avg_return": -0.053729
+        "count": 60,
+        "avg_return": -0.053597
       }
     },
     "eps_drift": {
       "noise": {
-        "count": 1474,
-        "avg_return": 0.140903
+        "count": 1548,
+        "avg_return": 0.141615
       },
       "relevant": {
-        "count": 4,
-        "avg_return": 0.235581
+        "count": 5,
+        "avg_return": 0.236834
       },
       "massive": {
-        "count": 9,
-        "avg_return": 0.025623
+        "count": 11,
+        "avg_return": 0.021307
       }
     }
   },
@@ -6714,7 +6714,7 @@
       },
       {
         "date": "2026-05-14",
-        "score": 0.093,
+        "score": 0.401,
         "headline_count": 5
       }
     ],
@@ -8599,7 +8599,7 @@
       },
       {
         "date": "2026-05-14",
-        "score": 0.3969,
+        "score": 0.3594,
         "headline_count": 5
       }
     ],
@@ -13476,8 +13476,8 @@
       },
       {
         "date": "2026-05-14",
-        "score": -0.436,
-        "headline_count": 4
+        "score": 0.1791,
+        "headline_count": 1
       }
     ],
     "BR": [
@@ -14393,7 +14393,7 @@
       },
       {
         "date": "2026-05-14",
-        "score": 0.8978,
+        "score": 0.019,
         "headline_count": 1
       }
     ],
