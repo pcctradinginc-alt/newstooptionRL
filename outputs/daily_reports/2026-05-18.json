@@ -1,0 +1,621 @@
+{
+  "date": "2026-05-18",
+  "proposals": [
+    {
+      "ticker": "GOOG",
+      "strategy": "LONG_CALL",
+      "iv_rank": 82.2,
+      "iv_gate_applied": false,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-06-05",
+        "strike": 390.0,
+        "bid": 15.95,
+        "ask": 16.5,
+        "open_interest": 2638,
+        "implied_vol": 0.3381,
+        "spread_ratio": 0.0333,
+        "dte": 17,
+        "delta": 0.6324,
+        "data_source": "tradier"
+      },
+      "roi_analysis": {
+        "roi_gross": 1.22,
+        "roi_net": 0.9861,
+        "spread_pct": 0.0333,
+        "vega_loss": 0.1672,
+        "delta": 0.6324,
+        "iv_drop_assumed": 0.25,
+        "cost_basis": 16.5,
+        "is_spread": false,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.15,
+        "dte": 17
+      },
+      "dte_tier": "Short-Term",
+      "annualized_roi": 9.99,
+      "all_tiers_tried": [
+        {
+          "tier": "Short-Term",
+          "dte": 17,
+          "option": {
+            "expiry": "2026-06-05",
+            "strike": 390.0,
+            "bid": 15.95,
+            "ask": 16.5,
+            "open_interest": 2638,
+            "implied_vol": 0.3381,
+            "spread_ratio": 0.0333,
+            "dte": 17,
+            "delta": 0.6324,
+            "data_source": "tradier"
+          },
+          "roi": {
+            "roi_gross": 1.22,
+            "roi_net": 0.9861,
+            "spread_pct": 0.0333,
+            "vega_loss": 0.1672,
+            "delta": 0.6324,
+            "iv_drop_assumed": 0.25,
+            "cost_basis": 16.5,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.15,
+            "dte": 17
+          },
+          "annualized_roi": 9.99,
+          "strategy": "LONG_CALL"
+        }
+      ],
+      "features": {
+        "impact": 6,
+        "surprise": 5,
+        "mismatch": 2.854,
+        "z_score": 0.629,
+        "sigma_30d": 0.0228,
+        "price_move_48h": 0.0143,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "weak",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.6768
+      },
+      "simulation": {
+        "current_price": 397.92,
+        "target_price": 429.75,
+        "hit_rate": 0.75,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.019,
+        "alpha": 0.00344
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Die Berkshire-Meldung ist bereits in den Schlagzeilen und damit potenziell vollst\u00e4ndig eingepreist. Wenn Buffetts Nachfolger den Stake verdreifacht hat, ist dies ein \u00f6ffentlich bekanntes 13F/13G-Filing \u2014 institutionelle Algorithmen haben diesen Catalysator bereits am Tag der Ver\u00f6ffentlichung verarbeitet. Die -1,4% in den letzten 48h deuten darauf hin, dass der Markt die News eher abverkauft als nachgekauft hat.",
+          "argument_2": "GOOG handelt bei ~$397,92, was einem KGV von ca. 27-30x auf dem SEC-EDGAR-EPS von 13,10 entspricht \u2014 f\u00fcr ein Unternehmen mit verlangsamtem Werbe-Kerngesch\u00e4ft und massivem KI-Investitionsdruck (CapEx-Eskalation 2026). Der AI-Infrastruktur-Wettbewerb von Microsoft/OpenAI, Meta und Amazon bedroht Googles Suchmonopol strukturell. Die I/O-Konferenz als Katalysator k\u00f6nnte eine klassische 'Buy the rumor, sell the news'-Situation sein.",
+          "argument_3": "Der EPS-Spread zwischen yfinance (14,45) und SEC EDGAR (13,10) betr\u00e4gt zwar formal 0%, die absoluten Werte weichen aber um ~10% ab \u2014 das ist ein Datenqualit\u00e4tsproblem. Zudem fehlt ein Monte Carlo komplett (Hit-Rate 0 Pfade), was bedeutet, dass keine quantitative Absicherung der Bullish-These vorliegt. Das Cluster-Insider-Signal (3 K\u00e4ufe in 14 Tagen) ist bei einem Mega-Cap wie GOOG routinem\u00e4\u00dfig und hat niedrigen Signalwert.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Der MC wurde schlicht nicht ausgef\u00fchrt (0 Pfade), daher ist die 0%-Hit-Rate kein inhaltliches Signal, sondern ein Datenfehler. Ohne MC-Basis fehlt jede statistische Validierung der Preisziel-These. Dies erh\u00f6ht die Unsicherheit erheblich.",
+          "concern_level": "medium"
+        },
+        "impact": 6,
+        "surprise": 5,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt hat Berkshires Stake-Verdreifachung m\u00f6glicherweise als reines Momentum-Signal abgetan, ohne die langfristige Value-Implikation eines qualit\u00e4tsfokussierten Gro\u00dfinvestors zu reprisen. Der I/O-Katalysator 2026 k\u00f6nnte Alphabets KI-Monetarisierungsfortschritte erstmals konkret quantifizieren und Sch\u00e4tzungsrevisionen ausl\u00f6sen. Insider-Cluster plus institutionelle Neubewertung schaffen eine m\u00f6gliche Doppelkatalyse innerhalb des 2-3-Monats-Fensters.",
+        "catalyst": "Google I/O 2026 Konferenz (KI-Monetarisierung, Gemini-Updates) kombiniert mit nachlaufender institutioneller Repricing-Welle nach Berkshires publiziertem Stake-Aufbau",
+        "bear_case": "Die Berkshire-News ist bereits eingepreist und der I/O-Event produziert einen klassischen 'Sell the news'-Effekt bei gleichzeitig entt\u00e4uschenden Werbeumsatz-Zahlen Q2/2026 durch KI-Suchsubstitution.",
+        "macro_assessment": "Neutrale Makrolage (flache Kurve +0,50%, Fed Funds 3,64%) bietet weder R\u00fccken- noch Gegenwind. Bei 4,32% 10Y-Rendite ist das KGV von ~30x f\u00fcr GOOG moderat vertretbar, aber nicht attraktiv g\u00fcnstig. Das Umfeld unterst\u00fctzt selektive Mega-Cap-Positionen ohne besonderen Hebel.",
+        "data_confidence": "medium",
+        "macro_regime": "neutral",
+        "macro_context": {
+          "yield_curve": 0.5,
+          "regime": "neutral"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLC",
+        "rel_strength": 0.3694
+      },
+      "final_score": 0.1855,
+      "time_value_efficiency": {
+        "roi_per_day_pct": 5.8006,
+        "annualized_roi": null,
+        "dte": 17
+      },
+      "trade_score": {
+        "total": 70,
+        "grade": "BUY \ud83d\udfe1",
+        "grade_short": "BUY",
+        "components": {
+          "signal_quality": 21.9,
+          "options_quality": 30.0,
+          "risk_deductions": -2.0,
+          "context_bonus": 20.0
+        },
+        "reasoning": "St\u00e4rken: solides Signal (Impact=6/Surprise=5), guter ROI (99%), positive Sektor-Relative-St\u00e4rke",
+        "best_argument_for": "Der Markt hat Berkshires Stake-Verdreifachung m\u00f6glicherweise als reines Momentum-Signal abgetan, ohne die langfristige Value-Implikation eines qualit\u00e4tsfokussierten Gro\u00dfinvestors zu reprisen. Der I/O-Katalysator 2026 k\u00f6nnte Alphabets KI-Monetarisierungsfortschritte erstmals konkret quantifizieren und Sch\u00e4tzungsrevisionen ausl\u00f6sen. Insider-Cluster plus institutionelle Neubewertung schaffen eine m\u00f6gliche Doppelkatalyse innerhalb des 2-3-Monats-Fensters.",
+        "best_argument_against": "Die Berkshire-Meldung ist bereits in den Schlagzeilen und damit potenziell vollst\u00e4ndig eingepreist. Wenn Buffetts Nachfolger den Stake verdreifacht hat, ist dies ein \u00f6ffentlich bekanntes 13F/13G-Filing \u2014 institutionelle Algorithmen haben diesen Catalysator bereits am Tag der Ver\u00f6ffentlichung verarbeitet. Die -1,4% in den letzten 48h deuten darauf hin, dass der Markt die News eher abverkauft als nachgekauft hat."
+      },
+      "trade_rank": 1,
+      "exit_rules": {
+        "entry_cost": 16.5,
+        "take_profit_pct": 50,
+        "take_profit_price": 24.75,
+        "full_profit_pct": 100,
+        "full_profit_price": 33.0,
+        "stop_loss_pct": -40,
+        "stop_loss_price": 9.9,
+        "time_exit_dte_remaining": 8,
+        "time_exit_date": "2026-05-28",
+        "time_exit_min_profit_pct": 20
+      }
+    },
+    {
+      "ticker": "META",
+      "strategy": "LONG_CALL",
+      "iv_rank": 46.3,
+      "iv_gate_applied": false,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-06-05",
+        "strike": 600.0,
+        "bid": 22.05,
+        "ask": 22.65,
+        "open_interest": 514,
+        "implied_vol": 0.3185,
+        "spread_ratio": 0.0265,
+        "dte": 17,
+        "delta": 0.6015,
+        "data_source": "tradier"
+      },
+      "roi_analysis": {
+        "roi_gross": 1.2944,
+        "roi_net": 1.2057,
+        "spread_pct": 0.0265,
+        "vega_loss": 0.0357,
+        "delta": 0.6015,
+        "iv_drop_assumed": 0.05,
+        "cost_basis": 22.65,
+        "is_spread": false,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.15,
+        "dte": 17
+      },
+      "dte_tier": "Short-Term",
+      "annualized_roi": 9.99,
+      "all_tiers_tried": [
+        {
+          "tier": "Short-Term",
+          "dte": 17,
+          "option": {
+            "expiry": "2026-06-05",
+            "strike": 600.0,
+            "bid": 22.05,
+            "ask": 22.65,
+            "open_interest": 514,
+            "implied_vol": 0.3185,
+            "spread_ratio": 0.0265,
+            "dte": 17,
+            "delta": 0.6015,
+            "data_source": "tradier"
+          },
+          "roi": {
+            "roi_gross": 1.2944,
+            "roi_net": 1.2057,
+            "spread_pct": 0.0265,
+            "vega_loss": 0.0357,
+            "delta": 0.6015,
+            "iv_drop_assumed": 0.05,
+            "cost_basis": 22.65,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.15,
+            "dte": 17
+          },
+          "annualized_roi": 9.99,
+          "strategy": "LONG_CALL"
+        }
+      ],
+      "features": {
+        "impact": 6,
+        "surprise": 5,
+        "mismatch": 5.241,
+        "z_score": 0.152,
+        "sigma_30d": 0.0257,
+        "price_move_48h": 0.0039,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.5288
+      },
+      "simulation": {
+        "current_price": 609.3,
+        "target_price": 658.04,
+        "hit_rate": 0.62,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.0236,
+        "alpha": 0.00097
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Die 8.000 Stellenk\u00fcrzungen signalisieren zwar Effizienz, doch der massive AI-Capex-Push (Rechenzentren, Modelltraining) k\u00f6nnte die eingesparten Personalkosten deutlich \u00fcbersteigen. Der Markt k\u00f6nnte die operativen Kosteneinsparungen bereits vollst\u00e4ndig eingepreist haben, w\u00e4hrend der ROI der AI-Investitionen auf Jahressicht unklar bleibt und den EPS-Leverage verz\u00f6gert.",
+          "argument_2": "Die EPS-Diskrepanz zwischen yfinance ($36.16) und SEC EDGAR ($27.52) ist auff\u00e4llig und deutet auf m\u00f6gliche Normalisierungseffekte oder Einmalposten hin. Wenn das 'wahre' operative EPS n\u00e4her an $27.52 liegt, ist META bei $609 mit einem KGV von ~22x bewertet \u2014 f\u00fcr eine Aktie mit steigendem Capex-Profil kein billiges Schn\u00e4ppchen mehr.",
+          "argument_3": "Der Werbemarktzyklus bleibt ein kritisches Risiko: Verlangsamung der Digitalwerbung bei Rezessionszeichen, zunehmende Regulierungsdichte in der EU sowie Konkurrenz durch TikTok und YouTube Shorts setzen das Revenue-Wachstum unter Druck. Ein Schw\u00e4cheln der Ad-Einnahmen im Q2/Q3 2026 w\u00fcrde den Restrukturierungs-Narrativ sofort \u00fcberlagern.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Der Quick MC wurde nicht durchgef\u00fchrt (0 Pfade), daher ist die 0%-Angabe kein inhaltliches Signal, sondern ein technisches Datenloch. F\u00fcr eine Aktie mit ~30% historischer Volatilit\u00e4t und einem laufenden Restrukturierungsnarrativ w\u00e4re eine realistische 30d-Hit-Rate f\u00fcr eine moderate Aufw\u00e4rtsbewegung im Bereich 45-60% zu erwarten. Keine verwertbare statistische Aussage m\u00f6glich.",
+          "concern_level": "medium"
+        },
+        "impact": 6,
+        "surprise": 5,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt fixiert sich auf den negativen Headline-Effekt der Stellenk\u00fcrzungen und \u00fcbersieht die strukturelle Operating-Leverage-Verbesserung. Insider-Cluster-K\u00e4ufe bei 4 Personen innerhalb von 14 Tagen sind ein statistisch seltenes Signal, das informierten Optimismus auf Management-Ebene reflektiert. Der eigentliche Katalysator \u2014 verbesserte Margen durch Effizienz bei gleichzeitig skalierendem AI-Umsatz \u2014 wird erst mit dem n\u00e4chsten Earnings-Print sichtbar.",
+        "catalyst": "Q2 2026 Earnings-Report mit verbesserter Operating Margin durch Headcount-Reduktion und AI-Monetarisierung (Advantage+ Ads, Llama-Integration)",
+        "bear_case": "Massiver AI-Capex \u00fcbersteigt Personalkosteneinsparungen und dr\u00fcckt Free Cash Flow, w\u00e4hrend ein Schw\u00e4cheln des Digitalwerbemarkts im Sommer 2026 das gesamte Restrukturierungs-Narrativ untergr\u00e4bt.",
+        "macro_assessment": "Das neutrale Makroumfeld (flache Kurve, Fed Funds bei 3.64%) ist f\u00fcr META moderat unterst\u00fctzend: Keine invertierte Kurve die Rezessionsangst ausl\u00f6st, aber auch kein expansiver R\u00fcckenwind. Bei 4.32% 10Y-Rendite bleibt der Diskontierungsdruck auf Growth-Aktien sp\u00fcrbar, begrenzt jedoch das Upside nicht strukturell. Neutral-Makro ist f\u00fcr einen idiosynkratischen Restrukturierungs-Trade ausreichend.",
+        "data_confidence": "medium",
+        "macro_regime": "neutral",
+        "macro_context": {
+          "yield_curve": 0.5,
+          "regime": "neutral"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLC",
+        "rel_strength": 0.0493
+      },
+      "final_score": 0.0842,
+      "time_value_efficiency": {
+        "roi_per_day_pct": 7.0924,
+        "annualized_roi": null,
+        "dte": 17
+      },
+      "trade_score": {
+        "total": 70,
+        "grade": "BUY \ud83d\udfe1",
+        "grade_short": "BUY",
+        "components": {
+          "signal_quality": 21.9,
+          "options_quality": 28.0,
+          "risk_deductions": 0.0,
+          "context_bonus": 20.0
+        },
+        "reasoning": "St\u00e4rken: solides Signal (Impact=6/Surprise=5), guter ROI (121%), positive Sektor-Relative-St\u00e4rke",
+        "best_argument_for": "Der Markt fixiert sich auf den negativen Headline-Effekt der Stellenk\u00fcrzungen und \u00fcbersieht die strukturelle Operating-Leverage-Verbesserung. Insider-Cluster-K\u00e4ufe bei 4 Personen innerhalb von 14 Tagen sind ein statistisch seltenes Signal, das informierten Optimismus auf Management-Ebene reflektiert. Der eigentliche Katalysator \u2014 verbesserte Margen durch Effizienz bei gleichzeitig skalierendem AI-Umsatz \u2014 wird erst mit dem n\u00e4chsten Earnings-Print sichtbar.",
+        "best_argument_against": "Die 8.000 Stellenk\u00fcrzungen signalisieren zwar Effizienz, doch der massive AI-Capex-Push (Rechenzentren, Modelltraining) k\u00f6nnte die eingesparten Personalkosten deutlich \u00fcbersteigen. Der Markt k\u00f6nnte die operativen Kosteneinsparungen bereits vollst\u00e4ndig eingepreist haben, w\u00e4hrend der ROI der AI-Investitionen auf Jahressicht unklar bleibt und den EPS-Leverage verz\u00f6gert."
+      },
+      "trade_rank": 2,
+      "exit_rules": {
+        "entry_cost": 22.65,
+        "take_profit_pct": 50,
+        "take_profit_price": 33.97,
+        "full_profit_pct": 100,
+        "full_profit_price": 45.3,
+        "stop_loss_pct": -40,
+        "stop_loss_price": 13.59,
+        "time_exit_dte_remaining": 8,
+        "time_exit_date": "2026-05-28",
+        "time_exit_min_profit_pct": 20
+      }
+    },
+    {
+      "ticker": "AMD",
+      "strategy": "LONG_CALL",
+      "iv_rank": 81.5,
+      "iv_gate_applied": false,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-06-05",
+        "strike": 420.0,
+        "bid": 23.0,
+        "ask": 23.85,
+        "open_interest": 448,
+        "implied_vol": 0.6912,
+        "spread_ratio": 0.0356,
+        "dte": 17,
+        "delta": 0.5541,
+        "data_source": "tradier"
+      },
+      "roi_analysis": {
+        "roi_gross": 1.3886,
+        "roi_net": 1.0584,
+        "spread_pct": 0.0356,
+        "vega_loss": 0.2589,
+        "delta": 0.5541,
+        "iv_drop_assumed": 0.25,
+        "cost_basis": 23.85,
+        "is_spread": false,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.15,
+        "dte": 17
+      },
+      "dte_tier": "Short-Term",
+      "annualized_roi": 9.99,
+      "all_tiers_tried": [
+        {
+          "tier": "Short-Term",
+          "dte": 17,
+          "option": {
+            "expiry": "2026-06-05",
+            "strike": 420.0,
+            "bid": 23.0,
+            "ask": 23.85,
+            "open_interest": 448,
+            "implied_vol": 0.6912,
+            "spread_ratio": 0.0356,
+            "dte": 17,
+            "delta": 0.5541,
+            "data_source": "tradier"
+          },
+          "roi": {
+            "roi_gross": 1.3886,
+            "roi_net": 1.0584,
+            "spread_pct": 0.0356,
+            "vega_loss": 0.2589,
+            "delta": 0.5541,
+            "iv_drop_assumed": 0.25,
+            "cost_basis": 23.85,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.15,
+            "dte": 17
+          },
+          "annualized_roi": 9.99,
+          "strategy": "LONG_CALL"
+        }
+      ],
+      "features": {
+        "impact": 6,
+        "surprise": 4,
+        "mismatch": 1.241,
+        "z_score": 0.952,
+        "sigma_30d": 0.0505,
+        "price_move_48h": 0.048,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "weak",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.5434
+      },
+      "simulation": {
+        "current_price": 415.07,
+        "target_price": 474.84,
+        "hit_rate": 0.5536,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.0429,
+        "alpha": 0.00049
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Der Citi-Analyst setzt das Kursziel auf $460 und beh\u00e4lt dennoch ein 'Neutral'-Rating \u2014 dies ist ein klassisches Warnsignal. Der Markt hat die CPU-Boom-Narrative bereits weitgehend eingepreist, wie der aktuelle Kurs von $415 bei einem P/E von \u00fcber 30x zeigt. Die -4,8% Bewegung in 48h deutet darauf hin, dass der Katalysator (Citi PT-Erh\u00f6hung) bereits zum Selloff-Ausl\u00f6ser wurde, nicht zum Kursanstieg.",
+          "argument_2": "Die massive EPS-Diskrepanz zwischen yfinance ($12,95) und SEC EDGAR ($3,01) ist ein erhebliches Datenqualit\u00e4ts-Risiko. Wenn die SEC-Zahl die normalisierte operative Realit\u00e4t widerspiegelt, ist AMD bei $415 auf Basis echter GAAP-Earnings mit einem KGV von \u00fcber 138x bewertet \u2014 eine Bewertung, die bei jedem Makro-Schock oder Wachstumsentt\u00e4uschung massiv komprimieren kann.",
+          "argument_3": "Der agentic CPU-Boom ist ein narrativer Katalysator, der bereits von mindestens zwei Analysten (Citi, weitere PT-Erh\u00f6hungen) kommuniziert wurde. Wenn das Signal bekannt ist, ist es eingepreist. Gleichzeitig gewinnt Intel trotz Verlusten PT-Erh\u00f6hungen \u2014 das signalisiert Sektor-Rotation-Risiko, bei dem Kapital aus AMD in g\u00fcnstigere Intel-Positionen rotiert.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "Die 0% Hit-Rate durch fehlenden MC-Lauf ist uninformativ, nicht bearish per se. Bei einer impliziten Volatilit\u00e4t von AMD (historisch 45-60%) w\u00e4re eine Hit-Rate von 55-70% f\u00fcr Bullish-Ziele +10% in 30d realistisch. Keine MC-Daten bedeuten erh\u00f6hte Modellunsicherheit \u2014 Concern-Level wird auf medium gesetzt.",
+          "concern_level": "medium"
+        },
+        "impact": 6,
+        "surprise": 4,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Markt untersch\u00e4tzt das Cluster-Insider-Kaufsignal (4 Insider in 14 Tagen), das bei AMD historisch ein starkes Vorl\u00e4ufersignal f\u00fcr strukturelle Neubewertungen darstellt. Das 'Neutral'-Rating bei gleichzeitiger PT-Erh\u00f6hung auf $460 erzeugt eine Analyst-Inkongruenz, die institutionelle K\u00e4ufer oft erst verz\u00f6gert aktiviert. Die -4,8% Reaktion auf positive Nachrichten deutet auf kurzfristigen Verkaufsdruck ohne fundamentalen Abbau der Wachstumsthese hin.",
+        "catalyst": "AMD Q2 2026 Earnings mit GPU/CPU Data-Center-Revenue-Beat + konkrete Agentic-AI-Designwins bei Hyperscalern als Best\u00e4tigung der $132Mrd-CPU-Markt-These",
+        "bear_case": "EPS-Diskrepanz (GAAP $3,01 vs. non-GAAP $12,95) enth\u00fcllt massive Stock-Based-Compensation-Last; bei Multiples-Kompression in einem Risk-Off-Szenario f\u00e4llt AMD \u00fcberproportional, da die Bewertung vollst\u00e4ndig auf zuk\u00fcnftigem Wachstum basiert.",
+        "macro_assessment": "Das neutrale Makro-Regime (Kurve +0,50%, Fed Funds 3,64%) ist f\u00fcr AMD ein moderater R\u00fcckenwind: Keine Rezessionsgefahr dr\u00fcckt Risk-On-Sentiment, aber die flache Kurve signalisiert kein Wachstumsboom-Umfeld. Growth-Aktien wie AMD profitieren von stabilen Zinsen, sind aber anf\u00e4llig bei erneuten Zinsanstiegen. Gesamteinsch\u00e4tzung: Makro neutral-bis-leicht-positiv f\u00fcr diese Position.",
+        "data_confidence": "medium",
+        "macro_regime": "neutral",
+        "macro_context": {
+          "yield_curve": 0.5,
+          "regime": "neutral"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLK",
+        "rel_strength": 0.7591
+      },
+      "final_score": 0.1855,
+      "time_value_efficiency": {
+        "roi_per_day_pct": 6.2259,
+        "annualized_roi": null,
+        "dte": 17
+      },
+      "trade_score": {
+        "total": 64,
+        "grade": "BUY \ud83d\udfe1",
+        "grade_short": "BUY",
+        "components": {
+          "signal_quality": 19.6,
+          "options_quality": 26.5,
+          "risk_deductions": -2.0,
+          "context_bonus": 20.0
+        },
+        "reasoning": "St\u00e4rken: solides Signal (Impact=6/Surprise=4), guter ROI (106%), positive Sektor-Relative-St\u00e4rke",
+        "best_argument_for": "Der Markt untersch\u00e4tzt das Cluster-Insider-Kaufsignal (4 Insider in 14 Tagen), das bei AMD historisch ein starkes Vorl\u00e4ufersignal f\u00fcr strukturelle Neubewertungen darstellt. Das 'Neutral'-Rating bei gleichzeitiger PT-Erh\u00f6hung auf $460 erzeugt eine Analyst-Inkongruenz, die institutionelle K\u00e4ufer oft erst verz\u00f6gert aktiviert. Die -4,8% Reaktion auf positive Nachrichten deutet auf kurzfristigen Verkaufsdruck ohne fundamentalen Abbau der Wachstumsthese hin.",
+        "best_argument_against": "Der Citi-Analyst setzt das Kursziel auf $460 und beh\u00e4lt dennoch ein 'Neutral'-Rating \u2014 dies ist ein klassisches Warnsignal. Der Markt hat die CPU-Boom-Narrative bereits weitgehend eingepreist, wie der aktuelle Kurs von $415 bei einem P/E von \u00fcber 30x zeigt. Die -4,8% Bewegung in 48h deutet darauf hin, dass der Katalysator (Citi PT-Erh\u00f6hung) bereits zum Selloff-Ausl\u00f6ser wurde, nicht zum Kursanstieg."
+      },
+      "trade_rank": 3,
+      "exit_rules": {
+        "entry_cost": 23.85,
+        "take_profit_pct": 50,
+        "take_profit_price": 35.78,
+        "full_profit_pct": 100,
+        "full_profit_price": 47.7,
+        "stop_loss_pct": -40,
+        "stop_loss_price": 14.31,
+        "time_exit_dte_remaining": 8,
+        "time_exit_date": "2026-05-28",
+        "time_exit_min_profit_pct": 20
+      }
+    },
+    {
+      "ticker": "ABNB",
+      "strategy": "LONG_CALL",
+      "iv_rank": 8.6,
+      "iv_gate_applied": false,
+      "direction": "BULLISH",
+      "option": {
+        "expiry": "2026-06-05",
+        "strike": 139.0,
+        "bid": 2.27,
+        "ask": 2.51,
+        "open_interest": 153,
+        "implied_vol": 0.3333,
+        "spread_ratio": 0.0956,
+        "dte": 17,
+        "delta": 0.3792,
+        "data_source": "tradier"
+      },
+      "roi_analysis": {
+        "roi_gross": 1.6271,
+        "roi_net": 1.3648,
+        "spread_pct": 0.0956,
+        "vega_loss": 0.0711,
+        "delta": 0.3792,
+        "iv_drop_assumed": 0.05,
+        "cost_basis": 2.51,
+        "is_spread": false,
+        "passes_roi_gate": true,
+        "min_roi_threshold": 0.15,
+        "dte": 17
+      },
+      "dte_tier": "Short-Term",
+      "annualized_roi": 9.99,
+      "all_tiers_tried": [
+        {
+          "tier": "Short-Term",
+          "dte": 17,
+          "option": {
+            "expiry": "2026-06-05",
+            "strike": 139.0,
+            "bid": 2.27,
+            "ask": 2.51,
+            "open_interest": 153,
+            "implied_vol": 0.3333,
+            "spread_ratio": 0.0956,
+            "dte": 17,
+            "delta": 0.3792,
+            "data_source": "tradier"
+          },
+          "roi": {
+            "roi_gross": 1.6271,
+            "roi_net": 1.3648,
+            "spread_pct": 0.0956,
+            "vega_loss": 0.0711,
+            "delta": 0.3792,
+            "iv_drop_assumed": 0.05,
+            "cost_basis": 2.51,
+            "is_spread": false,
+            "passes_roi_gate": true,
+            "min_roi_threshold": 0.15,
+            "dte": 17
+          },
+          "annualized_roi": 9.99,
+          "strategy": "LONG_CALL"
+        }
+      ],
+      "features": {
+        "impact": 5,
+        "surprise": 4,
+        "mismatch": 4.731,
+        "z_score": 0.054,
+        "sigma_30d": 0.0168,
+        "price_move_48h": 0.0009,
+        "eps_drift": 0.0,
+        "bin_impact": "mid",
+        "bin_mismatch": "good",
+        "bin_eps_drift": "noise",
+        "quick_mc_hit_rate": 0.561
+      },
+      "simulation": {
+        "current_price": 134.71,
+        "target_price": 145.48,
+        "hit_rate": 0.6688,
+        "n_paths": 10000,
+        "days": 45,
+        "sigma": 0.02,
+        "alpha": 0.00188
+      },
+      "deep_analysis": {
+        "red_team": {
+          "argument_1": "Der Q1-Beat und die Analyst-Upgrades sind bereits vollst\u00e4ndig eingepreist. ABNB notiert bei $134.71, und die positiven Earnings-Reaktionen d\u00fcrften im Kurs reflektiert sein. Ein klassischer 'Buy the rumor, sell the news'-Effekt bedeutet, dass das Call-Asymmetrie-Argument substanziell geschw\u00e4cht ist, da der Markt forward-looking agiert und zuk\u00fcnftige Guidance-Events bereits antizipiert.",
+          "argument_2": "Regulatorisches Risiko ist massiv und strukturell untersch\u00e4tzt: Die AOC-Kritik bez\u00fcglich Verdr\u00e4ngungseffekten durch Airbnb ist symptomatisch f\u00fcr wachsenden politischen Druck auf Kurzzeitvermietungsplattformen weltweit. Mehrere St\u00e4dte und L\u00e4nder versch\u00e4rfen 2026 ihre Regulierungen, was sowohl die Angebotsseite als auch das Wachstum in Kernm\u00e4rkten fundamental bedroht. Dieser regulatorische Gegenwind ist schwer quantifizierbar, aber sehr real.",
+          "argument_3": "Das EPS-Divergenz-Signal zwischen yfinance ($6.04) und SEC EDGAR ($4.05) deutet auf signifikante Qualit\u00e4tsunterschiede in den Earnings-Daten hin \u2014 m\u00f6glicherweise Non-GAAP-Bereinigungen, die die operative Realit\u00e4t verschleiern. Bei einem Consumer-Cyclical-Titel in einem neutralen Makro-Umfeld mit flacher Zinskurve (0.50%) und einem Fed-Rate von 3.64% bleibt der Kostendruck auf diskretion\u00e4res Reisen erh\u00f6ht, was Revisionsrisiken f\u00fcr H2 2026 schafft.",
+          "red_team_verdict": "PASSIERT"
+        },
+        "stats_check": {
+          "mc_assessment": "0% Hit-Rate bedeutet, dass kein Quick MC durchgef\u00fchrt wurde \u2014 keine statistisch valide Grundlage f\u00fcr Wahrscheinlichkeitsaussagen. Die Abwesenheit der MC-Daten erh\u00f6ht die Unsicherheit erheblich und verhindert eine quantitative Validierung des Upside-Potenzials. Ohne MC-Ergebnisse muss st\u00e4rker auf qualitative Faktoren und Red-Team-Argumente gewichtet werden.",
+          "concern_level": "high"
+        },
+        "impact": 5,
+        "surprise": 4,
+        "direction": "BULLISH",
+        "bear_case_severity": 6,
+        "time_to_materialization": "2-3 Monate",
+        "asymmetry_reasoning": "Der Insider-Cluster (4 K\u00e4ufe in 14 Tagen) signalisiert echtes Conviction von innen heraus, was der Markt oft zu langsam einpreist. Die AI-Coding-Effizienz (60%) ist ein struktureller Margenvorteil, der in DCF-Modellen noch nicht vollst\u00e4ndig reflektiert sein d\u00fcrfte. Das n\u00e4chste Guidance-Event bietet einen konkreten Katalysator f\u00fcr eine Neubewertung.",
+        "catalyst": "N\u00e4chstes Guidance-Event / Q2 2026 Earnings mit AI-Margin-Expansion-Best\u00e4tigung",
+        "bear_case": "Regulatorischer Druck auf Kurzzeitvermietungen w\u00e4chst politisch und legislativ weltweit, was das Angebotsmodell strukturell bedroht und Wachstumsrevisionen f\u00fcr 2026/2027 erzwingen k\u00f6nnte.",
+        "macro_assessment": "Neutrale Makrolage (Kurve +0.50%, Fed 3.64%) liefert weder strukturellen R\u00fccken- noch Gegenwind. Consumer Cyclicals sind bei diesem Zinsniveau moderat belastet \u2014 Reisebudgets bleiben unter Druck, aber Rezessionssignal fehlt. Insgesamt kein Makro-Veto, aber erh\u00f6hte Skepsis gegen\u00fcber aggressiven Upside-Zielen ist angebracht.",
+        "data_confidence": "medium",
+        "macro_regime": "neutral",
+        "macro_context": {
+          "yield_curve": 0.5,
+          "regime": "neutral"
+        },
+        "direction_conflict": false
+      },
+      "sector_momentum": {
+        "etf": "XLY",
+        "rel_strength": -0.0069
+      },
+      "final_score": 0.0842,
+      "time_value_efficiency": {
+        "roi_per_day_pct": 8.0282,
+        "annualized_roi": null,
+        "dte": 17
+      },
+      "trade_score": {
+        "total": 51,
+        "grade": "WATCH \ud83d\udfe0",
+        "grade_short": "WATCH",
+        "components": {
+          "signal_quality": 17.9,
+          "options_quality": 23.5,
+          "risk_deductions": 0.0,
+          "context_bonus": 10.0
+        },
+        "reasoning": "St\u00e4rken: solides Signal (Impact=5/Surprise=4), guter ROI (136%), g\u00fcnstige IV (9%)",
+        "best_argument_for": "Der Insider-Cluster (4 K\u00e4ufe in 14 Tagen) signalisiert echtes Conviction von innen heraus, was der Markt oft zu langsam einpreist. Die AI-Coding-Effizienz (60%) ist ein struktureller Margenvorteil, der in DCF-Modellen noch nicht vollst\u00e4ndig reflektiert sein d\u00fcrfte. Das n\u00e4chste Guidance-Event bietet einen konkreten Katalysator f\u00fcr eine Neubewertung.",
+        "best_argument_against": "Der Q1-Beat und die Analyst-Upgrades sind bereits vollst\u00e4ndig eingepreist. ABNB notiert bei $134.71, und die positiven Earnings-Reaktionen d\u00fcrften im Kurs reflektiert sein. Ein klassischer 'Buy the rumor, sell the news'-Effekt bedeutet, dass das Call-Asymmetrie-Argument substanziell geschw\u00e4cht ist, da der Markt forward-looking agiert und zuk\u00fcnftige Guidance-Events bereits antizipiert."
+      },
+      "trade_rank": 5,
+      "exit_rules": {
+        "entry_cost": 2.51,
+        "take_profit_pct": 50,
+        "take_profit_price": 3.76,
+        "full_profit_pct": 100,
+        "full_profit_price": 5.02,
+        "stop_loss_pct": -40,
+        "stop_loss_price": 1.51,
+        "time_exit_dte_remaining": 8,
+        "time_exit_date": "2026-05-28",
+        "time_exit_min_profit_pct": 20
+      }
+    }
+  ]
+}
